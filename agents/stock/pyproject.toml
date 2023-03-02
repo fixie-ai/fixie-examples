@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "stock"
+version = "0.1.0"
+description = "A Fixie agent for looking up Stocks"
+authors = ["Fixie <hello@fixie.ai>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+fixieai = "^0.1.6"
+yfinance = "^0.2.12"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
