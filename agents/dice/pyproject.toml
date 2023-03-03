@@ -1,0 +1,14 @@
+[tool.poetry]
+name = "dice"
+version = "0.1.0"
+description = "A Fixie agent for rolling virtual dice"
+authors = ["Fixie <hello@fixie.ai>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+fixieai = "^0.1.6"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

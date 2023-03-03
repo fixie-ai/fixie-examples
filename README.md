@@ -1,2 +1,3 @@
-# fixie-examples
-Examples of how to use the Fixie AI platform.
+# Fixie.ai Examples
+
+This repo contains examples of how to use the Fixie.ai platform.
