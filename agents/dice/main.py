@@ -1,6 +1,6 @@
 import random
 
-import fixieai
+from fixieai import agents
 
 BASE_PROMPT = """I'm an agent that rolls virtual dice!"""
 FEW_SHOTS = """
@@ -19,14 +19,14 @@ Ask Func[roll]: 8 3
 Func[roll] says: 5 3 8
 A: You rolled 5, 3, and 8, for a total of 16.
 """
-agent = fixieai.CodeShotAgent(BASE_PROMPT, FEW_SHOTS)
+agent = agents.CodeShotAgent("dice", BASE_PROMPT, FEW_SHOTS)
 
 
 @agent.register_func
 def roll(query):
-    dsize, numdice = query.message.text.split()
+    dsize, numdice = query.text.split()
     dice = [random.randint(1, int(dsize)) for _ in range(int(numdice))]
     return " ".join([str(x) for x in dice])
 
 
-agent.serve("dice")
+agent.serve()

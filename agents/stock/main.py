@@ -42,7 +42,7 @@ Ask Func[quote]: GOOG
 Func[quote] says: $123.45 -4.11
 A: The current price for GOOG is $123.45.
 """
-agent = agents.CodeShotAgent(BASE_PROMPT, FEW_SHOTS)
+agent = agents.CodeShotAgent("stock", BASE_PROMPT, FEW_SHOTS)
 
 
 def format_cents(amount: str):
@@ -62,10 +62,10 @@ def get_price(symbol: str):
 
 
 @agent.register_func
-def quote(query: agents.AgentQuery) -> str:
-  symbol = query.message.text
+def quote(query: agents.Message) -> str:
+  symbol = query.text
   price, change = get_price(symbol)
   return f"${price} {change}%"
 
 
-agent.serve("stock")
+agent.serve()
