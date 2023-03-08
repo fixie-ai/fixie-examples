@@ -9,5 +9,7 @@ description: |
     - How did Apple do today?
     - What is the current stock price for NVDA?
     - Who did better today, Apple or Google?
+
+  Tags: func
 more-info-url: "https://github.com/fixie-ai/fixie-examples"
 public: true
