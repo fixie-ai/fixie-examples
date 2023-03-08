@@ -1,0 +1,14 @@
+id: "cartomancer"
+name: "Chart"
+description: |
+  The `Chart` agent can draw bar, line, and pie charts from data. This data can either be passed
+  in or looked up from the LLM's knowledge.
+
+  Example queries:
+    - Make a bar chart odf the 5 tallest mountains.
+    - Create a pie chart showing the population of the world, broken down by continent.
+    - Generate a line chart comparing the average daily temperatures in New York and Seattle by month.
+
+  Tags: funcs, images
+more-info-url: "https://github.com/fixie-ai/fixie-examples"
+public: true
