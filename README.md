@@ -20,4 +20,4 @@ Run `fixie serve` from with an agent directory to connect your local agent with 
 
 Deploying agents will automatically upload your agent to the Fixie cloud and start serving it immediately on the platform.
 
-Running `fixie deploy` will create (or update) the agent and upload your fewshots and functions to Fixie.
+Running `fixie agent deploy` will create (or update) the agent and upload your fewshots and functions to Fixie.
