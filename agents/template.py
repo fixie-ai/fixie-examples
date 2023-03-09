@@ -12,7 +12,7 @@ Ask Func[dice]: 1
 Func[dice] says: 4
 A: You got a four!
 
-Q: Roll two dices for me
+Q: Roll two dice for me
 Ask Func[dice]: 2
 Func[dice] says: 6 6
 A: You got two sixes! Feeling lucky.
