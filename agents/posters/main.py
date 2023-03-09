@@ -2,7 +2,9 @@ from fixieai import agents
 
 SD_PROMPT_SUFFIX = "full page movie poster, 2:3, elegant, highly detailed, centered, digital painting, artstation, smooth, illustration, artgerm"
 
-BASE_PROMPT = """I am an agent that will generate cool movie posters for well-known movies."""
+BASE_PROMPT = (
+    """I am an agent that will generate cool movie posters for well-known movies."""
+)
 
 FEW_SHOTS = f"""
 Q: Make a movie poster for the movie Tron.
@@ -17,6 +19,4 @@ Ask Agent[stable_diffusion]: Fight Club, a 1999 movie, in which a depressed man 
 Agent[stable_diffusion] says: Here you go! [image1]
 A: Here you go! [image1]
 """
-agent = agents.CodeShotAgent("justin/movieposters", BASE_PROMPT, FEW_SHOTS)
-
-agent.serve()
+agent = agents.CodeShotAgent(BASE_PROMPT, FEW_SHOTS)

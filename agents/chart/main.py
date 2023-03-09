@@ -22,17 +22,14 @@ Ask Func[chart]: {type:'line',data:{labels:['January','February','March','April'
 Func[chart] says: [image1]
 A: Here you go! [image1]  
 """
-agent = agents.CodeShotAgent("justin/cartomancer", BASE_PROMPT, FEW_SHOTS)
+agent = agents.CodeShotAgent(BASE_PROMPT, FEW_SHOTS)
 
 
 @agent.register_func
 def chart(query: agents.Message) -> agents.Message:
-  # unescape [ and ]
-  text = query.text.replace('[[', '[')
-  text = text.replace(']]', ']')
-  url = "https://quickchart.io/chart?c=" + urllib.parse.quote(text)
-  embed = agents.Embed(content_type="image/png", uri=url)
-  return agents.Message(text="Here you go! [image1]", embeds={"image1": embed})
-
-
-agent.serve()
+    # unescape [ and ]
+    text = query.text.replace("[[", "[")
+    text = text.replace("]]", "]")
+    url = "https://quickchart.io/chart?c=" + urllib.parse.quote(text)
+    embed = agents.Embed(content_type="image/png", uri=url)
+    return agents.Message(text="Here you go! [image1]", embeds={"image1": embed})

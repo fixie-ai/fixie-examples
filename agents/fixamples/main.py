@@ -15,7 +15,4 @@ A: The chart and posters agents are both good examples of how to use images.
 """
 
 CORPORA = [{"urls": ["https://docs.fixie.ai"], "loader": {"name": "html"}}]
-agent = agents.CodeShotAgent("fixamples", BASE_PROMPT, FEW_SHOTS, CORPORA)
-
-
-agent.serve()
+agent = agents.CodeShotAgent(BASE_PROMPT, FEW_SHOTS, CORPORA)

@@ -8,13 +8,13 @@ Built a cool agent that you want to share? Contribute back to this repo by openi
 
 You'll need to install the Fixie CLI to run these examples. You'll need Python >= 3.9 installed.
 
-Install the Fixie CLI with `pip install fixieai`. Once installed, run `fixieai auth` to authenticate to the Fixie service. If you don't already have an account, you'll need to create one at app.fixie.ai.
+Install the Fixie CLI with `pip install fixieai`. Once installed, run `fixie auth` to authenticate to the Fixie service. If you don't already have an account, you'll need to create one at app.fixie.ai.
 
 ## Building agents locally
 
 Fixie makes it easy to build, test, and debug your agents locally.
 
-Run `fixieai serve` from with an agent directory to connect your local agent with the Fixie platform.
+Run `fixie serve` from with an agent directory to connect your local agent with the Fixie platform.
 
 ## Deploying agents
 
