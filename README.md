@@ -12,12 +12,67 @@ Install the Fixie CLI with `pip install fixieai`. Once installed, run `fixie aut
 
 ## Building agents locally
 
-Fixie makes it easy to build, test, and debug your agents locally.
+Fixie makes it easy to build, test, and debug your agents locally. To build an agent you need two files:
+* agentname.yaml
+* main.py
 
-Run `fixie serve` from with an agent directory to connect your local agent with the Fixie platform.
+In the `agentname.yaml` file you will have the following fields:
+
+```markdown
+handle: "Agent"
+name: "Agent"
+description: |
+  The `Agent` serves the following function.
+
+  Example queries:
+    -Do this task for me.
+
+more_info_url: "https://github.com/fixie-ai/fixie-examples"
+entry_point: main:agent
+public: false
+```
+
+In the `main.py` file you will have the following fields:
+
+```python
+
+from fixieai import agents
+import urllib
+
+BASE_PROMPT = """I am an intelligent agent that does xxx ."""
+
+FEW_SHOTS = """
+Q: Example question here
+A: Example of answer here
+"""
+
+agent = agents.CodeShotAgent(BASE_PROMPT, FEW_SHOTS)
+```
+
+
+Run `fixie agent serve` from with an agent directory to connect your local agent with the Fixie platform.
 
 ## Deploying agents
 
 Deploying agents will automatically upload your agent to the Fixie cloud and start serving it immediately on the platform.
 
-Running `fixie deploy` will create (or update) the agent and upload your fewshots and functions to Fixie.
+Running `fixie agent deploy` will create (or update) the agent and upload your fewshots and functions to Fixie.
+
+## Styleguide for agents
+We recommend that you keep the agent handle and agent name consistent and capitalize it. See example below
+
+```markdown
+handle: "Dice"
+name: "Dice"
+description: |
+  The `Dice` agent rolls virtual dice.
+
+  Example queries:
+    - Roll a d20.
+    - Roll two dice and blow on them first for good luck
+    - Roll 3d8
+  Tags: func
+more_info_url: "https://github.com/fixie-ai/fixie-examples"
+entry_point: main:agent
+public: false
+```

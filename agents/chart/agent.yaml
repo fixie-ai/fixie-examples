@@ -1,4 +1,4 @@
-handle: "cartomancer"
+handle: "Chart"
 name: "Chart"
 description: |
   The `Chart` agent can draw bar, line, and pie charts from data. This data can either be passed
