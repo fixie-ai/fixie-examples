@@ -14,7 +14,7 @@ Install the Fixie CLI with `pip install fixieai`. Once installed, run `fixie aut
 
 Fixie makes it easy to build, test, and debug your agents locally.
 
-Run `fixie serve` from with an agent directory to connect your local agent with the Fixie platform.
+Run `fixie agent serve` from with an agent directory to connect your local agent with the Fixie platform.
 
 ## Deploying agents
 
