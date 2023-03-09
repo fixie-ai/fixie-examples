@@ -1,0 +1,16 @@
+id: "movieposters"
+name: "Posters"
+description: |
+  The `movieposters` agent will generate posters for movies. 
+
+  You can ask it for a poster of an existing movie (e.g., "Tron"), or you can ask it to
+  make a poster for a movie that doesn't exist and see what it comes up with (e.g., "The
+  Lost Book of the Dead").
+
+  Example queries:
+    - Make me a movie poster for the movie "Tron".
+    - Create a poster for "The Lost Book of the Dead".
+
+  Tags: low-code, images, composition
+more-info-url: "https://github.com/fixie-ai/fixie-examples"
+public: true
