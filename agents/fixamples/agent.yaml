@@ -1,13 +1,14 @@
-id: "stock"
-name: "Stock"
+id: "fixamples"
+name: "Fixie Examples"
 description: |
-  The `stock` agent is capable of looking up stock prices for a given company. 
-
-  `stock` can determine the proper ticker symbol from the company name or you can provide one directly.
+  The `fixamples` helps you write Fixie agents. Ask it any questions you have about the Fixie platform!
 
   Example queries:
-    - How did Apple do today?
-    - What is the current stock price for NVDA?
-    - Who did better today, Apple or Google?
+    - How do I get started writing a Fixie agent?
+    - How do I use the user storage API?
+    - What examples show how to use images?
+    - How do I deploy my agent to the Fixie platform?
+
+  Tags: converstaional, corpus
 more-info-url: "https://github.com/fixie-ai/fixie-examples"
 public: true
