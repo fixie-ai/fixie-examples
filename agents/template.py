@@ -4,7 +4,7 @@ import random
 
 import fixieai
 
-BASE_PROMPT = """I am an agent that rolls a dice!"""
+BASE_PROMPT = """I am an agent that rolls dice!"""
 
 FEW_SHOTS = """
 Q: Roll a dice!
