@@ -15,6 +15,8 @@ A: The chart and posters agents are both good examples of how to use images.
 """
 
 CORPORA = [
-    fixieai.DocumentCorpus(["https://docs.fixie.ai"], fixieai.DocumentLoader("html"))
+    fixieai.DocumentCorpus(
+        urls=["https://docs.fixie.ai"], loader=fixieai.DocumentLoader("html")
+    )
 ]
 agent = fixieai.CodeShotAgent(BASE_PROMPT, FEW_SHOTS, corpora=CORPORA)
