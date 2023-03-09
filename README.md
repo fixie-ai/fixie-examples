@@ -59,7 +59,7 @@ Once you ran this command you can go to app.fixie.ai and test your new agent by 
 
 
 ## Styleguide for agents
-We recommend that you keep the agent handle and agent name consistent and capitalize it. See example below
+We recommend that you write the agent handle in small caps. See example below
 
 ```markdown
 handle: "dice"
