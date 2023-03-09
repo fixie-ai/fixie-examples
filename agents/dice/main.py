@@ -29,4 +29,5 @@ def roll(query):
     return " ".join([str(x) for x in dice])
 
 
-agent.serve()
+if __name__ == "__main__":
+    agent.serve()

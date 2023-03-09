@@ -1,0 +1,36 @@
+[tool.poetry]
+name = "fixie-examples"
+version = "0.0.1"
+description = "Examples for the Fixie.ai platform. See: https://fixie.ai"
+authors = ["Fixie.ai Team <hello@fixie.ai>"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+
+[build-system]
+requires = ["poetry>=1.2.1"]
+build-backend = "poetry.masonry.api"
+
+[tool.poetry.dev-dependencies]
+black = "22.8.0"
+isort = "5.10.1"
+mypy = "^0.991"
+autoflake = "^1.6.1"
+
+[tool.mypy]
+python_version = "3.8"
+warn_return_any = true
+warn_unused_configs = true
+
+[tool.isort]
+profile = "black"
+single_line_exclusions = ["typing", "collections.abc", "typing_extensions"]
+skip = ["venv", "third_party"]
+
+[tool.black]
+extend-exclude = '''
+/(
+  | third_party
+  | venv
+)/
+'''

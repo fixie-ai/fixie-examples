@@ -1,5 +1,5 @@
-from fixieai import agents
 import yfinance
+from fixieai import agents
 
 BASE_PROMPT = """I am an agent that can retrieve stock quotes."""
 
@@ -46,26 +46,27 @@ agent = agents.CodeShotAgent("stock", BASE_PROMPT, FEW_SHOTS)
 
 
 def format_cents(amount: str):
-  dot = amount.index(".")
-  return amount[:dot + 3]
+    dot = amount.index(".")
+    return amount[: dot + 3]
 
 
 def get_price(symbol: str):
-  info = yfinance.Ticker(symbol).fast_info
-  change = info.last_price - info.previous_close
-  percent_change = change / info.last_price * 100
-  price_str = format_cents(str(info.last_price))
-  percent_str = format_cents(str(percent_change))
-  if percent_str[0] != "-":
-    percent_str = "+" + percent_str
-  return price_str, percent_str
+    info = yfinance.Ticker(symbol).fast_info
+    change = info.last_price - info.previous_close
+    percent_change = change / info.last_price * 100
+    price_str = format_cents(str(info.last_price))
+    percent_str = format_cents(str(percent_change))
+    if percent_str[0] != "-":
+        percent_str = "+" + percent_str
+    return price_str, percent_str
 
 
 @agent.register_func
 def quote(query: agents.Message) -> str:
-  symbol = query.text
-  price, change = get_price(symbol)
-  return f"${price} {change}%"
+    symbol = query.text
+    price, change = get_price(symbol)
+    return f"${price} {change}%"
 
 
-agent.serve()
+if __name__ == "__main__":
+    agent.serve()
