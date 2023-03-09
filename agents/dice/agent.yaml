@@ -1,14 +1,7 @@
-handle: "stock"
-name: "Stock"
+handle: "dice"
+name: "Dice"
 description: |
-  The `stock` agent is capable of looking up stock prices for a given company. 
-
-  `stock` can determine the proper ticker symbol from the company name or you can provide one directly.
-
-  Example queries:
-    - How did Apple do today?
-    - What is the current stock price for NVDA?
-    - Who did better today, Apple or Google?
+  The `dice` agent rolls virtual dice.
 
   Tags: func
 more_info_url: "https://github.com/fixie-ai/fixie-examples"
