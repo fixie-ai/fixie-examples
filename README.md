@@ -4,6 +4,9 @@ This repo contains examples of how to use the Fixie.ai platform. You can clone t
 
 Built a cool agent that you want to share? Contribute back to this repo by opening a PR!
 
+Full docs can be found here: [https://docs.fixie.ai/](https://docs.fixie.ai/).
+
+
 ## Installing the Fixie CLI
 
 You'll need to install the Fixie CLI to run these examples. You'll need Python >= 3.9 installed.
@@ -12,11 +15,13 @@ Install the Fixie CLI with `pip install fixieai`. Once installed, run `fixie aut
 
 ## Building agents locally
 
-Fixie makes it easy to build, test, and debug your agents locally. To build an agent you need two files:
-* agentname.yaml
-* main.py
+You can scaffold out a default agent by running: `fixie init`
 
-In the `agentname.yaml` file you will have the following fields:
+Fixie makes it easy to build, test, and debug your agents locally. To build an agent you need two files:
+* `agent.yaml`
+* `main.py`
+
+In the `agent.yaml` file you will have the following fields:
 
 ```markdown
 handle: "agent"
@@ -36,9 +41,8 @@ In the `main.py` file you will have the following fields:
 ```python
 
 from fixieai import agents
-import urllib
 
-BASE_PROMPT = """I am an intelligent agent that does xxx ."""
+BASE_PROMPT = """I am an intelligent agent that does a task."""
 
 FEW_SHOTS = """
 Q: Example question here
@@ -53,8 +57,11 @@ agent = agents.CodeShotAgent(BASE_PROMPT, FEW_SHOTS)
 
 Deploying agents will automatically upload your agent to the Fixie cloud and start serving it immediately on the platform.
 
-Running `fixie agent deploy` will create (or update) the agent and upload your fewshots and functions to Fixie. 
-Once you ran this command you can go to app.fixie.ai and test your new agent by calling it in the main chat with "@agentname". 
+Run `fixie agent deploy` to create (or update) the agent and upload your fewshots and functions to Fixie.
+
+Once you run this command you test it locally by running the following command: `fixie session new '@username/agentname example query`.
+
+Or you can go to app.fixie.ai and chat with your new agent by invoking it in the main chat with `@username/agentname`.
 
 
 
@@ -75,4 +82,3 @@ more_info_url: "https://github.com/fixie-ai/fixie-examples"
 entry_point: main:agent
 public: false
 ```
-
