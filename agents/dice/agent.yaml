@@ -1,5 +1,4 @@
-handle: "Dice"
-name: "Dice"
+handle: "dice"
 description: |
   The `Dice` agent rolls virtual dice.
 
