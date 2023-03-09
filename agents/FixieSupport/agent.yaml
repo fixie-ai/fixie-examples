@@ -1,7 +1,6 @@
-handle: "fixamples"
-name: "Fixie Examples"
+handle: "fixiesupport"
 description: |
-  The `fixamples` helps you write Fixie agents. Ask it any questions you have about the Fixie platform!
+  The `fixiesupport` helps you write Fixie agents. Ask it any questions you have about the Fixie platform!
 
   Example queries:
     - How do I get started writing a Fixie agent?
@@ -9,7 +8,7 @@ description: |
     - What examples show how to use images?
     - How do I deploy my agent to the Fixie platform?
 
-  Tags: converstaional, corpus
+  Tags: conversational, corpus
 more_info_url: "https://github.com/fixie-ai/fixie-examples"
 entry_point: main:agent
 public: false
