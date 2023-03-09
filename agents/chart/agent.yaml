@@ -1,7 +1,6 @@
-handle: "Chart"
-name: "Chart"
+handle: "chart"
 description: |
-  The `Chart` agent can draw bar, line, and pie charts from data. This data can either be passed
+  The `chart` agent can draw bar, line, and pie charts from data. This data can either be passed
   in or looked up from the LLM's knowledge.
 
   Example queries:
