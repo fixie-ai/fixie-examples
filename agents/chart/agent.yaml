@@ -1,4 +1,4 @@
-id: "cartomancer"
+handle: "cartomancer"
 name: "Chart"
 description: |
   The `Chart` agent can draw bar, line, and pie charts from data. This data can either be passed
@@ -10,5 +10,6 @@ description: |
     - Generate a line chart comparing the average daily temperatures in New York and Seattle by month.
 
   Tags: funcs, images
-more-info-url: "https://github.com/fixie-ai/fixie-examples"
-public: true
+more_info_url: "https://github.com/fixie-ai/fixie-examples"
+entry_point: main:agent
+public: false

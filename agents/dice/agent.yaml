@@ -1,4 +1,4 @@
-id: "stock"
+handle: "stock"
 name: "Stock"
 description: |
   The `stock` agent is capable of looking up stock prices for a given company. 
@@ -11,5 +11,6 @@ description: |
     - Who did better today, Apple or Google?
 
   Tags: func
-more-info-url: "https://github.com/fixie-ai/fixie-examples"
-public: true
+more_info_url: "https://github.com/fixie-ai/fixie-examples"
+entry_point: main:agent
+public: false

@@ -19,7 +19,7 @@ Ask Func[roll]: 8 3
 Func[roll] says: 5 3 8
 A: You rolled 5, 3, and 8, for a total of 16.
 """
-agent = agents.CodeShotAgent("dice", BASE_PROMPT, FEW_SHOTS)
+agent = agents.CodeShotAgent(BASE_PROMPT, FEW_SHOTS)
 
 
 @agent.register_func
@@ -27,7 +27,3 @@ def roll(query):
     dsize, numdice = query.text.split()
     dice = [random.randint(1, int(dsize)) for _ in range(int(numdice))]
     return " ".join([str(x) for x in dice])
-
-
-if __name__ == "__main__":
-    agent.serve()
