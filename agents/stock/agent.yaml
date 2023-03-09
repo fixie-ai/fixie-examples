@@ -1,9 +1,8 @@
-handle: "Stock"
-name: "Stock"
+handle: "stock"
 description: |
-  The `Stock` agent is capable of looking up stock prices for a given company.
+  The `stock` agent is capable of looking up stock prices for a given company.
 
-  `Stock` can determine the proper ticker symbol from the company name or you can provide one directly.
+  `stock` can determine the proper ticker symbol from the company name or you can provide one directly.
 
   Example queries:
     - How did Apple do today?
