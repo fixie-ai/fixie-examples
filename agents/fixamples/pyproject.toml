@@ -9,8 +9,6 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.9"
 fixieai = "^0.1.6"
-yfinance = "^0.2.12"
-
 
 [build-system]
 requires = ["poetry-core"]
