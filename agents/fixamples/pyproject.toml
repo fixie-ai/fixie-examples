@@ -1,7 +1,7 @@
 [tool.poetry]
-name = "posters"
+name = "fixamples"
 version = "0.1.0"
-description = "A Fixie agent for making movie posters"
+description = "A Fixie agent for learning about Fixie."
 authors = ["Fixie <hello@fixie.ai>"]
 license = "MIT"
 readme = "README.md"
