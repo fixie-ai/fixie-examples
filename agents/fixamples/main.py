@@ -14,7 +14,6 @@ Func[process_context] says: The chart and posters agents are both good examples 
 A: The chart and posters agents are both good examples of how to use images.
 """
 
-# FIXME: Pass CORPORA as a list of DocumentCorpus
 CORPORA = [
     fixieai.DocumentCorpus(["https://docs.fixie.ai"], fixieai.DocumentLoader("html"))
 ]
