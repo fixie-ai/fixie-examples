@@ -19,10 +19,9 @@ Fixie makes it easy to build, test, and debug your agents locally. To build an a
 In the `agentname.yaml` file you will have the following fields:
 
 ```markdown
-handle: "Agent"
-name: "Agent"
+handle: "agent"
 description: |
-  The `Agent` serves the following function.
+  The `agent` serves the following function.
 
   Example queries:
     -Do this task for me.
@@ -63,10 +62,9 @@ Once you ran this command you can go to app.fixie.ai and test your new agent by 
 We recommend that you keep the agent handle and agent name consistent and capitalize it. See example below
 
 ```markdown
-handle: "Dice"
-name: "Dice"
+handle: "dice"
 description: |
-  The `Dice` agent rolls virtual dice.
+  The `dice` agent rolls virtual dice.
 
   Example queries:
     - Roll a d20.
