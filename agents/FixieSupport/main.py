@@ -1,4 +1,4 @@
-from fixieai import agents
+import fixieai
 
 BASE_PROMPT = """I am an agent that helps developers write Fixie agents."""
 
@@ -14,5 +14,9 @@ Func[process_context] says: The chart and posters agents are both good examples 
 A: The chart and posters agents are both good examples of how to use images.
 """
 
-CORPORA = [{"urls": ["https://docs.fixie.ai"], "loader": {"name": "html"}}]
-agent = agents.CodeShotAgent(BASE_PROMPT, FEW_SHOTS, CORPORA)
+CORPORA = [
+    fixieai.DocumentCorpus(
+        urls=["https://docs.fixie.ai"], loader=fixieai.DocumentLoader("html")
+    )
+]
+agent = fixieai.CodeShotAgent(BASE_PROMPT, FEW_SHOTS, corpora=CORPORA)

@@ -1,5 +1,6 @@
-from fixieai import agents
-import urllib
+import urllib.parse
+
+import fixieai
 
 BASE_PROMPT = """I am an agent that makes sick charts."""
 
@@ -22,14 +23,14 @@ Ask Func[chart]: {type:'line',data:{labels:['January','February','March','April'
 Func[chart] says: [image1]
 A: Here you go! [image1]  
 """
-agent = agents.CodeShotAgent(BASE_PROMPT, FEW_SHOTS)
+agent = fixieai.CodeShotAgent(BASE_PROMPT, FEW_SHOTS)
 
 
 @agent.register_func
-def chart(query: agents.Message) -> agents.Message:
+def chart(query: fixieai.Message) -> fixieai.Message:
     # unescape [ and ]
     text = query.text.replace("[[", "[")
     text = text.replace("]]", "]")
     url = "https://quickchart.io/chart?c=" + urllib.parse.quote(text)
-    embed = agents.Embed(content_type="image/png", uri=url)
-    return agents.Message(text="Here you go! [image1]", embeds={"image1": embed})
+    embed = fixieai.Embed(content_type="image/png", uri=url)
+    return fixieai.Message(text="Here you go! [image1]", embeds={"image1": embed})
