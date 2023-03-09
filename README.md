@@ -50,13 +50,14 @@ agent = agents.CodeShotAgent(BASE_PROMPT, FEW_SHOTS)
 ```
 
 
-Run `fixie agent serve` from with an agent directory to connect your local agent with the Fixie platform.
-
 ## Deploying agents
 
 Deploying agents will automatically upload your agent to the Fixie cloud and start serving it immediately on the platform.
 
-Running `fixie agent deploy` will create (or update) the agent and upload your fewshots and functions to Fixie.
+Running `fixie agent deploy` will create (or update) the agent and upload your fewshots and functions to Fixie. 
+Once you ran this command you can go to app.fixie.ai and test your new agent by calling it in the main chat with "@agentname". 
+
+
 
 ## Styleguide for agents
 We recommend that you keep the agent handle and agent name consistent and capitalize it. See example below
@@ -76,3 +77,4 @@ more_info_url: "https://github.com/fixie-ai/fixie-examples"
 entry_point: main:agent
 public: false
 ```
+
