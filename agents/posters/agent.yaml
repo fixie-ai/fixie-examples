@@ -1,5 +1,4 @@
-handle: "Posters"
-name: "Posters"
+handle: "posters"
 description: |
   The `Posters` agent will generate posters for movies.
 
