@@ -133,8 +133,4 @@ dmypy.json
 
 # history chats
 history.txt
-agents/chart/history.txt
-agents/dice/history.txt
-agents/fixiesupport/history.txt
-agents/posters/history.txt
-agents/stock/history.txt
+agents/**/history.txt
