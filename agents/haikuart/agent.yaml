@@ -1,0 +1,14 @@
+handle: haikuart
+name: 'haikuart'
+description: |
+  The `haikuart` agent can draw images based on generated haiku text.
+
+  Example queries:
+    - Write a haiku about rain.
+    - Write a haiku about clouds
+
+  Tags: funcs, images
+entry_point: main:agent
+more_info_url: 'https://github.com/fixie-ai/fixie-examples'
+deployment_url: null
+public: false
