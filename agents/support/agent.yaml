@@ -1,6 +1,6 @@
-handle: "fixiesupport"
+handle: "support"
 description: |
-  The `fixiesupport` helps you write Fixie agents. Ask it any questions you have about the Fixie platform!
+  The `support` agent helps you write Fixie agents. Ask it any questions you have about the Fixie platform!
 
   Example queries:
     - How do I get started writing a Fixie agent?
