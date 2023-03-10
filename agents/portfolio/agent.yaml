@@ -6,7 +6,8 @@ description: |
     - Add 50 shares of NVDA to my portfolio.
     - What's the value of my portfolio?
     - Make a pie chart of my portfolio by sector.
-  Tags: func, composition
+
+  Tags: funcs, composition, markdown
 more_info_url: "https://github.com/fixie-ai/fixie-examples"
 entry_point: main:agent
 public: false
