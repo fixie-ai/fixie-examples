@@ -1,30 +1,29 @@
-"""Template Fixie agent."""
+"""A templated Fixie agent!
 
-import random
+Fixie docs:
+    https://docs.fixie.ai
+
+Fixie agent example:
+    https://github.com/fixie-ai/fixie-examples
+"""
 
 import fixieai
 
-BASE_PROMPT = """I am an agent that rolls dice!"""
+BASE_PROMPT = """General info about what this agent does and the tone it should use."""
 
 FEW_SHOTS = """
-Q: Roll a dice!
-Ask Func[dice]: 1
-Func[dice] says: 4
-A: You got a four!
+Q: Sample query to this agent
+A: Sample response
 
-Q: Roll two dice for me
-Ask Func[dice]: 2
-Func[dice] says: 6 6
-A: You got two sixes! Feeling lucky.
+Q: Another sample query
+Ask Func[example]: input
+Func[example] says: output
+A: The other response is output
 """
 agent = fixieai.CodeShotAgent(BASE_PROMPT, FEW_SHOTS)
 
 
 @agent.register_func
-def dice(query: fixieai.Message) -> str:
-    # Convert input string into an integer.
-    num_dice = int(query.text.strip())
-    # Roll the dice num_dice times.
-    results = [str(random.randint(1, 6)) for _ in range(num_dice)]
-    # Construct a simple string for LLM to consume.
-    return " ".join(results)
+def example(query: fixieai.Message) -> str:
+    assert query.text == "input"
+    return "output"
