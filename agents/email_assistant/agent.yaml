@@ -1,0 +1,14 @@
+handle: gmail_assistant
+name: 'gmail_assistant'
+description: |
+   The `gmail_assistant` agent can check your emails and reply to some of them. If you don't like the response, you
+   cane edit the pre-generated response.
+
+   Example queries:
+      - Handle my daily emails.
+
+   Tags: oauth, assistant
+entry_point: main:agent
+more_info_url: ''
+deployment_url: null
+public: false
