@@ -23,7 +23,7 @@ try:
 except FileNotFoundError:
     print(
         "gcp-oauth-secrets.json was not found! You'll need to generate your own oauth "
-        "to deploy this agent. For more info, follow the 4 step instructions here: "
+        "to deploy this agent. For more info, follow the 4-step instructions here: "
         "https://developers.google.com/identity/protocols/oauth2/javascript-implicit-flow#creatingcred"
     )
     sys.exit(4)
