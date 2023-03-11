@@ -1,7 +1,7 @@
 handle: twenty_questions
 name: "20 Questions"
 description: |
-  The `twenty_questions` agent plays 20 questions game against you!
+  The `twenty_questions` agent plays the 20 Questions game against you!
   
   tags: simple, no-fewshot, fun
 entry_point: main:agent
