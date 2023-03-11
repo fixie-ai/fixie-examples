@@ -1,5 +1,5 @@
+import fixieai
 import yfinance
-from fixieai import agents
 
 BASE_PROMPT = """I am an agent that can retrieve stock quotes."""
 
@@ -42,7 +42,7 @@ Ask Func[quote]: GOOG
 Func[quote] says: $123.45 -4.11
 A: The current price for GOOG is $123.45.
 """
-agent = agents.CodeShotAgent(BASE_PROMPT, FEW_SHOTS)
+agent = fixieai.CodeShotAgent(BASE_PROMPT, FEW_SHOTS)
 
 
 def format_cents(amount: str):
@@ -62,7 +62,7 @@ def get_price(symbol: str):
 
 
 @agent.register_func
-def quote(query: agents.Message) -> str:
+def quote(query: fixieai.Message) -> str:
     symbol = query.text
     price, change = get_price(symbol)
     return f"${price} {change}%"

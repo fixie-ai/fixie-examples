@@ -1,7 +1,9 @@
-from fixieai import agents
 import json
 
-BASE_PROMPT = """I am an agent that can manage a portfolio. I interact in a professional manager, as a financial executive would."""
+import fixieai
+
+BASE_PROMPT = "I am an agent that can manage a portfolio. I interact in a professional \
+manager, as a financial executive would."
 
 FEW_SHOTS = """
 Q: What's in my portfolio?
@@ -50,9 +52,10 @@ Thought: First I need to get the contents of the portfolio.
 Ask Func[read]: -
 Func[read] says: [{"T": 100}, {"NVDA: 12}, {"C": 80}]
 Thought: Now I need to get stock quotes for each stock.
-Ask Agent[justin/stock]: Prices for T, NVDA, C
-Agent[justin/stock] says: AT&T: $18.43, Nvidia $229.65, Citigroup $48.34
-Thought: Now I need to multiply the numbers of shares by the share prices to get the dollar value of each investment.
+Ask Agent[fixie/stock]: Prices for T, NVDA, C
+Agent[fixie/stock] says: AT&T: $18.43, Nvidia $229.65, Citigroup $48.34
+Thought: Now I need to multiply the numbers of shares by the share prices to get the \
+dollar value of each investment.
 Thought: Dollar values: AT&T: $18.43 * 100, Nvidia: $229.65 * 12, Citigroup: $48.34 * 80
 Thought: Total portfolio value: $1843.00 + $2755.80 + $3867.20 = $8465.00
 A: The total value of your portfolio is $8465.00.
@@ -62,24 +65,26 @@ Thought: First I need to get the contents of the portfolio.
 Ask Func[read]: -
 Func[read] says: [{"T": 100}, {"NVDA: 12}, {"C": 80}]
 Thought: Now I need to get stock quotes for each stock.
-Ask Agent[justin/stock]: Prices for T, NVDA, C
-Agent[justin/stock] says: AT&T: $18.43, Nvidia $229.65, Citigroup $48.34
-Thought: Now I need to multiply the numbers of shares by the share prices to get the dollar value of each investment.
+Ask Agent[fixie/stock]: Prices for T, NVDA, C
+Agent[fixie/stock] says: AT&T: $18.43, Nvidia $229.65, Citigroup $48.34
+Thought: Now I need to multiply the numbers of shares by the share prices to get the \
+dollar value of each investment.
 Thought: Dollar values: AT&T: $18.43 * 100, Nvidia: $229.65 * 12, Citigroup: $48.34 * 80
-Ask Agent[justin/chart]: Make a pie graph for my portfolio based on these dollar values: AT&T: $1843.00, Nvidia $2755.80, Citigroup $3867.20, title it "Portfolio"
-Agent[justin/chart] says: Here you go! [image1]
+Ask Agent[fixie/chart]: Make a pie graph for my portfolio based on these dollar \
+values: AT&T: $1843.00, Nvidia $2755.80, Citigroup $3867.20, title it "Portfolio"
+Agent[fixie/chart] says: Here you go! [image1]
 A: Here is a pie chart of your portfolio. [image1]
 """
-agent = agents.CodeShotAgent(BASE_PROMPT, FEW_SHOTS)
+agent = fixieai.CodeShotAgent(BASE_PROMPT, FEW_SHOTS)
 
 
 @agent.register_func
-def read(query: agents.Message, user_storage: agents.UserStorage) -> str:
+def read(user_storage: fixieai.UserStorage) -> str:
     return json.dumps({k: v for (k, v) in user_storage.items()})
 
 
 @agent.register_func
-def update(query: agents.Message, user_storage: agents.UserStorage) -> str:
+def update(query: fixieai.Message, user_storage: fixieai.UserStorage) -> str:
     text = query.text.replace("[[", "[")
     text = text.replace("]]", "]")
     updates = json.loads(text)
@@ -91,7 +96,7 @@ def update(query: agents.Message, user_storage: agents.UserStorage) -> str:
 
 
 @agent.register_func
-def delete(query: agents.Message, user_storage: agents.UserStorage) -> str:
+def delete(query: fixieai.Message, user_storage: fixieai.UserStorage) -> str:
     text = query.text.replace("[[", "[")
     text = text.replace("]]", "]")
     deletes = json.loads(text)

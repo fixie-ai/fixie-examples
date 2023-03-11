@@ -1,6 +1,6 @@
 handle: "dice"
 description: |
-  The `Dice` agent rolls virtual dice.
+  The `dice` agent rolls virtual dice.
 
   Example queries:
     - Roll a d20.
