@@ -1,6 +1,6 @@
 handle: 20q
-name: '20 Questions'
-description: 'An agent that can play the 20 questions game '
+name: "20 Questions"
+description: "An agent that can play the 20 questions game."
 entry_point: main:agent
 more_info_url: https://github.com/fixie-ai/fixie-examples
 deployment_url: null
