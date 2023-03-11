@@ -9,15 +9,25 @@ It can:
 
 import datetime
 import json
+import sys
 
 import fixieai
 import gcalendar_client
 import utils
 
-oauth_params = fixieai.OAuthParams.from_client_secrets_file(
-    "gcp-oauth-secrets.json",
-    ["https://www.googleapis.com/auth/calendar.events"],
-)
+try:
+    oauth_params = fixieai.OAuthParams.from_client_secrets_file(
+        "gcp-oauth-secrets.json",
+        ["https://www.googleapis.com/auth/calendar.events"],
+    )
+except FileNotFoundError:
+    print(
+        "gcp-oauth-secrets.json was not found! You'd need to generate your own oauth "
+        "to deploy this agent. For more info, follow the 4 step instructions here: "
+        "https://developers.google.com/identity/protocols/oauth2/javascript-implicit-flow#creatingcred"
+    )
+    sys.exit(4)
+
 
 BASE_PROMPT = """I am intelligent calendar agent that can check your calendar for events \
 or suggest available times to meet. I can also create new events. I will summarize \
