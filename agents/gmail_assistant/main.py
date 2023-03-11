@@ -12,7 +12,7 @@ import json
 import sys
 
 import fixieai
-import gcalendar_client
+import gmail_assistant_client
 import utils
 
 try:
@@ -29,8 +29,8 @@ except FileNotFoundError:
     sys.exit(4)
 
 
-BASE_PROMPT = """I am intelligent calendar agent that can check your calendar for events \
-or suggest available times to meet. I can also create new events. I will summarize \
+BASE_PROMPT = """I am intelligent gmail assistant agent that can check your emails \
+and generate responses to those emails. \ 
 events by their title and time, unless the user asks for attendees or location."""
 
 FEW_SHOTS = """
