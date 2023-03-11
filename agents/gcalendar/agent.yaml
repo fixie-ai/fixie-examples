@@ -12,4 +12,4 @@ description: |
 entry_point: main:agent
 more_info_url: ''
 deployment_url: null
-public: true
+public: false

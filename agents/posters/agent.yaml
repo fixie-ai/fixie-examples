@@ -13,4 +13,4 @@ description: |
   Tags: low-code, images, composition
 more_info_url: "https://github.com/fixie-ai/fixie-examples"
 entry_point: main:agent
-public: true
+public: false
