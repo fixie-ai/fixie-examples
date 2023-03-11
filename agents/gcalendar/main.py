@@ -236,9 +236,7 @@ scheduled
 A: I scheduled a 45 minutes long meeting 'the calendar test' for next Thursday at \
 11am.
 """
-agent = fixieai.CodeShotAgent(
-    BASE_PROMPT, FEW_SHOTS, oauth_params=oauth_params
-)
+agent = fixieai.CodeShotAgent(BASE_PROMPT, FEW_SHOTS, oauth_params=oauth_params)
 
 
 @agent.register_func
@@ -277,12 +275,12 @@ def events(query: fixieai.Message, oauth_handler: fixieai.OAuthHandler) -> str:
 def availability(query: fixieai.Message, oauth_handler: fixieai.OAuthHandler) -> str:
     """Returns a list of possible start datetimes for an event of custom length.
 
-        query should be in the format:
-            {
-                "start": "Weekday Month DD YYYY HH:MM",  # default = now
-                "end": "Weekday Month DD YYYY HH:MM",    # default = now + 1 day
-                "duration": "HH:MM:SS"                   # default = 30 min
-            }
+    query should be in the format:
+        {
+            "start": "Weekday Month DD YYYY HH:MM",  # default = now
+            "end": "Weekday Month DD YYYY HH:MM",    # default = now + 1 day
+            "duration": "HH:MM:SS"                   # default = 30 min
+        }
     """
     user_token = oauth_handler.user_token()
     if user_token is None:
@@ -291,7 +289,9 @@ def availability(query: fixieai.Message, oauth_handler: fixieai.OAuthHandler) ->
     client = gcalendar_client.GcalendarClient(user_token)
     query_json = json.loads(query.message.just_str())
     start = utils.parse_datetime(query_json.get("start")) or datetime.datetime.utcnow()
-    end = utils.parse_datetime(query_json.get("end")) or (start + datetime.timedelta(days=1))
+    end = utils.parse_datetime(query_json.get("end")) or (
+        start + datetime.timedelta(days=1)
+    )
     duration = utils.parse_timedelta(query_json.get("duration"))
 
     # List all events in the asked [start, end] range and find available slots.
@@ -314,14 +314,14 @@ def availability(query: fixieai.Message, oauth_handler: fixieai.OAuthHandler) ->
 def schedule(query: fixieai.Message, oauth_handler: fixieai.OAuthHandler) -> str:
     """Schedules a new meeting at a given time with custom title.
 
-        query should be in the format:
-            {
-                "start": "Weekday Month DD YYYY HH:MM",  # default = now
-                "duration": "HH:MM:SS",                  # default = 30 min
-                "title": "Title",                        # default = Untitled
-                "attendees": ["john@smith.com", ...],    # default = []
-                "description": "Description"             # default = ""
-            }
+    query should be in the format:
+        {
+            "start": "Weekday Month DD YYYY HH:MM",  # default = now
+            "duration": "HH:MM:SS",                  # default = 30 min
+            "title": "Title",                        # default = Untitled
+            "attendees": ["john@smith.com", ...],    # default = []
+            "description": "Description"             # default = ""
+        }
     """
     user_token = oauth_handler.user_token()
     if user_token is None:
