@@ -1,15 +1,15 @@
 handle: gcalendar
-name: 'Google Calendar'
+name: "Google Calendar"
 description: |
-   The `gcalendar` agent can check your calendar for events and schedule new ones!
+  The `gcalendar` agent can check your calendar for events and schedule new ones!
 
-   Example queries:
-      - What's on my calendar?
-      - When is my first meeting tomorrow?
-      - Schedule an hour long meeting with developers@fixie.ai for this Friday!
+  Example queries:
+     - What's on my calendar?
+     - When is my first meeting tomorrow?
+     - Schedule an hour long meeting with developers@fixie.ai for this Friday!
 
-   Tags: oauth, assistant
+  Tags: oauth, assistant
 entry_point: main:agent
-more_info_url: ''
+more_info_url: ""
 deployment_url: null
-public: false
+public: true

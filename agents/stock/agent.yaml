@@ -10,4 +10,4 @@ description: |
     - Who did better today, Apple or Google?
 more_info_url: "https://github.com/fixie-ai/fixie-examples"
 entry_point: main:agent
-public: false
+public: true

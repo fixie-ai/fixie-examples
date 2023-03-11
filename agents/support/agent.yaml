@@ -11,4 +11,4 @@ description: |
   Tags: conversational, corpus
 more_info_url: "https://github.com/fixie-ai/fixie-examples"
 entry_point: main:agent
-public: false
+public: true

@@ -2,9 +2,9 @@ handle: twenty_questions
 name: "20 Questions"
 description: |
   The `twenty_questions` agent plays the 20 Questions game against you!
-  
-  tags: simple, no-fewshot, fun
+
+  tags: simple, prompt-only, fun
 entry_point: main:agent
 more_info_url: https://github.com/fixie-ai/fixie-examples
 deployment_url: null
-public: false
+public: true
