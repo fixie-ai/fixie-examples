@@ -1,6 +1,8 @@
 handle: gcalendar
 name: 'Google Calendar'
-description: 'Checks your Google Calendar, finds empty spots, and schedules new meetings!'
+description: >
+   I can help you with your Google Calendar. Ask me questions like,
+   `When is my first meeting tomorrow`.
 entry_point: main:agent
 more_info_url: ''
 deployment_url: null
