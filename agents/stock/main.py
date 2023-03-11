@@ -1,5 +1,5 @@
-import yfinance
 import fixieai
+import yfinance
 
 BASE_PROMPT = """I am an agent that can retrieve stock quotes."""
 
