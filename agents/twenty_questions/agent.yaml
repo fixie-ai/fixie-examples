@@ -7,4 +7,4 @@ description: |
 entry_point: main:agent
 more_info_url: https://github.com/fixie-ai/fixie-examples
 deployment_url: null
-public: false
+public: true
