@@ -91,8 +91,6 @@ Thank you for bringing this urgent cash flow situation to my attention. I unders
 Best,
 Matt}]
 A: Here is your draft {"subject": Urgent Cash Flow Situation,
-"time": 13:10 11/03/2023,
-"sender": urgentinvestor@gmail.com,
 "body":Dear Investor,
 Thank you for bringing this urgent cash flow situation to my attention. I understand the gravity of the situation and will work with our finance team to find a solution as soon as possible.
 
