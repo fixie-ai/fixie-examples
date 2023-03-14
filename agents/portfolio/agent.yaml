@@ -1,4 +1,4 @@
-handle: "portfolio"
+handle: portfolio
 description: |
   The `Portfolio` agent allows you to specify a stock portfolio and then ask questions about it.
 
@@ -8,6 +8,6 @@ description: |
     - Make a pie chart of my portfolio by sector.
 
   Tags: funcs, composition, markdown
-more_info_url: "https://github.com/fixie-ai/fixie-examples"
+more_info_url: https://github.com/fixie-ai/fixie-examples
 entry_point: main:agent
 public: false
