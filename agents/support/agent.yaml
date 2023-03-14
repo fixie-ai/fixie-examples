@@ -1,4 +1,4 @@
-handle: "support"
+handle: support
 description: |
   The `support` agent helps you write Fixie agents. Ask it any questions you have about the Fixie platform!
 
@@ -9,6 +9,6 @@ description: |
     - How do I deploy my agent to the Fixie platform?
 
   Tags: conversational, corpus
-more_info_url: "https://github.com/fixie-ai/fixie-examples"
+more_info_url: https://github.com/fixie-ai/fixie-examples
 entry_point: main:agent
 public: false
