@@ -1,4 +1,4 @@
-handle: "dice"
+handle: dice
 description: |
   The `dice` agent rolls virtual dice.
 
@@ -7,6 +7,6 @@ description: |
     - Roll two dice and blow on them first for good luck
     - Roll 3d8
   Tags: func
-more_info_url: "https://github.com/fixie-ai/fixie-examples"
+more_info_url: https://github.com/fixie-ai/fixie-examples
 entry_point: main:agent
 public: false
