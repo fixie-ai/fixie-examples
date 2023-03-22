@@ -72,8 +72,8 @@ dollar value of each investment.
 Thought: Dollar values: AT&T: $18.43 * 100, Nvidia: $229.65 * 12, Citigroup: $48.34 * 80
 Ask Agent[fixie/chart]: Make a pie graph for my portfolio based on these dollar \
 values: AT&T: $1843.00, Nvidia $2755.80, Citigroup $3867.20, title it "Portfolio"
-Agent[fixie/chart] says: Here you go! [image1]
-A: Here is a pie chart of your portfolio. [image1]
+Agent[fixie/chart] says: Here you go! #image1
+A: Here is a pie chart of your portfolio. #image1
 """
 agent = fixieai.CodeShotAgent(BASE_PROMPT, FEW_SHOTS)
 
@@ -85,9 +85,7 @@ def read(user_storage: fixieai.UserStorage) -> str:
 
 @agent.register_func
 def update(query: fixieai.Message, user_storage: fixieai.UserStorage) -> str:
-    text = query.text.replace("[[", "[")
-    text = text.replace("]]", "]")
-    updates = json.loads(text)
+    updates = json.loads(query.text)
     for update in updates:
         print("update", update)
         for key in update:
@@ -97,9 +95,7 @@ def update(query: fixieai.Message, user_storage: fixieai.UserStorage) -> str:
 
 @agent.register_func
 def delete(query: fixieai.Message, user_storage: fixieai.UserStorage) -> str:
-    text = query.text.replace("[[", "[")
-    text = text.replace("]]", "]")
-    deletes = json.loads(text)
+    deletes = json.loads(query.text)
     for delete in deletes:
         del user_storage[delete]
     return "Done"

@@ -16,12 +16,7 @@ A: The chart and posters agents are both good examples of how to use images.
 """
 
 URLS = [
-    "https://docs.fixie.ai",
-    "https://docs.fixie.ai/agent-quickstart/",
-    "https://docs.fixie.ai/agents/",
-    "https://docs.fixie.ai/agent-protocol/",
-    "https://docs.fixie.ai/cli/",
-    "https://docs.fixie.ai/python-agent-api/",
+    "https://docs.fixie.ai/*",
 ]
 
 CORPORA = [fixieai.DocumentCorpus(urls=URLS)]
