@@ -36,7 +36,7 @@ events by their title and time, unless the user asks for attendees or location."
 FEW_SHOTS = """
 Q: What meetings do I have?
 Thought: I need to get the events from now onwards.
-Func[local_datetime] says: Friday June 24 2022 01:55 PM UTC-08:00
+Func[fixie_local_datetime] says: Friday June 24 2022 01:55 PM UTC-08:00
 Ask Func[events]: { "start": "June 24 2022 01:55 PM" }
 Func[events] says: https://accounts.google.com/o/oauth2/auth?foo=bar
 Thought: I need to pass the auth url to the user.
@@ -44,7 +44,7 @@ A: I don't have access to your calendar. Please authorize: https://accounts.goog
 
 Q: What's on my calendar for today?
 Thought: I need to get the events from now to the end of the day.
-Func[local_datetime] says: Friday June 24 2022 10:25 AM UTC-08:00
+Func[fixie_local_datetime] says: Friday June 24 2022 10:25 AM UTC-08:00
 Ask Func[events]: { "start": "June 24 2022 10:25 AM", "end": "June 24 2022 11:59 PM" }
 Func[events] says: title: 'Daily sync', start: Friday June 24 2022 10:00:00, \
 end: Friday June 24 2022 11:00:00, location: 'Fixie.ai'
@@ -79,7 +79,7 @@ Out Of Office from Monday to Tuesday.
 
 Q: Do I have any more meetings today?
 Thought: I need to get the events from now to the end of the day.
-Func[local_datetime] says: Tuesday August 03 2022 12:35 PM UTC-08:00
+Func[fixie_local_datetime] says: Tuesday August 03 2022 12:35 PM UTC-08:00
 Ask Func[events]: { "start": "August 03 2022 12:35 PM", \
 "end": "August 03 2022 11:59 PM" }
 Func[events] says: You don't have anything scheduled.
@@ -103,7 +103,7 @@ and a daily sync from 1pm to 2pm.
 
 Q: When is my workout scheduled for?
 Thought: I need to get the events from now onwards, and see if any of them match gym.
-Func[local_datetime] says: Tuesday December 13 2022 08:35 AM UTC-08:00
+Func[fixie_local_datetime] says: Tuesday December 13 2022 08:35 AM UTC-08:00
 Ask Func[events]: { "start": "December 13 2022 08:35 AM" }
 Func[events] says: title: 'Pair programming - build a Notion Agent', \
 start: Tuesday December 13 09:00:00, end: Tuesday December 13 10:00:00
