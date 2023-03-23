@@ -1,0 +1,8 @@
+handle: infoviz
+description: |
+  The `infoviz` agent can visualize data from many sources. The agent will ask for the data if it's not
+  provided directly.
+  Tags: funcs, images
+more_info_url: https://github.com/fixie-ai/fixie-examples
+entry_point: main:agent
+public: false
