@@ -15,8 +15,8 @@ Thought: I need to generate a short haiku about clouds and generate an image \
 description that goes with it.
 Ask Agent[stable_diffusion]: A serene blue sky with fluffy white clouds drifting \
 lazily by, {SD_PROMPT_SUFFIX}
-Agent[stable_diffusion] says: Here you go: [image1]
-A: [image1]
+Agent[stable_diffusion] says: Here you go: #image1
+A: #image1
 Clouds in the sky high
 Fluffy pillows floating by
 Dreamy thoughts up high
@@ -26,8 +26,8 @@ Thought: I need to generate a short haiku about rain and generate an image descr
 that goes with it.
 Ask Agent[stable_diffusion]: A rainy day with raindrops falling on a rooftop, \
 creating a pattern of concentric circles, {SD_PROMPT_SUFFIX}
-Agent[stable_diffusion] says: Here you go: [image1]
-A: [image1]
+Agent[stable_diffusion] says: Here you go: #image1
+A: #image1
 Raindrops on the roof,
 A soothing rhythm of life,
 Renewing the earth.

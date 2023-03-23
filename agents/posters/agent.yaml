@@ -1,4 +1,4 @@
-handle: "posters"
+handle: posters
 description: |
   The `posters` agent will generate posters for movies.
 
@@ -11,6 +11,6 @@ description: |
     - Create a poster for "The Lost Book of the Dead".
 
   Tags: low-code, images, composition
-more_info_url: "https://github.com/fixie-ai/fixie-examples"
+more_info_url: https://github.com/fixie-ai/fixie-examples
 entry_point: main:agent
 public: true

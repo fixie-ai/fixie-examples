@@ -1,5 +1,5 @@
 handle: haikuart
-name: "haikuart"
+name: haikuart
 description: |
   The `haikuart` agent can draw images based on generated haiku text.
 
@@ -8,7 +8,6 @@ description: |
     - Write a haiku about clouds
 
   Tags: funcs, images
+more_info_url: https://github.com/fixie-ai/fixie-examples
 entry_point: main:agent
-more_info_url: "https://github.com/fixie-ai/fixie-examples"
-deployment_url: null
 public: true

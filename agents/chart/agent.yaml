@@ -1,4 +1,4 @@
-handle: "chart"
+handle: chart
 description: |
   The `chart` agent can draw bar, line, and pie charts from data. This data can either be passed
   in or looked up from the LLM's knowledge.
@@ -9,6 +9,6 @@ description: |
     - Generate a line chart comparing the average daily temperatures in New York and Seattle by month.
 
   Tags: funcs, images
-more_info_url: "https://github.com/fixie-ai/fixie-examples"
+more_info_url: https://github.com/fixie-ai/fixie-examples
 entry_point: main:agent
 public: true
