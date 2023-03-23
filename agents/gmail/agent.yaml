@@ -1,0 +1,7 @@
+handle: "gmail"
+description: |
+  The `gmail` Agent answers questions based on the contents of a Gmail inbox.
+  Tags: func
+more_info_url: "https://github.com/fixie-ai/fixie-examples"
+entry_point: main:agent
+public: true
