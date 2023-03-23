@@ -28,6 +28,10 @@ Thought: I need to make a JSON object with this data.
 Ask Func[chart]: {"type":"line","data":{"labels":["January","February","March","April","May","June","July","August","September","October","November","December"], "datasets":[{"data":[45,47,50,54,60,65,68,67,63,56,48,45]}]}}   
 Func[chart] says: #image1
 A: Here you go! #image1
+
+Q: Create a bar chart showing the world population by country.
+Thought: I need the data for this query, I can't help the user with this.
+A: Sorry, I don't know how to get that data.
 """
 agent = fixieai.CodeShotAgent(BASE_PROMPT, FEW_SHOTS)
 
