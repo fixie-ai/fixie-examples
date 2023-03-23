@@ -1,7 +1,5 @@
 handle: chatembed
-name: ""
-description: ""
+description: Answers questions about provided documents.
+more_info_url: https://github.com/fixie-ai/fixie-examples
 entry_point: main:agent
-more_info_url: ""
-deployment_url: null
 public: false
