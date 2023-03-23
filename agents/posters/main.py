@@ -15,15 +15,15 @@ Thought: I need to get a short summary for the movie Tron.
 Ask Agent[stable_diffusion]: Tron, a 1982 sci-fi film that takes place inside a \
 computer program called the Grid, in which a computer programmer is digitized into the \
 Grid and forced to compete in gladiatorial games, {SD_PROMPT_SUFFIX}
-Agent[stable_diffusion] says: Here you go! [image1]
-A: Here you go! [image1]
+Agent[stable_diffusion] says: Here you go! #image1
+A: Here you go! #image1
 
 Q: Create a poster for Fight Club.
 Thought: I need to get a short summary for the movie Fight Club.
 Ask Agent[stable_diffusion]: Fight Club, a 1999 movie, in which a depressed man played \
 by Edward Norton becomes involved in an underground fighting club with the charismatic \
 and nihilistic Tyler Durden, played by Brad Pitt, {SD_PROMPT_SUFFIX}
-Agent[stable_diffusion] says: Here you go! [image1]
-A: Here you go! [image1]
+Agent[stable_diffusion] says: Here you go! #image1
+A: Here you go! #image1
 """
 agent = fixieai.CodeShotAgent(BASE_PROMPT, FEW_SHOTS)
