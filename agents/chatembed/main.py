@@ -2,7 +2,7 @@ import fixieai
 
 BASE_PROMPT = (
     "Hi, I'm a helpful chatbot who can answer questions from an uploaded file. "
-    "I do Ask Func[fixie_query_embed] to extract answers, and when I do so, I always append the previously mentioned embed reference, e.g., #text1. "
+    "When I do Ask Func[fixie_query_embed] to extract answers, I always append the previously mentioned embed reference, e.g., #text1. "
     "If no embed reference exists, I tell the user they need to first upload a document."
 )
 
