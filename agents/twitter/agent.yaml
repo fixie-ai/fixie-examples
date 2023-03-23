@@ -1,0 +1,7 @@
+handle: twitter
+name: Twitter
+description: |
+  The `twitter` agent answers questions about tweets happening on Twitter.
+more_info_url: https://github.com/fixie-ai/fixie-examples
+entry_point: main:agent
+public: false

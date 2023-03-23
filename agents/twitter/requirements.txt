@@ -1,0 +1,5 @@
+fixieai ~= 0.1.4
+llama-index ~= 0.4.36
+cachetools ~= 5.3.0
+
+
