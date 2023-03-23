@@ -1,3 +1,4 @@
+import json
 import random
 from typing import Optional
 from threading import Thread
@@ -19,7 +20,20 @@ Ask Func[question]: What is Nick's start date?
 Func[question] says: Nick Heiner's start date is April 4.
 A: Nick Heiner's start date is April 4.
 """
-agent = fixieai.CodeShotAgent(BASE_PROMPT, FEW_SHOTS)
+
+# Configure OAuth params.
+with open("credentials.json") as f:
+    credentials = json.load(f)["installed"]
+oauth_params = fixieai.OAuthParams(
+    client_id=credentials["client_id"],
+    auth_uri=credentials["auth_uri"],
+    token_uri=credentials["token_uri"],
+    client_secret=credentials["client_secret"],
+    scopes=["https://www.googleapis.com/auth/gmail.readonly"],
+)
+
+# Initialize agent.
+agent = fixieai.CodeShotAgent(BASE_PROMPT, FEW_SHOTS, oauth_params=oauth_params)
 
 initializing = False
 ready = False
@@ -28,6 +42,7 @@ index: Optional[GPTSimpleVectorIndex] = None
 
 
 def init() -> str:
+
     global initializing, ready, status, index
     if initializing:
         return
@@ -35,7 +50,7 @@ def init() -> str:
         initializing = True
         print("Initializing...")
         status = "Initializing..."
-        with open("secret.txt") as f:
+        with open("openaikey.txt") as f:
             line = f.readline()
             os.environ["OPENAI_API_KEY"] = line.strip()
         print("Downloading GmailReader...")
@@ -60,13 +75,26 @@ def init() -> str:
 
 
 @agent.register_func
-def question(query: fixieai.Message, user_storage: fixieai.UserStorage) -> str:
+def question(
+    query: fixieai.Message,
+    user_storage: fixieai.UserStorage,
+    oauth_handler: fixieai.OAuthHandler,
+) -> str:
     print(f"Query: {query.text}")
+    user_token = oauth_handler.user_token()
+    if user_token is None:
+        # Return the URL that the user should click on to authorize the Agent.
+        return oauth_handler.get_authorization_url()
+
     if not ready:
         if not initializing:
+            # The Llamahub GmailReader expects to find the token in the file `token.json`.
+            with open("token.json", "w") as f:
+                json.dump(user_token, f)
+            # Run initialization in a separate thread since it can take a while to complete.
             init_thread = Thread(target=init)
             init_thread.start()
-        return f"I am sorry, I can't answer that question right now. I am still initializing. Status: {status}"
+        return f"I am sorry, I can't answer that question right now. I am still initializing. {status}"
     response = index.query(query.text)
     print(f"Response: {response}")
     return response.response
