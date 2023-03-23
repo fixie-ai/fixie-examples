@@ -1,3 +1,4 @@
 fixieai ~= 0.1.11
 llama-index ~= 0.4.26
+weaviate-client ~= 3.15.3
 

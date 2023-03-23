@@ -2,14 +2,21 @@ import json
 import random
 from typing import Optional
 from threading import Thread
+import traceback
 
 import fixieai
-from llama_index import GPTSimpleVectorIndex, download_loader
+from llama_index import GPTWeaviateIndex, download_loader
+import weaviate
 
 import os
 
 BASE_PROMPT = """I'm an agent that answers questions about Gmail messages."""
 FEW_SHOTS = """
+Q: What is the latest with Zach?
+Ask Func[question]: What is the latest with Zach?
+Func[question] says: https://accounts.google.com/o/oauth2/auth?response_type=code&access_type=offline&client_id=5483852360
+A: You need to authenticate with Google before I can access your Gmail messages. Please click on this link, and then send your query again: https://accounts.google.com/o/oauth2/auth?response_type=code&access_type=offline&client_id=5483852360
+
 Q: What are the next steps with Oana from SignalFire?
 Ask Func[question]: What are the next steps with Oana from SignalFire?
 Func[question] says: The next steps with Oana from SignalFire are to schedule a meeting for the week of March 20th.
@@ -23,7 +30,7 @@ A: Nick Heiner's start date is April 4.
 
 # Configure OAuth params.
 with open("credentials.json") as f:
-    credentials = json.load(f)["installed"]
+    credentials = json.load(f)["web"]
 oauth_params = fixieai.OAuthParams(
     client_id=credentials["client_id"],
     auth_uri=credentials["auth_uri"],
@@ -38,7 +45,7 @@ agent = fixieai.CodeShotAgent(BASE_PROMPT, FEW_SHOTS, oauth_params=oauth_params)
 initializing = False
 ready = False
 status = "Initializing"
-index: Optional[GPTSimpleVectorIndex] = None
+index: Optional[GPTWeaviateIndex] = None
 
 
 def init() -> str:
@@ -62,12 +69,19 @@ def init() -> str:
         documents = loader.load_data()
         print("Building index...")
         status = "Building index..."
-        index = GPTSimpleVectorIndex(documents)
+        with open("weaviatekey.txt") as f:
+            line = f.readline()
+            weaviate_api_key = line.strip()
+        client = weaviate.Client(
+            "https://fixie-5vp4suwv.weaviate.network/",
+            headers={"Authorization": f"Bearer {weaviate_api_key}"},
+        )
+        index = GPTWeaviateIndex(documents, weaviate_client=client)
         print("Ready")
         status = "Ready"
         ready = True
     except Exception as e:
-        print(e)
+        traceback.print_exc()
         status = f"Gmail agent failed to initialize: {e}"
         ready = False
     finally:
