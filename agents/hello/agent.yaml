@@ -1,0 +1,9 @@
+handle: hello
+name: "Hello World"
+description: |
+  The `hello` agent talks to you as a random historical figure.
+  tags: simple, prompt-only, fun
+entry_point: main:agent
+more_info_url: https://github.com/fixie-ai/fixie-examples
+deployment_url: null
+public: true
