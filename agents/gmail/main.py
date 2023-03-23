@@ -6,6 +6,7 @@ import traceback
 
 import fixieai
 from llama_index import GPTWeaviateIndex, download_loader
+from loader_hub.gmail import GmailReader
 import weaviate
 
 import os
@@ -46,6 +47,7 @@ initializing = False
 ready = False
 status = "Initializing"
 index: Optional[GPTWeaviateIndex] = None
+user_token: Optional[str] = None
 
 
 def init() -> str:
@@ -94,6 +96,7 @@ def question(
     user_storage: fixieai.UserStorage,
     oauth_handler: fixieai.OAuthHandler,
 ) -> str:
+    global user_token
     print(f"Query: {query.text}")
     user_token = oauth_handler.user_token()
     if user_token is None:
