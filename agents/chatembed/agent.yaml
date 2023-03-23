@@ -7,7 +7,6 @@ description: |
     - Here's my document: #doc1.
     - Give me a summary of the document.
     - Who are the people mentioned in this document?
-
-entry_point: main:agent
 more_info_url: https://github.com/fixie-ai/fixie-examples
+entry_point: main:agent
 public: false
