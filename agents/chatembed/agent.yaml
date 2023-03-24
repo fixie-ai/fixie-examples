@@ -1,5 +1,12 @@
 handle: chatembed
-description: Answers questions about provided documents.
+description: |
+  The `chatembed` agent lets you ask questions using an uploaded document as a knowledge base.
+  Once you upload a document, you can ask questions about it using natural language.
+
+  Example queries:
+    - Here's my document: #doc1.
+    - Give me a summary of the document.
+    - Who are the people mentioned in this document?
 more_info_url: https://github.com/fixie-ai/fixie-examples
 entry_point: main:agent
 public: false
