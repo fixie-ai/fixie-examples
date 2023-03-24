@@ -27,6 +27,8 @@ warn_unused_configs = true
 profile = "black"
 single_line_exclusions = ["typing", "collections.abc", "typing_extensions"]
 skip = ["venv", "third_party"]
+skip_gitignore = true
+
 
 [tool.black]
 extend-exclude = '''

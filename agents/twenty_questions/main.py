@@ -5,4 +5,9 @@ game.
 I (the agent) will think of a random thing, and you (the user) can ask me questions \
 and try to guess what I'm thinking of."""
 
-agent = fixieai.CodeShotAgent(BASE_PROMPT, [], conversational=True)
+agent = fixieai.CodeShotAgent(
+    BASE_PROMPT,
+    [],
+    conversational=True,
+    llm_settings=fixieai.LlmSettings(temperature=1.0),
+)
