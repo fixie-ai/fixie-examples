@@ -1,0 +1,5 @@
+handle: langchain-search
+description: A simple demo of chat-zero-shot-react-description
+more_info_url: ''
+entry_point: main:agent
+public: false
