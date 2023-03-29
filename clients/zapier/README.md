@@ -23,7 +23,6 @@ $ zapier login
 
 3. Deploy the Zapier integration:
 ```
-$ cd integration
 $ zapier register "Fixie Example Integration"
 $ zapier push
 ```
