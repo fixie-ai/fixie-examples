@@ -42,3 +42,17 @@ Integration" app. You should see an action called "Send Fixie Message".
 Select it and fill out the fields. The "Session" field is the handle
 of the Session ID that you want to send messages to. The "Body" field is
 the text of the query you want to send to Fixie.
+
+## Local development and testing
+
+If you want to test the Zapier integration locally, you need to create
+a `.env` file in the `integration` directory. This file should contain
+the line `FIXIE_API_KEY` with your Fixie API key:
+```
+FIXIE_API_KEY=your_fixie_api_key
+```
+
+You can then test the Zapier integration using:
+```
+zapier test
+```

@@ -2,13 +2,12 @@
 # to answer questions about activity on Twitter.
 
 import os
-from typing import Dict
 
-
-from cachetools import cached, LRUCache, TTLCache
-from llama_index import download_loader, GPTSimpleVectorIndex
 import fixieai
-
+from cachetools import TTLCache
+from cachetools import cached
+from llama_index import GPTSimpleVectorIndex
+from llama_index import download_loader
 
 # To use this Agent, you'll need to create a Twitter developer account put your bearer token in a
 # file called twittertoken.txt. This can be done at:  https://developer.twitter.com/

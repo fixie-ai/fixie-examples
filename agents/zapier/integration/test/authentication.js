@@ -8,13 +8,13 @@ const appTester = zapier.createAppTester(App);
 
 
 describe('authentication', () => {
-  // Put your test TEST_API_KEY in a .env file.
+  // Put your FIXIE_API_KEY in a .env file to run these tests.
   zapier.tools.env.inject();
 
   it('should authenticate', (done) => {
     const bundle = {
       authData: {
-        fixieApiKey: process.env.TEST_API_KEY
+        fixieApiKey: process.env.FIXIE_API_KEY
       }
     };
 

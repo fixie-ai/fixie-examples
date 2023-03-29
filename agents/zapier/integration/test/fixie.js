@@ -9,15 +9,15 @@ const appTester = zapier.createAppTester(App);
 const SESSION_HANDLE = 'nice-violet-zephyr';
 
 describe('fixie', () => {
+  // Put your FIXIE_API_KEY in a .env file to run these tests.
   zapier.tools.env.inject();
 
   it('should send a Fixie message', (done) => {
     const bundle = {
       authData: {
-        fixieApiKey: process.env.TEST_API_KEY
+        fixieApiKey: process.env.FIXIE_API_KEY
       },
       inputData: {
-        session: SESSION_HANDLE,
         query: '@fixie/calc What is 432 * 75?'
       }
     };
