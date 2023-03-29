@@ -37,11 +37,16 @@ sends you to use the integration. When you do so, Zapier will prompt
 you to enter your Fixie API token. This can be found on your Fixie user
 profile page at https://app.fixie.ai/profile.
 
-5. On the Zapier web UI, create a new Zap and select the "Fixie Example
-Integration" app. You should see an action called "Send Fixie Message".
-Select it and fill out the fields. The "Session" field is the handle
-of the Session ID that you want to send messages to. The "Body" field is
-the text of the query you want to send to Fixie.
+5. On the Zapier web UI, create a new Zap and select the "Fixie
+Example Integration" app. You should see an action called "Send
+Fixie Message".  Select it and fill out the fields. The "Session"
+field is the handle of the Session ID that you want to send messages
+to. If this is unspecified, a new Session will be created each time
+the Zap is triggered. The "Body" field is the text of the query you
+want to send to Fixie.
+
+The response from Fixie is returned from the Fixie action and can be
+passed along to the next step in your Zap.
 
 ## Local development and testing
 
