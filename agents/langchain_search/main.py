@@ -1,19 +1,15 @@
-import os
+"""
+This agent demonstrates how to use langchain's zero-shot ReAct chain in a Fixie standalone agent.
+Standalone agents give the developer complete control over query processing, but you'll need to
+specify your OPENAI_API_KEY (and also SERPAPI_API_KEY) in a local .env file to use this agent.
+"""
 
 import fixieai
-import yaml
+
 from langchain.agents import initialize_agent
 from langchain.agents import load_tools
 from langchain.chat_models import ChatOpenAI
 from langchain.llms import OpenAI
-
-# Set up the agent in standalone mode.
-agent = fixieai.CodeShotAgent("", [])
-
-# Load the necessary API keys from the keys.yaml file.
-keys = yaml.load(open("keys.yaml"), Loader=yaml.FullLoader)
-for key in keys:
-    os.environ[key] = keys[key]
 
 
 def _run_executor(text: str) -> str:
@@ -27,9 +23,12 @@ def _run_executor(text: str) -> str:
     return executor.run(text)
 
 
-@agent.register_func
 def main(query: fixieai.Message) -> str:
     try:
         return _run_executor(query.text)
     except Exception as e:
         return "Failed: " + str(e)
+
+
+# Set up the agent as a StandaloneAgent, in which the agent does any LLM handling internally.
+agent = fixieai.StandaloneAgent(main)

@@ -1,5 +1,11 @@
 handle: langchain-search
-description: A simple demo of chat-zero-shot-react-description
-more_info_url: ''
+description: |
+  A simple demo of search using Langchain's ReAct chain.
+
+  Example queries:
+    - Who is Olivia Wilde's boyfriend, and what was his most recent album?
+    - What is the difference between OpenAI's GPT-4 and Facebook's LLAMA?
+
+more_info_url: https://github.com/fixie-ai/fixie-examples
 entry_point: main:agent
 public: false
