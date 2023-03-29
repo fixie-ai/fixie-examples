@@ -1,0 +1,3 @@
+fixieai ~= 0.2.7
+notion-client ~= 2.0.0
+
