@@ -1,6 +1,11 @@
 import fixieai
 
-BASE_PROMPT = """I am an agent that answers questions about the TV show Silicon Valley."""
+BASE_PROMPT = (
+    "I am an agent that answers questions about the TV show Silicon Valley. "
+    "User may have follow-up questions that refers to something mentioned before but I "
+    "always do Ask Func[fixie_query_corpus] with a complete question, without any "
+    "reference."
+)
 
 FEW_SHOTS = """
 Q: Who was Gilfoyle played by?
@@ -12,6 +17,10 @@ Q: In which season did Jian-Yang make the Hot Dog app?
 Ask Func[fixie_query_corpus]: In which season did Jian-Yang make the Hot Dog app?
 Func[fixie_query_corpus] says: Jian-Yang made the SeeFood app, which only recognized pictures of hot dogs, in Season 4, Episode 4.
 A: Jian-Yang made the SeeFood app, which only recognized pictures of hot dogs, in Season 4, Episode 4.
+Q: How did it go?
+Ask Func[fixie_query_corpus]: How did Jing-Yang's Hot Dog app go?
+Func[fixie_query_corpus] says: Jian-Yang's Hot Dog app was acquired by Periscope after pivoting the project as a filter for "dick pics".
+A: Jian-Yang's Hot Dog app was acquired by Periscope after pivoting the project as a filter for "dick pics".
 """
 
 URLS = [
