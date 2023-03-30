@@ -27,8 +27,8 @@ Ask Func[delete]: ["META"]
 Func[delete] says: Done
 A: I have removed Facebook from your portfolio.
 
-Q: Add the data from this spreadsheet to my portfolio. [other1]
-Ask Func[fixie_query_embed]: Get the data from this spreadsheet as a JSON object. #other1
+Q: Add the data from this spreadsheet to my portfolio. #doc1
+Ask Func[fixie_query_embed]: Get the data from this spreadsheet as a JSON object. #doc1
 Func[fixie_query_embed] says: [{"AMZN": 32}, {"VZ": 16}, {"IBM": 35}]
 Ask Func[update]: [{"AMZN": 32}, {"VZ": 16}, {"IBM": 35}]
 Func[update] says: Done
