@@ -24,8 +24,8 @@ Ask Func[fixie_query_embed]: Give me a short summary of this resource #doc1
 Func[fixie_query_embed] says: answer from the resource
 A: answer from the resource
 
-Q: tell me about http://some_url
-Ask Func[load_doc]: http://some_url
+Q: tell me about https://some_url
+Ask Func[load_doc]: https://some_url
 Func[load_doc] says: #doc1
 Ask Func[fixie_query_embed]: Give me a short summary of this resource #doc1
 Func[fixie_query_embed] says: summary from the resource
@@ -43,9 +43,7 @@ agent = fixieai.CodeShotAgent(BASE_PROMPT, FEW_SHOTS, conversational=True)
 @agent.register_func
 def load_doc(query: fixieai.agents.Message) -> fixieai.Message:
     url = query.text
-    print(url)
     response = requests.get(url)
     content_type = response.headers["Content-Type"]
-    print("hello! "+content_type)
     return fixieai.Message("#doc1", embeds={"doc1": fixieai.Embed(content_type, url)})
 
