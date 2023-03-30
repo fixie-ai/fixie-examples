@@ -1,1 +1,1 @@
-fixieai ~= 0.2.7
+fixieai ~= 0.2.11
