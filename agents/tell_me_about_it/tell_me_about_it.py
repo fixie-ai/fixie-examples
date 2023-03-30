@@ -43,10 +43,10 @@ A: answer from the resource
 """
 agent = fixieai.CodeShotAgent(BASE_PROMPT, FEW_SHOTS, conversational=True)
 
+
 @agent.register_func
 def load_doc(query: fixieai.agents.Message) -> fixieai.Message:
     url = query.text
     response = requests.get(url)
     content_type = response.headers["Content-Type"]
     return fixieai.Message("#doc1", embeds={"doc1": fixieai.Embed(content_type, url)})
-

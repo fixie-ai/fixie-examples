@@ -5,7 +5,6 @@ specify your OPENAI_API_KEY (and also SERPAPI_API_KEY) in a local .env file to u
 """
 
 import fixieai
-
 from langchain.agents import initialize_agent
 from langchain.agents import load_tools
 from langchain.chat_models import ChatOpenAI
