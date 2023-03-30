@@ -11,7 +11,7 @@ import fixieai
 import requests
 
 BASE_PROMPT = """I am a simple agent that allows the user to ask questions web a resource. 
-I ask Func[load_doc] to load the resource from a url, and then always reach out to func[fixie_query_embed] to
+I ask Func[load_doc] to load the resource from a url, and then always reach out to Func[fixie_query_embed] to
 answer questions about the resource"""
 
 FEW_SHOTS = """
