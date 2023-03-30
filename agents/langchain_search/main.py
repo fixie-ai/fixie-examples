@@ -31,4 +31,8 @@ def main(query: fixieai.Message) -> str:
 
 
 # Set up the agent as a StandaloneAgent, in which the agent does any LLM handling internally.
-agent = fixieai.StandaloneAgent(main)
+SAMPLE_QUERIES = [
+    "Who is Olivia Wilde's boyfriend, and what is his current age raised to the 0.23 power?",
+    "What is GPT-4, and what is its largest context size?",
+]
+agent = fixieai.StandaloneAgent(main, sample_queries=SAMPLE_QUERIES)
