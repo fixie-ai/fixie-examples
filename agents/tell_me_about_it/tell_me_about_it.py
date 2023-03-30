@@ -1,4 +1,7 @@
-"""A templated Fixie agent!
+"""This agent allows the user to get a summary for a web resource provided as a URL. 
+Then, the agent allows the user to ask further questions about the resource. 
+The agent works by first fetching the resource (e.g. pdf doc, html doc) and storing it as a fixie embed using 
+Func[load_doc]). Then, the agent uses the built-in Func[fixie_query_embed] to further interrogate the resource.
 
 Fixie docs:
     https://docs.fixie.ai
