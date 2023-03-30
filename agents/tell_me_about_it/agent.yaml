@@ -1,0 +1,5 @@
+handle: tell-me-about-it
+description: 'summarize and answer questions about any web resource'
+more_info_url: ''
+entry_point: tell_me_about_it:agent
+public: false
