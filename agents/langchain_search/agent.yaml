@@ -3,8 +3,8 @@ description: |
   A simple demo of search using Langchain's ReAct chain.
 
   Example queries:
-    - Who is Olivia Wilde's boyfriend, and what was his most recent album?
-    - What is the difference between OpenAI's GPT-4 and Facebook's LLAMA?
+    - Who is Olivia Wilde's boyfriend, and what is his current age raised to the 0.23 power?
+    - What is GPT-4, and what is its largest context size?
 
 more_info_url: https://github.com/fixie-ai/fixie-examples
 entry_point: main:agent

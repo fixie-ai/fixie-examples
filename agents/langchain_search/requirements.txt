@@ -1,4 +1,4 @@
-fixieai ~= 0.2.7
+fixieai ~= 0.2.10
 langchain ~= 0.0.123
 openai ~= 0.27.2
 google_search_results ~= 2.4.1
