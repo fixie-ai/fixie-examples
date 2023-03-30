@@ -1,0 +1,13 @@
+handle: silicon-valley
+description: |
+  The `silicon-valley` agent answers questions about the hit TV series, Silicon Valley.
+
+  Example queries:
+    - Who played Gilfoyle?
+    - What was the name of the app that Pied Piper developed?
+    - Which company does Gavin work for?
+
+  Tags: conversational, corpus
+more_info_url: https://github.com/fixie-ai/fixie-examples
+entry_point: main:agent
+public: false
