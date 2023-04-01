@@ -1,0 +1,35 @@
+# This workflow will deploy the Fixie Examples to Fixie, as the "Fixie" user.
+
+name: Deploy
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        lfs: true
+        submodules: true
+
+    - uses: extractions/setup-just@v1
+
+    - name: Set up Python 3.9
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+
+    - name: Install Poetry Action
+      uses: snok/install-poetry@v1.3.1
+
+    - name: Install dependencies
+      run: |
+        just install
+
+    - name: Publish documentation
+      run: |
+        just publish-docs
