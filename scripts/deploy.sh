@@ -17,6 +17,5 @@ for agent_dir in agents/*; do
     fi
     echo AGENT: $agent_dir
 
-    fixieai deploy $agent_dir
-    exit 0
+    fixieai deploy --public $agent_dir
 done
