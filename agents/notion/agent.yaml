@@ -1,13 +1,6 @@
-handle: support
+handle: notion
 description: |
-  The `support` agent helps you write Fixie agents. Ask it any questions you have about the Fixie platform!
-
-  Example queries:
-    - How do I get started writing a Fixie agent?
-    - How do I use the user storage API?
-    - What examples show how to use images?
-    - How do I deploy my agent to the Fixie platform?
-
+  The `notion` agent indexes a set of URLs stored in a Notion database.
   Tags: conversational, corpus
 more_info_url: https://github.com/fixie-ai/fixie-examples
 entry_point: main:agent
