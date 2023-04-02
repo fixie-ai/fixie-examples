@@ -1,8 +1,13 @@
+# This is a Fixie Agent that pulls a list of URLs from a Notion database and answers
+# questions about them. See README.md for details on how to set this up for yourself.
+
 import os
 import fixieai
 
 from notion_client import Client
 
+# The Notion Database to pull the list of URLs from. This database must be shared with your
+# Notion integration - see README.md for details.
 NOTION_DATABASE_ID = "b264de3998384f839245bd54faa40d9c"
 
 BASE_PROMPT = """I am an agent that answers questions about a set of web pages, stored in a Notion database."""
@@ -28,7 +33,7 @@ surveys combined.
 Q: What is the article from Wired about?
 Ask Func[fixie_query_corpus]: What is the article from Wired about?
 Func[fixie_query_corpus] says: The article "The Most Vulnerable Place on the Internet" is about \
-undersea cables. SOURCES: https://www.thediff.co/p/jane-street#snippet=1 https://www.thediff.co/p/jane-street#snippet=4                                                                                                      
+undersea cables. SOURCES: https://www.thediff.co/p/jane-street#snippet=1 https://www.thediff.co/p/jane-street#snippet=4
 A: The article "The Most Vulnerable Place on the Internet" is about undersea cables.
 Q: Who wrote it?
 Ask Func[fixie_query_corpus]: Who wrote the article "The Most Vulnerable Place on the Internet"?
@@ -41,17 +46,20 @@ Func[fixie_query_corpus] says: The article "The Most Vulnerable Place on the Int
 A: The article "The Most Vulnerable Place on the Internet" was published in WIRED Magazine.
 """
 
-# Open the Notion database and read all of the URLs in it.
+# Get the Notion integration token for use with the Notion client.
 with open("notion-key.txt", "r") as notion_key_file:
     os.environ["NOTION_TOKEN"] = notion_key_file.read().strip()
 
+# Open the Notion database and read all of the URLs in it.
 print(f"Loading databse {NOTION_DATABASE_ID}...")
 notion = Client(auth=os.environ["NOTION_TOKEN"])
 
 URLS = []
 start_cursor = None
 while True:
-    pages = notion.databases.query(database_id=NOTION_DATABASE_ID, start_cursor=start_cursor)
+    pages = notion.databases.query(
+        database_id=NOTION_DATABASE_ID, start_cursor=start_cursor
+    )
     for page in pages["results"]:
         page_url = page["properties"]["URL"]["url"]
         print(f"   {page_url}")
@@ -59,7 +67,6 @@ while True:
     start_cursor = pages["next_cursor"]
     if not start_cursor:
         break
-
 
 print(f"Indexing {len(URLS)} pages in database {NOTION_DATABASE_ID}.")
 CORPORA = [fixieai.DocumentCorpus(urls=URLS)]
