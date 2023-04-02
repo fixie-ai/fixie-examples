@@ -22,10 +22,10 @@ jobs:
         python-version: 3.9
 
     - name: Setup auth
-        id: auth
-        uses: google-github-actions/auth@v0
-        with:
-          credentials_json: '${{ secrets.GCP_SA_KEY }}'
+      id: auth
+      uses: google-github-actions/auth@v0
+      with:
+        credentials_json: '${{ secrets.GCP_SA_KEY }}'
 
     - name: Set up credentials file
       run: echo '${{secrets.GCP_SA_KEY}}' > ./service_account.json
