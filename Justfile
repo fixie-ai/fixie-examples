@@ -42,3 +42,7 @@ poetry *FLAGS:
 # Run a new shell with the Poetry Pyenv environment and .env file loaded.
 shell:
     poetry shell
+
+# Run tests.
+test PATH=".":
+    poetry run pytest -n auto {{PATH}}

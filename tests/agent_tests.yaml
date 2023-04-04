@@ -1,0 +1,28 @@
+# This file contains the set of tests for the Fixie example agents.
+# This file is used by the `agent_test.py` test to run tests.
+
+tests:
+  - agent: fixie/calc
+    query: What is 44 * 76?
+    expected: The response should exactly match "3344".
+  - agent: fixie/liveinfo
+    query: What is the weather in New York?
+    expected: The response say something about the weather in New York.
+  - agent: fixie/dice
+    query: Roll 4d20
+    expected: The response should match the pattern "You rolled *, *, *, and *, for a total of *."
+  - agent: fixie/haikuart
+    query: Make a haiku about Large Language Models.
+    expected: The response should say something about "language".
+  - agent: fixie/silicon-valley
+    query: Who did Kumail Nanjiani play?
+    expected: The response should mention "Dinesh".
+  - agent: fixie/stock
+    query: What is the price of Caterpillar?
+    expected: The response should be similar to "The share price for Caterpillar is $229.86."
+  - agent: fixie/support
+    query: How do I access an Embed from within my Agent code?
+    expected: THe response should be similar to "You can access the Embed from within your Agent code by using the `embed` property of the `Agent` class."
+  - agent: fixie/twenty_questions
+    query: Hi there, can we play?
+    expected: The response should be similar to "Yes, let's play! Pick a category and I'll think of something within it."

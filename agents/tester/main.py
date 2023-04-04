@@ -1,5 +1,3 @@
-import random
-
 import fixieai
 
 # This is an Agent that can be used to test other Agents. Given an agent name, a query, and an expected result,
@@ -41,4 +39,3 @@ Thought: The result is similar to the expected answer. Therefore, the test passe
 A: The fixie/storyteller agent responded with "Sure, here's an image of a fox wearing armor! #1" and we expected "fox wearing armor." The test passed.
 """
 agent = fixieai.CodeShotAgent(BASE_PROMPT, FEW_SHOTS)
-
