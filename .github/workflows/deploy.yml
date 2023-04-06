@@ -35,6 +35,8 @@ jobs:
         just check typecheck
 
   deploy:
+    # This job only runs when a PR is merged.
+    if: github.event.pull_request.merged == true
     needs: check
     runs-on: ubuntu-latest
 
@@ -63,11 +65,10 @@ jobs:
         ./scripts/deploy.sh
 
   test:
-    needs: deploy
-    runs-on: ubuntu-latest
-
     # This job only runs when a PR is merged.
     if: github.event.pull_request.merged == true
+    needs: deploy
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
       with:
