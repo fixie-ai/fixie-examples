@@ -217,7 +217,7 @@ test = ["anyio[trio] (>=3.2.1,<4.0.0)", "black (==22.10.0)", "coverage[toml] (>=
 
 [[package]]
 name = "fixieai"
-version = "0.2.13"
+version = "0.2.14"
 description = "SDK for the Fixie.ai platform. See: https://fixie.ai"
 category = "main"
 optional = false
@@ -1019,8 +1019,8 @@ fastapi = [
     {file = "fastapi-0.89.1.tar.gz", hash = "sha256:15d9271ee52b572a015ca2ae5c72e1ce4241dd8532a534ad4f7ec70c376a580f"},
 ]
 fixieai = [
-    {file = "fixieai-0.2.13-py3-none-any.whl", hash = "sha256:877e947909b01addfa1e6c1de24ff8829146bf4d616ca58ed8bb7aa3fe518c77"},
-    {file = "fixieai-0.2.13.tar.gz", hash = "sha256:7acf556d3d7a409ff9ca48207e86f0ce135f9f5adcdb758aa80a76db1a449ca1"},
+    {file = "fixieai-0.2.14-py3-none-any.whl", hash = "sha256:07e3db44ec63cd760ef410061e35f4e88b79bea94212928973fe8446776ae580"},
+    {file = "fixieai-0.2.14.tar.gz", hash = "sha256:bba1a665c1d950a49645c88b8efeece4be3a5ef3e6bff8c1a01c7441b3fbb45b"},
 ]
 gql = [
     {file = "gql-3.4.0-py2.py3-none-any.whl", hash = "sha256:59c8a0b8f0a2f3b0b2ff970c94de86f82f65cb1da3340bfe57143e5f7ea82f71"},

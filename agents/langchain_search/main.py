@@ -19,7 +19,7 @@ def _run_executor(text: str) -> str:
     executor = initialize_agent(
         tools, chat, agent="chat-zero-shot-react-description", verbose=True
     )
-    return executor.run(text)
+    return executor.run(text) or ""
 
 
 def main(query: fixieai.Message) -> str:

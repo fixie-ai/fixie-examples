@@ -10,7 +10,7 @@ set dotenv-load := true
 set positional-arguments := true
 
 # Default recipe that runs if you type "just".
-default: format check
+default: format check typecheck
 
 # Install dependencies for local development.
 install:
@@ -24,12 +24,17 @@ format:
     poetry run isort . --force-single-line-imports
     poetry run black .
 
-# Run code formatting and type checks.
+# Run code formatting checks.
 check:
     poetry run black . --check
     poetry run isort . --check --force-single-line-imports
     poetry run autoflake . --check --quiet --remove-all-unused-imports -r --exclude third_party
-    poetry run mypy .
+
+# Run typechecking on each agent subdirectory independently.
+typecheck:
+    #!/usr/bin/env bash
+    set -eux -o pipefail
+    for dir in `find agents -type d -depth 1`; do poetry run mypy $dir; done
 
 # Run a Python REPL in the Poetry environment.
 python:

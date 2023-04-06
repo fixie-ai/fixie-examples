@@ -1,13 +1,39 @@
-# This workflow will deploy the Fixie Examples to Fixie, as the "Fixie" user.
-
-name: Deploy
+name: Deploy and test
 
 on:
   push:
     branches: [ main ]
 
 jobs:
-  build:
+  check:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        lfs: true
+        submodules: true
+
+    - uses: extractions/setup-just@v1
+
+    - name: Set up Python 3.9
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+
+    - name: Install Poetry Action
+      uses: snok/install-poetry@v1.3.1
+
+    - name: Install dependencies
+      run: |
+        just install
+
+    - name: Publish documentation
+      run: |
+        just check
+
+  deploy:
+    needs: check
     runs-on: ubuntu-latest
 
     steps:
@@ -33,3 +59,40 @@ jobs:
     - name: Deploy agents
       run: |
         ./scripts/deploy.sh
+
+  test:
+    needs: deploy
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        lfs: true
+        submodules: true
+
+    - uses: extractions/setup-just@v1
+
+    - name: Set up Python 3.9
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+
+    - name: Install Poetry Action
+      uses: snok/install-poetry@v1.3.1
+
+    - name: Install dependencies
+      run: |
+        just install
+
+    - name: Run checks
+      run: |
+        just check
+
+    - name: Test main
+      env:
+        GOOGLE_CLOUD_PROJECT: ${{secrets.GCP_PROJECT}}
+        GOOGLE_APPLICATION_CREDENTIALS: service_account.json
+        SERVICE_ACCOUNT: ${{secrets.GCP_SERVICE_ACCOUNT}}
+      run: |
+        echo '${{secrets.GCP_SA_KEY}}' > service_account.json
+        FIXIE_API_KEY=$(gcloud secrets versions access --secret fixie_auth_token latest) just test
