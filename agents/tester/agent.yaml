@@ -1,0 +1,6 @@
+handle: tester
+description: |
+  The `tester` agent is used to test other Agents. It calls out to other Agents, gives them a query, and compares the response to an expected set of responses.
+more_info_url: https://github.com/fixie-ai/fixie-examples
+entry_point: main:agent
+public: false

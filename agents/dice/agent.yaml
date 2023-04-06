@@ -7,6 +7,9 @@ description: |
     - Roll two dice and blow on them first for good luck
     - Roll 3d8
   Tags: func
+tests:
+  - query: Roll 4d20
+    expected: The response should match the pattern "You rolled *, *, *, and *, for a total of *."
 more_info_url: https://github.com/fixie-ai/fixie-examples
 entry_point: main:agent
 public: false

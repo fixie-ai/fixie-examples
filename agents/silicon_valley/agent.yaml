@@ -8,6 +8,9 @@ description: |
     - Which company does Gavin work for?
 
   Tags: conversational, corpus
+tests:
+  - query: Who did Kumail Nanjiani play?
+    expected: The response should mention "Dinesh".
 more_info_url: https://github.com/fixie-ai/fixie-examples
 entry_point: main:agent
 public: false

@@ -4,6 +4,9 @@ description: |
   The `twenty_questions` agent plays the 20 Questions game against you!
 
   tags: simple, no-fewshot, fun
+tests:
+  - query: Hi there, can we play?
+    expected: The response should be similar to "Yes, let's play! Pick a category and I'll think of something within it."
 more_info_url: https://github.com/fixie-ai/fixie-examples
 entry_point: main:agent
 public: false
