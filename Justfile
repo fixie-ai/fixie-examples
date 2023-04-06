@@ -16,6 +16,7 @@ default: format check typecheck
 install:
     pip install poetry
     poetry install --sync
+    mkdir -p .mypy_cache
     poetry run mypy --install-types --non-interactive .
 
 # Format code.
