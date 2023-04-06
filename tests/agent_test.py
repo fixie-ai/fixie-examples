@@ -1,5 +1,6 @@
 import logging
-from typing import Any, Dict, List
+import os
+from typing import Any, Dict, List, Tuple
 
 import pytest
 import yaml
@@ -18,21 +19,36 @@ def session(client):
     return session
 
 
-def read_spec() -> Dict[str, List[Dict[str, Any]]]:
-    # The queries.yaml file consists of a set of docs, separated by "---". Each doc is a list
-    # of queries, where each list entry is a dict with two keys -- "query" and "valid_responses".
-    # Each doc is executed in its own Session to ensure that state is not carried forward
-    # across the queries in a given doc.
-    with open("tests/agent_tests.yaml", "r") as infile:
-        test_spec = yaml.load(infile, Loader=yaml.Loader)
-        #        assert type(test_spec) == dict
-        assert "tests" in test_spec
-        return test_spec["tests"]
+def gather_tests() -> Dict[str, List[Dict[str, Any]]]:
+    """Read the agent.yaml file from each agent subdirectory and return a dictionary mapping
+    from agent name to a list of tests."""
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    agents_dir = os.path.join(current_dir, "..", "agents")
+    tests = {}
+    for agent_dir in os.listdir(agents_dir):
+        agent_config_file = os.path.join(agents_dir, agent_dir, "agent.yaml")
+        if os.path.exists(agent_config_file):
+            with open(agent_config_file, "r") as infile:
+                agent_config = yaml.load(infile, Loader=yaml.Loader)
+                handle = agent_config["handle"]
+                if "tests" in agent_config:
+                    tests[handle] = agent_config["tests"]
+    return tests
+
+
+def list_tests() -> List[Tuple[str, str, str]]:
+    """Flatten the list of tests into a single list of (handle, query, expected) tuples."""
+    all_tests = gather_tests()
+    return [
+        (f"fixie/{handle}", testspec["query"], testspec["expected"])
+        for handle in all_tests.keys()
+        for testspec in all_tests[handle]
+    ]
 
 
 @pytest.fixture
 def agents() -> List[str]:
-    return [test["agent"] for test in read_spec()]
+    return [f"fixie/{agent}" for agent in gather_tests().keys()]
 
 
 def test_get_agents(client, agents):
@@ -50,13 +66,7 @@ def test_session_time(session):
     assert "It is currently" in response
 
 
-@pytest.mark.parametrize(
-    "agent, query, expected",
-    [
-        [testspec["agent"], testspec["query"], testspec["expected"]]
-        for testspec in read_spec()
-    ],
-)
+@pytest.mark.parametrize("agent, query, expected", list_tests())
 def test_queries(client, agent, query, expected):
     try:
         logging.info(f"Testing agent {agent}...")

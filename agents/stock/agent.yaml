@@ -8,6 +8,9 @@ description: |
     - How did Apple do today?
     - What is the current stock price for NVDA?
     - Who did better today, Apple or Google?
+tests:
+  - query: What is the price of Caterpillar?
+    expected: The response should be similar to "The share price for Caterpillar is $229.86."
 more_info_url: https://github.com/fixie-ai/fixie-examples
 entry_point: main:agent
 public: false

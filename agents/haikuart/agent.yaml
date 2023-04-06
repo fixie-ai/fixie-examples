@@ -8,6 +8,9 @@ description: |
     - Write a haiku about clouds
 
   Tags: funcs, images
+tests:
+  - query: Make a haiku about Large Language Models.
+    expected: The response should say something about "language".
 more_info_url: https://github.com/fixie-ai/fixie-examples
 entry_point: main:agent
 public: false
