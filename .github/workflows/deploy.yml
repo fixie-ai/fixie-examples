@@ -28,9 +28,9 @@ jobs:
       run: |
         just install
 
-    - name: Publish documentation
+    - name: Run checks
       run: |
-        just check
+        just check typecheck
 
   deploy:
     needs: check
