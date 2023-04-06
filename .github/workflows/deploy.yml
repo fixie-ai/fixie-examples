@@ -3,6 +3,8 @@ name: Deploy and test
 on:
   push:
     branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
   check:
@@ -64,6 +66,8 @@ jobs:
     needs: deploy
     runs-on: ubuntu-latest
 
+    # This job only runs when a PR is merged.
+    if: github.event.pull_request.merged == true
     steps:
     - uses: actions/checkout@v2
       with:
