@@ -36,7 +36,7 @@ jobs:
 
   deploy:
     # This job only runs when a PR is merged.
-    if: github.event.pull_request.merged == true
+    if: github.event_name == 'push'
     needs: check
     runs-on: ubuntu-latest
 
@@ -66,7 +66,7 @@ jobs:
 
   test:
     # This job only runs when a PR is merged.
-    if: github.event.pull_request.merged == true
+    if: github.event_name == 'push'
     needs: deploy
     runs-on: ubuntu-latest
     steps:
