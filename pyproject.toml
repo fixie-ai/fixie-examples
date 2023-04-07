@@ -6,7 +6,7 @@ authors = ["Fixie.ai Team <hello@fixie.ai>"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
-fixieai = "^0.2.7"
+fixieai = "^0.2.14"
 
 [build-system]
 requires = ["poetry>=1.2.1"]

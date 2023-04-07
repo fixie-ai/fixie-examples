@@ -68,10 +68,10 @@ def test_session_time(session):
 
 @pytest.mark.parametrize("agent, query, expected", list_tests())
 def test_queries(client, agent, query, expected):
+    logging.info(f"Testing agent {agent}...")
+    session = client.create_session(frontend_agent_id="fixie/tester")
     try:
-        logging.info(f"Testing agent {agent}...")
-        session = client.create_session()
-        sent = f'@mdw/tester Test {agent} with the query: "{query}". {expected}'
+        sent = f'Test {agent} with the query: "{query}". {expected}'
         logging.info(f"Query: {sent}")
         got = session.query(sent)
         logging.info(f"Response: {got}")
