@@ -34,6 +34,9 @@ description: |
 more_info_url: "https://github.com/fixie-ai/fixie-examples"
 entry_point: main:agent
 public: false
+tests:
+  - query: "Please do the task."
+    expected: "The response should indicate that the task has been done."
 ```
 
 In the `main.py` file you will have the following fields:
@@ -64,21 +67,3 @@ Once you run this command you test it locally by running the following command: 
 Or you can go to app.fixie.ai and chat with your new agent by invoking it in the main chat with `@username/agentname`.
 
 
-
-## Styleguide for agents
-We recommend that you write the agent handle in small caps. See example below
-
-```markdown
-handle: "dice"
-description: |
-  The `dice` agent rolls virtual dice.
-
-  Example queries:
-    - Roll a d20.
-    - Roll two dice and blow on them first for good luck
-    - Roll 3d8
-  Tags: func
-more_info_url: "https://github.com/fixie-ai/fixie-examples"
-entry_point: main:agent
-public: false
-```

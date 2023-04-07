@@ -267,7 +267,7 @@ def events(query: fixieai.Message, oauth_handler: fixieai.OAuthHandler) -> str:
     """
     user_token = oauth_handler.user_token()
     if user_token is None:
-        return oauth_handler.get_authorization_url()
+        return oauth_handler.get_authorization_url() or ""
 
     client = gcalendar_client.GcalendarClient(user_token)
     range_json = query.text
@@ -294,7 +294,7 @@ def availability(query: fixieai.Message, oauth_handler: fixieai.OAuthHandler) ->
     """
     user_token = oauth_handler.user_token()
     if user_token is None:
-        return oauth_handler.get_authorization_url()
+        return oauth_handler.get_authorization_url() or ""
 
     client = gcalendar_client.GcalendarClient(user_token)
     query_json = json.loads(query.message.just_str())
@@ -335,7 +335,7 @@ def schedule(query: fixieai.Message, oauth_handler: fixieai.OAuthHandler) -> str
     """
     user_token = oauth_handler.user_token()
     if user_token is None:
-        return oauth_handler.get_authorization_url()
+        return oauth_handler.get_authorization_url() or ""
 
     client = gcalendar_client.GcalendarClient(user_token)
     range_json = query.message.just_str()

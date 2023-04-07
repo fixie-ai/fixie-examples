@@ -66,4 +66,4 @@ def query_tweets(query: fixieai.Message) -> str:
     handle, q = query.text.split(" ", 1)
     index = load_tweets(handle)
     response = index.query(q)
-    return response.response
+    return response.response or ""
