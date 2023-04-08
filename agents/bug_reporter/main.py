@@ -1,9 +1,6 @@
 """This is a Fixie Agent that files issues in GitHub."""
 
-import datetime
-import json
 import os
-import sys
 
 import fixieai
 from github import Github
@@ -96,4 +93,4 @@ def file_bug(query: fixieai.Message) -> str:
         + f"The bug report message is as follows:\n\n{query.text}\n\n"
     )
     issue = REPO.create_issue(title=title, body=body, labels=[LABEL])
-    return issue.html_url
+    return issue.html_url or "I couldn't file the bug report."
