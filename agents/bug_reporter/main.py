@@ -92,5 +92,6 @@ def file_bug(query: fixieai.Message) -> str:
         f"This is an automated bug report from the `bug-report` agent.\n"
         + f"The bug report message is as follows:\n\n{query.text}\n\n"
     )
+    # TODO(mdw): Figure out what to do with Embeds attached to the query.
     issue = REPO.create_issue(title=title, body=body, labels=[LABEL])
     return issue.html_url or "I couldn't file the bug report."
