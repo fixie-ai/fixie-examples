@@ -1,0 +1,10 @@
+handle: bug-report
+name: Bug Reporter
+description: |
+  The `bug-report` agent files bug reports about Fixie.
+more_info_url: https://github.com/fixie-ai/fixie-examples
+entry_point: main:agent
+public: false
+tests:
+  - query: File a bug
+    expected: The response should mention "bug" or "issue".
