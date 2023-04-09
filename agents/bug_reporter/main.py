@@ -87,7 +87,7 @@ agent = fixieai.CodeShotAgent(BASE_PROMPT, FEW_SHOTS, conversational=True)
 def file_bug(query: fixieai.Message) -> str:
     """Files a bug with GitHub."""
     print("file_bug called with query", query)
-    title = f"🐛 Bug report from user: {query.text}"
+    title = f"🐛 {query.text}"
     body = (
         f"This is an automated bug report from the `bug-report` agent.\n"
         + f"The bug report message is as follows:\n\n{query.text}\n\n"
