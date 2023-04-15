@@ -3,7 +3,6 @@ name = "fixie-slackbot"
 version = "0.1.0"
 description = "A Slack bot that talks to Fixie."
 authors = ["Matt Welsh <matt@fixie.ai>"]
-readme = "README.md"
 packages = [{include = "slackbot"}]
 
 [tool.poetry.dependencies]
