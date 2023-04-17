@@ -1,10 +1,13 @@
 # This is the Justfile for the Fixie Slack bot.
 
+
 # This causes the .env file to be read by Just.
 set dotenv-load := true
 
 # Allow for positional arguments in Just receipes.
 set positional-arguments := true
+
+DOCKER_IMAGE := "us-central1-docker.pkg.dev/fixie-frame/fixie-frame/fixie-slackbot"
 
 # Default recipe that runs if you type "just".
 default: format check typecheck
@@ -41,3 +44,16 @@ poetry *FLAGS:
 # Run a new shell with the Poetry Pyenv environment and .env file loaded.
 shell:
     poetry shell
+
+docker-build:
+    # Ensure docker can authenticate to Google Container Registry.
+    gcloud auth configure-docker --quiet us-central1-docker.pkg.dev
+    # Build and push the Docker image for the frame app.
+    docker build --tag {{DOCKER_IMAGE}}:latest --platform linux/amd64 -f Dockerfile .
+    docker push {{DOCKER_IMAGE}}:latest
+
+docker-run:
+    docker run --env-file .env {{DOCKER_IMAGE}}:latest
+
+deploy:
+    ./deploy-cloud-run.sh

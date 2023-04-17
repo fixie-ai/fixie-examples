@@ -1,13 +1,16 @@
 """This is an example Slack App that talks to Fixie."""
 
 import logging
-import random
-from typing import Any, Dict
 import os
+import random
+from typing import Dict
+
 
 from fixieai.client import FixieClient
 from fixieai.client.session import Session
+from flask import Flask, request
 from slack_bolt import App
+from slack_bolt.adapter.flask import SlackRequestHandler
 
 logging.basicConfig(level=logging.INFO)
 
@@ -33,11 +36,26 @@ app = App(
     token=os.environ.get("SLACK_BOT_TOKEN"),
     signing_secret=os.environ.get("SLACK_SIGNING_SECRET"),
 )
+flask_app = Flask(__name__)
+handler = SlackRequestHandler(app)
 
 
-@app.message("Hey Fixie")
-def handle_fixie_message(client, message, event, say):
+@app.middleware
+def log_request(logger, body, next):
+    logger.debug(body)
+    return next()
+
+
+@flask_app.route("/", methods=["POST"])
+def slack_events():
+    # handler runs App's dispatch method
+    return handler.handle(request)
+
+
+@app.event("app_mention")
+def handle_mention(client, message, event, say):
     logging.info(f"handle_fixie_message called: {message}")
+    say("Whassup!")
 
     channel = message["channel"]
     session = sessions.get(channel, None)
@@ -65,7 +83,3 @@ def handle_fixie_message(client, message, event, say):
             # attachments=out_attachments,
             reply_broadcast=False,
         )
-
-
-if __name__ == "__main__":
-    app.start(port=int(os.environ.get("PORT", 3000)))
