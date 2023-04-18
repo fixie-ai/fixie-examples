@@ -7,7 +7,12 @@ set dotenv-load := true
 # Allow for positional arguments in Just receipes.
 set positional-arguments := true
 
+# Set this to the Docker registry to use with gcloud.
+DOCKER_REGISTRY := "us-central1-docker.pkg.dev"
+# Set this to the name of the Docker image to build for the Slack App.
 DOCKER_IMAGE := "us-central1-docker.pkg.dev/fixie-frame/fixie-frame/fixie-slackbot"
+# Set this to the name of the Google Cloud project to deploy the App to.
+GOOGLE_CLOUD_PROJECT := "fixie-frame"
 
 # Default recipe that runs if you type "just".
 default: format check typecheck
@@ -46,14 +51,11 @@ shell:
     poetry shell
 
 docker-build:
-    # Ensure docker can authenticate to Google Container Registry.
-    gcloud auth configure-docker --quiet us-central1-docker.pkg.dev
+    # Ensure docker can authenticate to the container registry.
+    gcloud auth configure-docker --quiet {{DOCKER_REGISTRY}}
     # Build and push the Docker image for the frame app.
     docker build --tag {{DOCKER_IMAGE}}:latest --platform linux/amd64 -f Dockerfile .
     docker push {{DOCKER_IMAGE}}:latest
 
-docker-run:
-    docker run --env-file .env {{DOCKER_IMAGE}}:latest
-
 deploy:
-    ./deploy-cloud-run.sh
+    ./deploy-cloud-run.sh {{DOCKER_IMAGE}} {{GOOGLE_CLOUD_PROJECT}}

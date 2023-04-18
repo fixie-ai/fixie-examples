@@ -3,23 +3,23 @@
 set -eux -o pipefail
 
 # This script deploys the Slack bot to Google Cloud Run.
+# Invoke with:
+#   deploy-cloud-run.sh <docker image name and tag> <google cloud project ID>
 
-# The base Google Cloud project we are running in.
-export GOOGLE_CLOUD_PROJECT="fixie-frame"
+DOCKER_IMAGE=$1
+export GOOGLE_CLOUD_PROJECT=$2
 
 # Cloud Run instance hardware requirements.
+GOOGLE_CLOUD_REGION="us-central1"
 GOOGLE_CLOUD_RUN_CPU=4
 GOOGLE_CLOUD_RUN_MEMORY=16Gi
 GOOGLE_CLOUD_RUN_CONCURRENCY=80
-
-# The Docker image to deploy. Tag is specified using the --image-tag argument.
-DOCKER_IMAGE="us-central1-docker.pkg.dev/fixie-frame/fixie-frame/fixie-slackbot:latest"
-
+# Number of instances to run.
 MIN_INSTANCES="1"
-
+# Name of the Google Cloud Run environment.
 ENVIRONMENT_NAME="fixie-slackbot"
 
-CLOUDRUN_SERVICE_URL=$(gcloud run services describe ${ENVIRONMENT_NAME} --region us-central1 --format "value(status.url)" || echo "")
+gcloud run services delete ${ENVIRONMENT_NAME} --region ${GOOGLE_CLOUD_REGION} --quiet || echo "Service not running - cannot delete"
 
 # Create a service.yaml file for the Cloud Run service.
 SERVICE_YAML=$(mktemp)
@@ -51,13 +51,14 @@ spec:
 EOF
 
 echo "Deploying to Cloud Run..."
-gcloud run services replace ${SERVICE_YAML} --region us-central1
+gcloud run services replace ${SERVICE_YAML} --region ${GOOGLE_CLOUD_REGION}
 
 # Ensure the service is made public.
 gcloud run services add-iam-policy-binding ${ENVIRONMENT_NAME} \
     --member="allUsers" \
     --role="roles/run.invoker" \
-    --region us-central1
+    --region ${GOOGLE_CLOUD_REGION}
 
+CLOUDRUN_SERVICE_URL=$(gcloud run services describe ${ENVIRONMENT_NAME} --region ${GOOGLE_CLOUD_REGION} --format "value(status.url)" || echo "")
 echo "Fixie Slack bot deployed to ${CLOUDRUN_SERVICE_URL}"
 exit 0

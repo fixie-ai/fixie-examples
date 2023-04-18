@@ -5,10 +5,10 @@ import os
 import random
 from typing import Dict
 
-
 from fixieai.client import FixieClient
 from fixieai.client.session import Session
-from flask import Flask, request
+from flask import Flask
+from flask import request
 from slack_bolt import App
 from slack_bolt.adapter.flask import SlackRequestHandler
 
@@ -53,33 +53,42 @@ def slack_events():
 
 
 @app.event("app_mention")
-def handle_mention(client, message, event, say):
-    logging.info(f"handle_fixie_message called: {message}")
-    say("Whassup!")
+def handle_mention(client, event, say):
+    logging.info(f"handle_mention called: {event}")
+    try:
+        channel = event["channel"]
+        session = sessions.get(channel, None)
+        if not session:
+            # Create a new session for each channel.
+            session = Session(fixie_client)
+            sessions[channel] = session
 
-    channel = message["channel"]
-    session = sessions.get(channel, None)
-    if not session:
-        # Create a new session for each channel.
-        session = Session(fixie_client)
-        sessions[channel] = session
-
-    # Tell user that we're thinking.
-    client.chat_postMessage(
-        channel=message["channel"],
-        user=message["user"],
-        thread_ts=message.get("thread_ts", message["ts"]),
-        text=random.choice(_THINKING_RESPONSES),
-        reply_broadcast=False,
-    )
-
-    for message in session.run(message["text"]):
-        logging.info(f"Got Fixie message: {message}")
+        # Tell user that we're thinking.
         client.chat_postMessage(
             channel=event["channel"],
+            user=event["user"],
             thread_ts=event.get("thread_ts", event["ts"]),
-            text=message,
-            # TODO(mdw): Turn embeds into attachments.
-            # attachments=out_attachments,
+            text=random.choice(_THINKING_RESPONSES),
             reply_broadcast=False,
         )
+
+        for message in session.run(event["text"]):
+            logging.info(f"Got Fixie message: {message}")
+            text = message["text"]
+            if "sentBy" in message and "handle" in message["sentBy"]:
+                sentBy = message["sentBy"]["handle"] + ": "
+            else:
+                sentBy = ""
+
+            client.chat_postMessage(
+                channel=event["channel"],
+                thread_ts=event.get("thread_ts", event["ts"]),
+                text=f"{sentBy}{text}",
+                # TODO(mdw): Turn embeds into attachments.
+                # attachments=out_attachments,
+                reply_broadcast=False,
+            )
+
+    except Exception as e:
+        say(f"Sorry, I got an exception handling your query: {e}")
+        say(e)
