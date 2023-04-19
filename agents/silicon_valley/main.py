@@ -19,8 +19,8 @@ Func[fixie_query_corpus] says: Jian-Yang made the SeeFood app, which only recogn
 A: Jian-Yang made the SeeFood app, which only recognized pictures of hot dogs, in Season 4, Episode 4.
 Q: How did it go?
 Ask Func[fixie_query_corpus]: How did Jing-Yang's Hot Dog app go?
-Func[fixie_query_corpus] says: Jian-Yang's Hot Dog app was acquired by Periscope after pivoting the project as a filter for "dick pics".
-A: Jian-Yang's Hot Dog app was acquired by Periscope after pivoting the project as a filter for "dick pics".
+Func[fixie_query_corpus] says: Jian-Yang's Hot Dog app was acquired by Periscope.
+A: Jian-Yang's Hot Dog app was acquired by Periscope.
 """
 
 URLS = [
