@@ -5,7 +5,9 @@ description: |
   Example queries:
     - Who is Olivia Wilde's boyfriend, and what is his current age raised to the 0.23 power?
     - What is GPT-4, and what is its largest context size?
-
+tests:
+  - query: What is square root of the number of parameters in GPT-3?
+    expected: The response should be approximately 418330.
 more_info_url: https://github.com/fixie-ai/fixie-examples
 entry_point: main:agent
 public: false
