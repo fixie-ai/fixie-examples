@@ -1,7 +1,7 @@
 """
 This agent demonstrates how to use langchain's zero-shot ReAct chain in a Fixie standalone agent.
 Standalone agents give the developer complete control over query processing, but you'll need to
-specify your OPENAI_API_KEY (and also SERPAPI_API_KEY) in a local .env file to use this agent.
+specify your SERPAPI_API_KEY in a local .env file to use this agent.
 """
 
 import fixieai

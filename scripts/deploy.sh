@@ -19,10 +19,13 @@ for agent_dir in agents/*; do
         echo "Skipping $agent_dir: No agent.yaml file."
         continue
     fi
-    echo Deploying: $agent_dir
-    if [ -f $agent_dir/deploy.sh ]; then
-        (cd $agent_dir && ./deploy.sh) || echo "WARNING: Failed to deploy $agent_dir"
-    else
-        fixieai deploy --no-validate --public $agent_dir || echo "WARNING: Failed to deploy $agent_dir"
+
+    agent_name=$(basename $agent_dir)
+    if [ -f scripts/prepare/${agent_name}.sh ]; then
+        echo "Preparing $agent_name"
+        scripts/prepare/${agent_name}.sh $agent_dir
     fi
+
+    echo Deploying: $agent_dir
+    fixieai deploy --public $agent_dir || echo "WARNING: Failed to deploy $agent_name"
 done
