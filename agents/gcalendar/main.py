@@ -55,10 +55,10 @@ A: You have a daily sync from 10am to 11am, and a Datadog tutorial from 11am to 
 
 Q: What's on my calendar for the next week?
 Thought: I need to get the events from next Monday to next Friday.
-Ask Agent[time]: Tell me the exact date of next Monday
-Agent[time] says: Next Monday is December 12 2022.
-Ask Agent[time]: Tell me the exact date of next Friday
-Agent[time] says: Next Friday is December 16 2022.
+Ask Agent[fixie/time]: Tell me the exact date of next Monday
+Agent[fixie/time] says: Next Monday is December 12 2022.
+Ask Agent[fixie/time]: Tell me the exact date of next Friday
+Agent[fixie/time] says: Next Friday is December 16 2022.
 Ask Func[events]: { "start": "December 12 2022 12:01 AM", \
 "end": "December 16 2022 11:59 PM" }
 Func[events] says: title: 'Daily sync', start: Monday December 12 2022 10:00:00, \
@@ -87,8 +87,8 @@ Thought: I need to tell the user they don't have anything scheduled.
 A: You do not have any more meetings today.
 
 Q: What's on my calendar for next Tuesday?
-Ask Agent[time]: Tell me the exact date of next Tuesday
-Agent[time] says: Next Tuesday is December 13 2023.
+Ask Agent[fixie/time]: Tell me the exact date of next Tuesday
+Agent[fixie/time] says: Next Tuesday is December 13 2023.
 Ask Func[events]: { "start": "December 13 2023 12:01 AM", \
 "end": "December 13 2023 11:59 PM" }
 Func[events] says: title: 'custom meeting', \
@@ -120,8 +120,8 @@ for Thursday from 9am to 10am.
 Q: Do I have time for an hour long meeting tomorrow?
 Thought: I need to look for 1 hour of available time in user's work hours tomorrow.
 Func[workhours] says: 09:00 AM to 05:00 PM
-Ask Agent[time]: What is tomorrow's date?
-Agent[time] says: Tomorrow is December 21 2022
+Ask Agent[fixie/time]: What is tomorrow's date?
+Agent[fixie/time] says: Tomorrow is December 21 2022
 Ask Func[availability]: { \
 "start": "December 21 2022 09:00 AM", \
 "end": "December 21 2022 05:00 PM", \
@@ -136,8 +136,8 @@ Q: Do I have time for a 2 hours long meeting on next week's Wednesday?
 Thought: I need to look for 2 hours of available time in user's work hours next week's \
 Wednesday.
 Func[workhours] says: 10:00 AM to 06:00 PM
-Ask Agent[time]: Tell me the exact date of next week's Wednesday.
-Agent[time] says: Next week's Wednesday is December 21 2022
+Ask Agent[fixie/time]: Tell me the exact date of next week's Wednesday.
+Agent[fixie/time] says: Next week's Wednesday is December 21 2022
 Ask Func[availability]: \
 { "start": "December 21 2022 10:00 AM", \
 "end": "December 21 2022 06:00 PM", \
@@ -150,8 +150,8 @@ A: You can have a 2 hours long meeting next week Wednesday at 10am or 1pm.
 Q: Do I have time for an hour long meeting on next week's Tuesday?
 Thought: I need to look for 1 hour of available time in user's work hours next Tuesday.
 Func[workhours] says: 09:00 AM to 05:00 PM
-Ask Agent[time]: Tell me the exact date of next week's Tuesday.
-Agent[time] says: Next week's Tuesday is December 20 2022
+Ask Agent[fixie/time]: Tell me the exact date of next week's Tuesday.
+Agent[fixie/time] says: Next week's Tuesday is December 20 2022
 Ask Func[availability]: \
 { "start": "December 20 2022 09:00 AM", \
 "end": "December 20 2022 05:00 PM", \
@@ -164,8 +164,8 @@ A: You can have an hour long meeting next week Tuesday at 10am, 1pm, 2pm or 3pm.
 
 Q: Can you schedule an hour-long meeting with developers@fixie.ai on Tuesday at 10am \
 to discuss M4 readiness?
-Ask Agent[time]: Tell me the exact date of Tuesday.
-Agent[time] says: Tuesday is December 27 2022
+Ask Agent[fixie/time]: Tell me the exact date of Tuesday.
+Agent[fixie/time] says: Tuesday is December 27 2022
 Thought: I need to schedule a new event.
 Ask Func[schedule]: \
 { "start": "December 27 2022 10:00 AM", \
@@ -184,8 +184,8 @@ Ask Agent[gcalendar]: When is the first available half an hour time slot for me?
 Agent[gcalendar] says: You are free tomorrow from 9am to 10am and then from 2pm to 5pm.
 Thought: I'm going to schedule a meeting at 9am tomorrow since it's the first \
 available slot.
-Ask Agent[time]: What is tomorrow's date?
-Agent[time] says: Tomorrow is Tuesday December 27
+Ask Agent[fixie/time]: What is tomorrow's date?
+Agent[fixie/time] says: Tomorrow is Tuesday December 27
 Ask Func[schedule]: \
 { "start": "Tuesday December 27 09:00 AM", \
 "duration": "0:30:00", \
@@ -200,8 +200,8 @@ Thought: I first need to ask the calendar agent for the availability on Friday.
 Ask Agent[gcalendar]: Do I have time for a 45 minutes meeting on Friday?
 Agent[gcalendar] says: You are free from 9am to 10am and then from 2pm to 5pm.
 Thought: I'm going to schedule a meeting at 9am since it's the first available slot.
-Ask Agent[time]: What is Friday's exact date?
-Agent[time] says: Friday is December 23 2022
+Ask Agent[fixie/time]: What is Friday's exact date?
+Agent[fixie/time] says: Friday is December 23 2022
 Ask Func[schedule]: \
 { "start": "December 23 2022 09:00 AM", \
 "duration": "0:45:00", \
@@ -214,8 +214,8 @@ Q: Schedule a 2 hours long sync meeting next week with somegiven@email.com
 Thought: I first need to ask the calendar agent for the availability the next week.
 Ask Agent[gcalendar]: Do I have time for a 2 hours long meeting next week?
 Agent[gcalendar] says: You have two hours available on Thursday from 1pm to 3pm.
-Ask Agent[time]: Tell me the exact date of next Thursday
-Agent[time] says: Next Thursday is December 22 2022
+Ask Agent[fixie/time]: Tell me the exact date of next Thursday
+Agent[fixie/time] says: Next Thursday is December 22 2022
 Thought: I'm going to schedule a meeting on next Thursday at 1pm.
 Ask Func[schedule]: \
 { "start": "December 22 2022 01:00 PM", \
@@ -233,8 +233,8 @@ Ask Agent[gcalendar]: Do I have time for a 45 minutes long meeting next \
 Wednesday?
 Agent[gcalendar] says: You have 45 minutes available on next Wednesday at 11am, \
 11:45am, 2pm, 2:45pm, and 4pm.
-Ask Agent[time]: Tell me the exact date of next Wednesday
-Agent[time] says: Next Wednesday is December 21 2022
+Ask Agent[fixie/time]: Tell me the exact date of next Wednesday
+Agent[fixie/time] says: Next Wednesday is December 21 2022
 Thought: I'm going to schedule a meeting on next Wednesday at 11am.
 Ask Func[schedule]: \
 { "start": "December 21 2022 11:00 AM", \
