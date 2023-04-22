@@ -3,14 +3,13 @@
 # to cover all of the broader things that DataDog could do.
 
 import fixieai
-
-from datadog_api_client import ApiClient, Configuration
+from datadog_api_client import ApiClient
+from datadog_api_client import Configuration
 from datadog_api_client.v2.api.logs_api import LogsApi
 from datadog_api_client.v2.model.logs_list_request import LogsListRequest
 from datadog_api_client.v2.model.logs_list_request_page import LogsListRequestPage
 from datadog_api_client.v2.model.logs_query_filter import LogsQueryFilter
 from datadog_api_client.v2.model.logs_sort import LogsSort
-
 
 configuration = Configuration()
 
