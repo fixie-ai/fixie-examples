@@ -18,23 +18,23 @@ BASE_PROMPT = """I'm an agent that can communicate with Datadog."""
 FEW_SHOTS = """
 Q: Find logs that match the query "source:gcp.cloud.run.revision stars"
 Ask Func[query_logs]: source:gcp.cloud.run.revision stars
-Func[query_logs] says: Agent[fixie/fixie] response: The Chinese flag has five stars.
-Agent[fixie/fixie] got Agent[router]: The Chinese flag has five stars.
-Agent[fixie/search] response: The Chinese flag has five stars.
-A: Func[query_logs] says: Agent[fixie/fixie] response: The Chinese flag has five stars.
-Agent[fixie/fixie] got Agent[router]: The Chinese flag has five stars.
-Agent[fixie/search] response: The Chinese flag has five stars.
+Func[query_logs] says: I found 2 log entries matching your query.
+2023-04-21 11:32:04: The Chinese flag has five stars.
+2023-04-21 11:32:03: How many stars are on the Chinese flag?
+A: I found 2 log entries matching your query.
+2023-04-21 11:32:04: The Chinese flag has five stars.
+2023-04-21 11:32:03: How many stars are on the Chinese flag?
 
 Q: Show me logs that match the term peanuts
 Ask Func[query_logs]: peanuts
 Func[query_logs] says: I found 3 log entries matching your query.
-This log entry contains peanuts.
-Another log entry contains peanuts.
-There are many people for whom peanuts are a food allergy.
+2023-02-14 05:44:01: This log entry contains peanuts.
+2023-02-14 05:44:01: Another log entry contains peanuts.
+2023-02-14 05:44:00: There are many people for whom peanuts are a food allergy.
 A: I found 3 log entries matching your query.
-This log entry contains peanuts.
-Another log entry contains peanuts.
-There are many people for whom peanuts are a food allergy.
+2023-02-14 05:44:01: This log entry contains peanuts.
+2023-02-14 05:44:01: Another log entry contains peanuts.
+2023-02-14 05:44:00: There are many people for whom peanuts are a food allergy.
 """
 agent = fixieai.CodeShotAgent(BASE_PROMPT, FEW_SHOTS)
 
