@@ -44,7 +44,7 @@ class HelloWorldIntentHandler(AbstractRequestHandler):
 
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
-        speak_output = "Hello Python World from Classes!"
+        speak_output = "Your mother was a hamster, and your father smelt of elderberries!"
 
         return (
             handler_input.response_builder
