@@ -14,7 +14,7 @@
       "skillInfrastructure": {
         "userConfig": {
           "runtime": "python3.9",
-          "handler": "hello_world.handler",
+          "handler": "fixie_skill.handler",
           "awsRegion": "us-east-1"
         },
         "type": "@ask-cli/lambda-deployer"
