@@ -1,0 +1,24 @@
+{
+  "askcliResourcesVersion": "2020-03-31",
+  "profiles": {
+    "default": {
+      "skillId": "",
+      "skillMetadata": {
+        "src": "./skill-package"
+      },
+      "code": {
+        "default": {
+          "src": "./lambda"
+        }
+      },
+      "skillInfrastructure": {
+        "userConfig": {
+          "runtime": "python3.9",
+          "handler": "hello_world.handler",
+          "awsRegion": "us-east-1"
+        },
+        "type": "@ask-cli/lambda-deployer"
+      }
+    }
+  }
+}
