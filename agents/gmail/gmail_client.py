@@ -6,9 +6,9 @@ import datetime
 import logging
 from typing import List, Optional
 
+import bs4
 import googleapiclient.discovery
 import googleapiclient.errors
-from bs4 import BeautifulSoup
 from google.oauth2 import credentials as gcreds
 
 logger = logging.getLogger(__name__)
@@ -170,5 +170,5 @@ def _body_to_human_readable(body: str) -> str:
     """
     body = base64.urlsafe_b64decode(body).decode("utf-8")
     # If the body is HTML, we want to extract the text from it.
-    body = BeautifulSoup(body, "html.parser").get_text(separator="\n")
+    body = bs4.BeautifulSoup(body, "html.parser").get_text(separator="\n")
     return body.strip()

@@ -5,10 +5,10 @@ It can:
 * Search or filter your email.
 """
 
-import sys
 import base64
-import json
 import datetime
+import json
+import sys
 
 import fixieai
 import gmail_client
@@ -143,7 +143,9 @@ def list(
         # Note not to add "#" at the start of embeds_dict keys.
         embeds_dict = {f"{EMBED_NAME}{i}": embed for i, embed in enumerate(embeds)}
 
-        message_text = f"You have {len(messages)} unread emails:\n" + "\n".join(message_lines)
+        message_text = f"You have {len(messages)} unread emails:\n" + "\n".join(
+            message_lines
+        )
         return fixieai.Message(text=message_text, embeds=embeds_dict)
     else:
         return fixieai.Message(text="No emails matched the filter.")
