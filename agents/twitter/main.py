@@ -9,19 +9,15 @@ from cachetools import cached
 from llama_index import GPTSimpleVectorIndex
 from llama_index import download_loader
 
-# To use this Agent, you'll need to create a Twitter developer account put your bearer token in a
-# file called twittertoken.txt. This can be done at:  https://developer.twitter.com/
-with open("twittertoken.txt") as f:
-    TWITTER_BEARER = f.readline().strip()
-
-# You'll also need your own OpenAI API key, since LlamaIndex uses OpenAI's GPT-3 API to generate
-# embeddings.
-with open("openaikey.txt") as f:
-    os.environ["OPENAI_API_KEY"] = f.readline().strip()
+# To use this Agent, you'll need to create a Twitter developer account put your bearer token in
+# the TWITTER_BEARER_TOKEN environment variable. See https://developer.twitter.com/
+TWITTER_BEARER_TOKEN = os.environ.get("TWITTER_BEARER_TOKEN")
+if not TWITTER_BEARER_TOKEN:
+    raise ValueError("TWITTER_BEARER_TOKEN is not set!")
 
 # Create a TwitterTweetReader instance.
 TwitterTweetReader = download_loader("TwitterTweetReader")
-LOADER = TwitterTweetReader(bearer_token=TWITTER_BEARER)
+LOADER = TwitterTweetReader(bearer_token=TWITTER_BEARER_TOKEN)
 
 BASE_PROMPT = """I am a basic Twitter agent. I can tell you what people are tweeting about. If someone is famous, I can find their Twitter handle for you. Otherwise, you'll need to tell me their handle directly."""
 
@@ -57,7 +53,7 @@ def load_tweets(handle: str) -> GPTSimpleVectorIndex:
         handle = handle[1:]
     print(f"Loading tweets for @{handle}")
     documents = LOADER.load_data(twitterhandles=[handle])
-    return GPTSimpleVectorIndex(documents)
+    return GPTSimpleVectorIndex.from_documents(documents)
 
 
 @agent.register_func()

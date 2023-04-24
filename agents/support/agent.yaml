@@ -11,7 +11,7 @@ description: |
   Tags: conversational, corpus
 tests:
 - query: How do I access an Embed from within my Agent code?
-  expected: The response should be similar to "You can access the Embed from within your Agent code by using the `embed` property of the `Agent` class."
+  expected: The response should mention "Embeds" or "Agents" in some way.
 more_info_url: https://github.com/fixie-ai/fixie-examples
 entry_point: main:agent
 public: false

@@ -1,0 +1,6 @@
+handle: datadog
+description: |
+  The `datadog` agent can issue queries to Datadog.
+more_info_url: https://github.com/fixie-ai/fixie-examples
+entry_point: main:agent
+public: false

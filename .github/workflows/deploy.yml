@@ -85,6 +85,15 @@ jobs:
     - name: Install Poetry Action
       uses: snok/install-poetry@v1.3.1
 
+    - name: Setup auth
+      id: auth
+      uses: google-github-actions/auth@v0
+      with:
+        credentials_json: '${{ secrets.GCP_SA_KEY }}'
+
+    - name: Set up credentials file
+      run: echo '${{secrets.GCP_SA_KEY}}' > ./service_account.json
+
     - name: Install dependencies
       run: |
         just install
