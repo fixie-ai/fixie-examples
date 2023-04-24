@@ -1,7 +1,7 @@
 """GMail` agent example!
 
 It can:
-* Check your email.
+* Check your email and read it for you.
 * Search or filter your email.
 """
 
@@ -27,7 +27,7 @@ except FileNotFoundError:
     sys.exit(4)
 
 USER_TIMEZONE = datetime.timezone(datetime.timedelta(hours=-8))
-EMBED_NAME = "email"
+EMBED_NAME = "doc"
 
 BASE_PROMPT = """I am an intelligent email agent that can check your google mail (Gmail) account for messages.
 The messages will end with <END> to indicate the end of the message, \
@@ -68,7 +68,7 @@ A: You have 2 unread emails:
 2. You wouldn't believe what ...
 Q: read me the email from Fixie.
 Thought: I need to retrieve the email from hello@fixie.ai by its ID.
-Ask Func[get_message]: { "message_id": "#doc10" }
+Ask Func[get_message]: #doc10
 Func[get_message] says: Title: Welcome to Fixie!
 From: hello@fixie.ai
 To: me@mail.com
@@ -94,20 +94,30 @@ A: You have 3 emails from Jason in your inbox:
 1. We Are in Trouble (From: Jason on Dec 14, 2020)
 2. An update regarding the CRA strike and filing your taxes (From Jason on Apr 12, 2019)
 3. What a doozy! (From: Not Jason on March 8, 2019)
-Q: Read me the third email?
-Thought: I need to retrieve the third email from the list by its ID.
-Ask Func[get_message]: { "message_id": "#doc7" }
+Q: Read me the first and last email
+Thought: I need to retrieve the first and last emails from the list by their IDs.
+Ask Func[get_message]: #doc8 #doc7
 Func[get_message] says: Title: What a doozy!
 From: Jason not_jason@not_jason.com
 Date: Jan 1, 2021
 I just wanted to acknowledge what a tough time this is for everyone, but I'm confident we can find a solution together.
 Let me know if you want to chat! <END>
-Thought: I need to repeat back this email.
+Title: We Are in Trouble
+From: Jason jason_dude@gmail.com
+To: Myself me@email.com
+Date: Dec 14, 2020
+Call me ASAP. <END>
+Thought: I need to repeat back both emails.
 A: Title: What a doozy!
 From: Jason not_jason@not_jason.com
 Date: Jan 1, 2021
 I just wanted to acknowledge what a tough time this is for everyone, but I'm confident we can find a solution together.
 Let me know if you want to chat!
+Title: We Are in Trouble
+From: Jason jason_dude@gmail.com
+To: Myself me@email.com
+Date: Dec 14, 2020
+Call me ASAP.
 """
 agent = fixieai.CodeShotAgent(
     BASE_PROMPT, FEW_SHOTS, conversational=True, oauth_params=oauth_params
@@ -157,8 +167,12 @@ def get_message(query: fixieai.Message) -> str:
     if not query.embeds:
         return "You need to specify the embed ID of the message you want to read."
 
-    email_embed = next(iter(query.embeds.values()))
-    return fixieai.Message(text=email_embed.text)
+    for embed in query.embeds.values():
+        if embed.content_type != "text/plain":
+            return f"I can only read plain-text emails specified by #{EMBED_NAME}."
+
+    embed_texts = [embed.text for embed in query.embeds.values()]
+    return "\n\n".join(embed_texts)
 
 
 def content_to_uri(content: str) -> str:
