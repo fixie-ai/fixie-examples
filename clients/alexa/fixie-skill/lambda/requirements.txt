@@ -1,1 +1,2 @@
 ask-sdk-core>=1.10.2
+fixieai>=0.2.17
