@@ -128,7 +128,10 @@ agent = fixieai.CodeShotAgent(
 def list(
     query: fixieai.Message, oauth_handler: fixieai.OAuthHandler
 ) -> fixieai.Message:
-    """List emails in user's inbox."""
+    """List emails in user's inbox.
+
+    It allows free-form search queries using Gmail search operators, e.g. from/to/subject.
+    """
     user_token = oauth_handler.user_token()
     if user_token is None:
         return oauth_handler.get_authorization_url() or ""
@@ -163,7 +166,10 @@ def list(
 
 @agent.register_func
 def get_message(query: fixieai.Message) -> str:
-    """Get a specific message."""
+    """Get and print a specific message.
+
+    It simply loads the text of embeds from a previous `list` command.
+    """
     if not query.embeds:
         return "You need to specify the embed ID of the message you want to read."
 
