@@ -1,0 +1,12 @@
+handle: gmail
+description: |
+  The `gmail` agent can check your emails and search or display them for you!
+
+  Example queries:
+    - What are my latest emails?
+    - Get me a list of emails from Jason.
+    - Show me the latest email from the list.
+  
+  Tags: oauth, email, assistant
+more_info_url: https://github.com/fixie-ai/fixie-examples
+entry_point: main:agent

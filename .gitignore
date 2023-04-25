@@ -1,3 +1,6 @@
+# OAuth secrets file
+gcp-oauth-secrets.json
+
 # IDE stuff
 .idea/
 
