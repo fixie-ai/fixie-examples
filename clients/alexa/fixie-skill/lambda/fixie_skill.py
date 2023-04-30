@@ -17,13 +17,17 @@ from fixieai.client.session import Session
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
+logger.info("Fixie skill initializing")
+
 if not os.environ.get("FIXIE_API_KEY"):
+    logger.error("No FIXIE_API_KEY set")
     raise Exception(
         "FIXIE_API_KEY environment variable is not set. "
         "Please set this value in the AWS Lambda console for your Skill's Lambda function."
     )
 
 fixie_client = FixieClient()
+logger.info(f"Got fixie_client {fixie_client}")
 
 
 class LaunchRequestHandler(AbstractRequestHandler):
@@ -49,9 +53,16 @@ class FixieIntentHandler(AbstractRequestHandler):
 
     def handle(self, handler_input):
         # Create a new session for each invocation.
-        session = Session(fixie_client)
+        logger.info("FixieIntentHandler handle() called")
         request = ask_utils.get_slot(handler_input, "query").value
+        logger.info(f"FixieIntentHandler handle: query is: {request}")
+
+        session = Session(fixie_client)
+        logger.info(f"FixieIntentHandler handle: session is: {session}")
+
         response = session.query(request)
+        logger.info(f"FixieIntentHandler handle: response is: {response}")
+
         return (
             handler_input.response_builder.speak(response)
             # .ask("add a reprompt if you want to keep the session open for the user to respond")
@@ -131,6 +142,7 @@ class CatchAllExceptionHandler(AbstractExceptionHandler):
         return True
 
     def handle(self, handler_input, exception):
+        logger.info("CatchAllExceptionHandler called")
         logger.error(exception, exc_info=True)
         speak_output = "Sorry, I had trouble doing what you asked. Please try again."
         return (
