@@ -3,18 +3,18 @@
     "publishingInformation": {
       "locales": {
         "en-US": {
-          "summary": "Sample Short Description",
+          "summary": "Fixie Skill for Alexa",
           "examplePhrases": [
-            "Alexa open hello world",
-            "hello",
-            "help"
+            "Alexa tell Fixie App",
+            "Fixie",
+            "Fixie App"
           ],
           "name": "fixie-skill",
-          "description": "Sample Full Description"
+          "description": "The Fixie Skill forwards requests to Fixie."
         }
       },
       "isAvailableWorldwide": true,
-      "testingInstructions": "Sample Testing Instructions.",
+      "testingInstructions": "Sample testing instructions go here.",
       "distributionCountries": []
     },
     "apis": {

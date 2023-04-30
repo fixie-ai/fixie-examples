@@ -1,7 +1,7 @@
 {
     "interactionModel": {
         "languageModel": {
-            "invocationName": "hello world",
+            "invocationName": "fixie app",
             "intents": [
                 {
                     "name": "AMAZON.CancelIntent",
@@ -16,16 +16,15 @@
                     "samples": []
                 },
                 {
-                    "name": "HelloWorldIntent",
+                    "name": "FixieIntent",
                     "slots": [],
                     "samples": [
-                        "hello",
-                        "how are you",
-                        "say hi world",
-                        "say hi",
-                        "hi",
-                        "say hello world",
-                        "say hello"
+                        "how many stars are on the chinese flag",
+                        "what is the square root of one thousand two hundred and ninety two",
+                        "how many issues are open in the fixie repo",
+                        "what's on my calendar today",
+                        "what is the weather in seattle",
+                        "search the web for information about manatees"
                     ]
                 },
                 {
