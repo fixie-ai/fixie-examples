@@ -1,4 +1,4 @@
-#!/Users/mdw/src/fixie/fixie-examples/clients/alexa/fixie-skill/.ask/lambda/venv/bin/python
+#!/home/mdw/src/fixie-examples/clients/alexa/fixie-skill/.ask/lambda/venv/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys

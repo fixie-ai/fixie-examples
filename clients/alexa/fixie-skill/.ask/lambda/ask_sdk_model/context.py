@@ -24,13 +24,14 @@ if typing.TYPE_CHECKING:
     from typing import Dict, List, Optional, Union, Any
     from datetime import datetime
     from ask_sdk_model.interfaces.alexa.presentation.apl.rendered_document_state import RenderedDocumentState as RenderedDocumentState_4fad8b14
-    from ask_sdk_model.interfaces.viewport.viewport_state import ViewportState as ViewportState_a05eceb9
-    from ask_sdk_model.interfaces.viewport.typed_viewport_state import TypedViewportState as TypedViewportState_c366f13e
-    from ask_sdk_model.interfaces.audioplayer.audio_player_state import AudioPlayerState as AudioPlayerState_ac652451
     from ask_sdk_model.interfaces.automotive.automotive_state import AutomotiveState as AutomotiveState_2b614eea
     from ask_sdk_model.interfaces.alexa.experimentation.experimentation_state import ExperimentationState as ExperimentationState_37bb7c62
     from ask_sdk_model.interfaces.alexa.extension.extensions_state import ExtensionsState as ExtensionsState_f02207d3
     from ask_sdk_model.interfaces.applink.app_link_state import AppLinkState as AppLinkState_370eda23
+    from ask_sdk_model.interfaces.alexa.presentation.presentation_state import PresentationState as PresentationState_fe98e61a
+    from ask_sdk_model.interfaces.viewport.viewport_state import ViewportState as ViewportState_a05eceb9
+    from ask_sdk_model.interfaces.viewport.typed_viewport_state import TypedViewportState as TypedViewportState_c366f13e
+    from ask_sdk_model.interfaces.audioplayer.audio_player_state import AudioPlayerState as AudioPlayerState_ac652451
     from ask_sdk_model.interfaces.geolocation.geolocation_state import GeolocationState as GeolocationState_5225020d
     from ask_sdk_model.interfaces.system.system_state import SystemState as SystemState_22fcb230
     from ask_sdk_model.interfaces.display.display_state import DisplayState as DisplayState_726e4959
@@ -42,6 +43,8 @@ class Context(object):
 
     :param system: Provides information about the current state of the Alexa service and the device interacting with your skill.
     :type system: (optional) ask_sdk_model.interfaces.system.system_state.SystemState
+    :param alexa_presentation: Provides the current state for the Alexa.Presentation interface.
+    :type alexa_presentation: (optional) ask_sdk_model.interfaces.alexa.presentation.presentation_state.PresentationState
     :param alexa_presentation_apl: Provides the current state for the Alexa.Presentation.APL interface.
     :type alexa_presentation_apl: (optional) ask_sdk_model.interfaces.alexa.presentation.apl.rendered_document_state.RenderedDocumentState
     :param audio_player: Provides the current state for the AudioPlayer interface.
@@ -68,6 +71,7 @@ class Context(object):
     """
     deserialized_types = {
         'system': 'ask_sdk_model.interfaces.system.system_state.SystemState',
+        'alexa_presentation': 'ask_sdk_model.interfaces.alexa.presentation.presentation_state.PresentationState',
         'alexa_presentation_apl': 'ask_sdk_model.interfaces.alexa.presentation.apl.rendered_document_state.RenderedDocumentState',
         'audio_player': 'ask_sdk_model.interfaces.audioplayer.audio_player_state.AudioPlayerState',
         'automotive': 'ask_sdk_model.interfaces.automotive.automotive_state.AutomotiveState',
@@ -83,6 +87,7 @@ class Context(object):
 
     attribute_map = {
         'system': 'System',
+        'alexa_presentation': 'Alexa.Presentation',
         'alexa_presentation_apl': 'Alexa.Presentation.APL',
         'audio_player': 'AudioPlayer',
         'automotive': 'Automotive',
@@ -97,12 +102,14 @@ class Context(object):
     }  # type: Dict
     supports_multiple_types = False
 
-    def __init__(self, system=None, alexa_presentation_apl=None, audio_player=None, automotive=None, display=None, geolocation=None, viewport=None, viewports=None, extensions=None, alexa_data_store_package_manager=None, app_link=None, experimentation=None):
-        # type: (Optional[SystemState_22fcb230], Optional[RenderedDocumentState_4fad8b14], Optional[AudioPlayerState_ac652451], Optional[AutomotiveState_2b614eea], Optional[DisplayState_726e4959], Optional[GeolocationState_5225020d], Optional[ViewportState_a05eceb9], Optional[List[TypedViewportState_c366f13e]], Optional[ExtensionsState_f02207d3], Optional[PackageManagerState_9a27c921], Optional[AppLinkState_370eda23], Optional[ExperimentationState_37bb7c62]) -> None
+    def __init__(self, system=None, alexa_presentation=None, alexa_presentation_apl=None, audio_player=None, automotive=None, display=None, geolocation=None, viewport=None, viewports=None, extensions=None, alexa_data_store_package_manager=None, app_link=None, experimentation=None):
+        # type: (Optional[SystemState_22fcb230], Optional[PresentationState_fe98e61a], Optional[RenderedDocumentState_4fad8b14], Optional[AudioPlayerState_ac652451], Optional[AutomotiveState_2b614eea], Optional[DisplayState_726e4959], Optional[GeolocationState_5225020d], Optional[ViewportState_a05eceb9], Optional[List[TypedViewportState_c366f13e]], Optional[ExtensionsState_f02207d3], Optional[PackageManagerState_9a27c921], Optional[AppLinkState_370eda23], Optional[ExperimentationState_37bb7c62]) -> None
         """
 
         :param system: Provides information about the current state of the Alexa service and the device interacting with your skill.
         :type system: (optional) ask_sdk_model.interfaces.system.system_state.SystemState
+        :param alexa_presentation: Provides the current state for the Alexa.Presentation interface.
+        :type alexa_presentation: (optional) ask_sdk_model.interfaces.alexa.presentation.presentation_state.PresentationState
         :param alexa_presentation_apl: Provides the current state for the Alexa.Presentation.APL interface.
         :type alexa_presentation_apl: (optional) ask_sdk_model.interfaces.alexa.presentation.apl.rendered_document_state.RenderedDocumentState
         :param audio_player: Provides the current state for the AudioPlayer interface.
@@ -129,6 +136,7 @@ class Context(object):
         self.__discriminator_value = None  # type: str
 
         self.system = system
+        self.alexa_presentation = alexa_presentation
         self.alexa_presentation_apl = alexa_presentation_apl
         self.audio_player = audio_player
         self.automotive = automotive

@@ -45,6 +45,8 @@ class Request(object):
         This is an abstract class. Use the following mapping, to figure out
         the model class to be instantiated, that sets ``type`` variable.
 
+        | Alexa.DataStore.PackageManager.InstallationError: :py:class:`ask_sdk_model.interfaces.alexa.datastore.packagemanager.installation_error.InstallationError`,
+        |
         | AlexaSkillEvent.SkillEnabled: :py:class:`ask_sdk_model.events.skillevents.skill_enabled_request.SkillEnabledRequest`,
         |
         | AlexaHouseholdListEvent.ListUpdated: :py:class:`ask_sdk_model.services.list_management.list_updated_event_request.ListUpdatedEventRequest`,
@@ -117,6 +119,8 @@ class Request(object):
         |
         | Reminders.ReminderUpdated: :py:class:`ask_sdk_model.services.reminder_management.reminder_updated_event_request.ReminderUpdatedEventRequest`,
         |
+        | Alexa.DataStore.PackageManager.UpdateRequest: :py:class:`ask_sdk_model.interfaces.alexa.datastore.packagemanager.update_request.UpdateRequest`,
+        |
         | Alexa.Presentation.APL.RuntimeError: :py:class:`ask_sdk_model.interfaces.alexa.presentation.apl.runtime_error_event.RuntimeErrorEvent`,
         |
         | Alexa.Presentation.HTML.RuntimeError: :py:class:`ask_sdk_model.interfaces.alexa.presentation.html.runtime_error_request.RuntimeErrorRequest`,
@@ -125,6 +129,8 @@ class Request(object):
         |
         | IntentRequest: :py:class:`ask_sdk_model.intent_request.IntentRequest`,
         |
+        | Alexa.DataStore.PackageManager.UsagesRemoved: :py:class:`ask_sdk_model.interfaces.alexa.datastore.packagemanager.usages_removed.UsagesRemoved`,
+        |
         | Dialog.API.Invoked: :py:class:`ask_sdk_model.interfaces.conversations.api_invocation_request.APIInvocationRequest`,
         |
         | Reminders.ReminderStarted: :py:class:`ask_sdk_model.services.reminder_management.reminder_started_event_request.ReminderStartedEventRequest`,
@@ -132,6 +138,8 @@ class Request(object):
         | AudioPlayer.PlaybackStopped: :py:class:`ask_sdk_model.interfaces.audioplayer.playback_stopped_request.PlaybackStoppedRequest`,
         |
         | PlaybackController.PreviousCommandIssued: :py:class:`ask_sdk_model.interfaces.playbackcontroller.previous_command_issued_request.PreviousCommandIssuedRequest`,
+        |
+        | Alexa.DataStore.PackageManager.UsagesInstalled: :py:class:`ask_sdk_model.interfaces.alexa.datastore.packagemanager.usages_installed.UsagesInstalled`,
         |
         | AlexaSkillEvent.SkillAccountLinked: :py:class:`ask_sdk_model.events.skillevents.account_linked_request.AccountLinkedRequest`,
         |
@@ -164,6 +172,7 @@ class Request(object):
     supports_multiple_types = False
 
     discriminator_value_class_map = {
+        'Alexa.DataStore.PackageManager.InstallationError': 'ask_sdk_model.interfaces.alexa.datastore.packagemanager.installation_error.InstallationError',
         'AlexaSkillEvent.SkillEnabled': 'ask_sdk_model.events.skillevents.skill_enabled_request.SkillEnabledRequest',
         'AlexaHouseholdListEvent.ListUpdated': 'ask_sdk_model.services.list_management.list_updated_event_request.ListUpdatedEventRequest',
         'Alexa.Presentation.APL.UserEvent': 'ask_sdk_model.interfaces.alexa.presentation.apl.user_event.UserEvent',
@@ -200,14 +209,17 @@ class Request(object):
         'Display.ElementSelected': 'ask_sdk_model.interfaces.display.element_selected_request.ElementSelectedRequest',
         'AlexaSkillEvent.SkillPermissionChanged': 'ask_sdk_model.events.skillevents.permission_changed_request.PermissionChangedRequest',
         'Reminders.ReminderUpdated': 'ask_sdk_model.services.reminder_management.reminder_updated_event_request.ReminderUpdatedEventRequest',
+        'Alexa.DataStore.PackageManager.UpdateRequest': 'ask_sdk_model.interfaces.alexa.datastore.packagemanager.update_request.UpdateRequest',
         'Alexa.Presentation.APL.RuntimeError': 'ask_sdk_model.interfaces.alexa.presentation.apl.runtime_error_event.RuntimeErrorEvent',
         'Alexa.Presentation.HTML.RuntimeError': 'ask_sdk_model.interfaces.alexa.presentation.html.runtime_error_request.RuntimeErrorRequest',
         'Dialog.InputRequest': 'ask_sdk_model.dialog.input_request.InputRequest',
         'IntentRequest': 'ask_sdk_model.intent_request.IntentRequest',
+        'Alexa.DataStore.PackageManager.UsagesRemoved': 'ask_sdk_model.interfaces.alexa.datastore.packagemanager.usages_removed.UsagesRemoved',
         'Dialog.API.Invoked': 'ask_sdk_model.interfaces.conversations.api_invocation_request.APIInvocationRequest',
         'Reminders.ReminderStarted': 'ask_sdk_model.services.reminder_management.reminder_started_event_request.ReminderStartedEventRequest',
         'AudioPlayer.PlaybackStopped': 'ask_sdk_model.interfaces.audioplayer.playback_stopped_request.PlaybackStoppedRequest',
         'PlaybackController.PreviousCommandIssued': 'ask_sdk_model.interfaces.playbackcontroller.previous_command_issued_request.PreviousCommandIssuedRequest',
+        'Alexa.DataStore.PackageManager.UsagesInstalled': 'ask_sdk_model.interfaces.alexa.datastore.packagemanager.usages_installed.UsagesInstalled',
         'AlexaSkillEvent.SkillAccountLinked': 'ask_sdk_model.events.skillevents.account_linked_request.AccountLinkedRequest',
         'Messaging.MessageReceived': 'ask_sdk_model.interfaces.messaging.message_received_request.MessageReceivedRequest',
         'Connections.Request': 'ask_sdk_model.interfaces.connections.connections_request.ConnectionsRequest',

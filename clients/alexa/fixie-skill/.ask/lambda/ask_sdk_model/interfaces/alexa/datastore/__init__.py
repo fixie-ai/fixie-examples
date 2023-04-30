@@ -21,4 +21,5 @@ from .dispatch_error_content import DispatchErrorContent
 from .commands_error import CommandsError
 from .data_store_internal_error import DataStoreInternalError
 from .device_unavailable_error import DeviceUnavailableError
+from .error import Error
 from .data_store_error import DataStoreError
