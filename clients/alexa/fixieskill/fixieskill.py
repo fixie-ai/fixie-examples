@@ -3,6 +3,12 @@
 import logging
 import os
 
+import requests
+
+from flask import Flask
+from ask_sdk_core.skill_builder import SkillBuilder
+from flask_ask_sdk.skill_adapter import SkillAdapter
+
 from ask_sdk_core.skill_builder import SkillBuilder
 from ask_sdk_core.dispatch_components import AbstractRequestHandler
 from ask_sdk_core.dispatch_components import AbstractExceptionHandler
@@ -14,20 +20,58 @@ from ask_sdk_model import Response
 from fixieai.client import FixieClient
 from fixieai.client.session import Session
 
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
+logging.basicConfig(level=logging.INFO)
+logging.info("Fixie skill initializing")
 
-logger.info("Fixie skill initializing")
+if not os.environ.get("ALEXA_SKILL_ID"):
+    logging.error("No ALEXA_SKILL_ID set")
+    raise Exception("ALEXA_SKILL_ID environment variable not set.")
+
+ALEXA_SKILL_ID = os.environ.get("ALEXA_SKILL_ID")
+logging.info(f"Using Alexa Skill ID: {ALEXA_SKILL_ID}")
 
 if not os.environ.get("FIXIE_API_KEY"):
-    logger.error("No FIXIE_API_KEY set")
-    raise Exception(
-        "FIXIE_API_KEY environment variable is not set. "
-        "Please set this value in the AWS Lambda console for your Skill's Lambda function."
-    )
+    logging.error("No FIXIE_API_KEY set")
+    raise Exception("FIXIE_API_KEY environment variable is not set.")
 
 fixie_client = FixieClient()
-logger.info(f"Got fixie_client {fixie_client}")
+logging.info(f"Got fixie_client {fixie_client}")
+user_info = fixie_client.get_current_user()
+logging.info(f"Fixie client authenticated as {user_info['email']}")
+
+
+def send_progressive_response(handler_input):
+    # Get the API endpoint and request ID from the request envelope
+    api_endpoint = handler_input.request_envelope.context.system.api_endpoint
+    request_id = handler_input.request_envelope.request.request_id
+    access_token = handler_input.request_envelope.context.system.api_access_token
+
+    # Define the URL for the progressive response
+    progressive_response_url = f"{api_endpoint}/v1/directives"
+
+    # Define the headers for the progressive response
+    progressive_response_headers = {
+        "Authorization": f"Bearer {access_token}",
+        "Content-Type": "application/json",
+    }
+
+    # Define the payload for the progressive response
+    progressive_response_payload = {
+        "header": {"requestId": request_id},
+        "directive": {
+            "type": "VoicePlayer.Speak",
+            "speech": "I'm working on your request. Please wait a moment.",
+        },
+    }
+
+    logging.info("Sending progressive response")
+
+    # Send the progressive response
+    requests.post(
+        progressive_response_url,
+        headers=progressive_response_headers,
+        json=progressive_response_payload,
+    )
 
 
 class LaunchRequestHandler(AbstractRequestHandler):
@@ -53,15 +97,21 @@ class FixieIntentHandler(AbstractRequestHandler):
 
     def handle(self, handler_input):
         # Create a new session for each invocation.
-        logger.info("FixieIntentHandler handle() called")
-        request = ask_utils.get_slot(handler_input, "query").value
-        logger.info(f"FixieIntentHandler handle: query is: {request}")
+        logging.info("FixieIntentHandler handle() called")
 
-        session = Session(fixie_client)
-        logger.info(f"FixieIntentHandler handle: session is: {session}")
+        slots = handler_input.request_envelope.request.intent.slots
+        if "Query" in slots:
+            query = slots["Query"].value
+            logging.info(f"FixieIntentHandler handle: query is: {query}")
 
-        response = session.query(request)
-        logger.info(f"FixieIntentHandler handle: response is: {response}")
+            send_progressive_response(handler_input)
+
+            session = Session(fixie_client)
+            logging.info(f"FixieIntentHandler handle: session is: {session}")
+            response = session.query(query)
+            logging.info(f"FixieIntentHandler handle: response is: {response}")
+        else:
+            response = "You didn't seem to provide a Fixie query. Please try again."
 
         return (
             handler_input.response_builder.speak(response)
@@ -142,8 +192,8 @@ class CatchAllExceptionHandler(AbstractExceptionHandler):
         return True
 
     def handle(self, handler_input, exception):
-        logger.info("CatchAllExceptionHandler called")
-        logger.error(exception, exc_info=True)
+        logging.info("CatchAllExceptionHandler called")
+        logging.error(exception, exc_info=True)
         speak_output = "Sorry, I had trouble doing what you asked. Please try again."
         return (
             handler_input.response_builder.speak(speak_output)
@@ -157,15 +207,18 @@ class CatchAllExceptionHandler(AbstractExceptionHandler):
 # defined are included below. The order matters - they're processed top to bottom.
 
 sb = SkillBuilder()
-
 sb.add_request_handler(LaunchRequestHandler())
 sb.add_request_handler(FixieIntentHandler())
 sb.add_request_handler(HelpIntentHandler())
 sb.add_request_handler(CancelOrStopIntentHandler())
 sb.add_request_handler(SessionEndedRequestHandler())
-# make sure IntentReflectorHandler is last so it doesn't override your custom intent handlers
 sb.add_request_handler(IntentReflectorHandler())
-
 sb.add_exception_handler(CatchAllExceptionHandler())
 
-handler = sb.lambda_handler()
+app = Flask(__name__)
+skill_response = SkillAdapter(skill=sb.create(), skill_id=ALEXA_SKILL_ID, app=app)
+skill_response.register(app=app, route="/")
+
+if __name__ == "__main__":
+    logging.info("Fixie Skill Flask app running.")
+    app.run()

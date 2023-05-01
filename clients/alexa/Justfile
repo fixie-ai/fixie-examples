@@ -1,0 +1,64 @@
+# This is the Justfile for the Fixie Alexa Skill.
+
+
+# This causes the .env file to be read by Just.
+set dotenv-load := true
+
+# Allow for positional arguments in Just receipes.
+set positional-arguments := true
+
+# Set this to the Docker registry to use with gcloud.
+DOCKER_REGISTRY := "us-central1-docker.pkg.dev"
+# Set this to the name of the Docker image to build for the Alexa Skill.
+DOCKER_IMAGE := "us-central1-docker.pkg.dev/fixie-frame/fixie-frame/fixie-alexa-skill"
+# Set this to the name of the Google Cloud project to deploy the App to.
+GOOGLE_CLOUD_PROJECT := "fixie-frame"
+
+# Default recipe that runs if you type "just".
+default: format check typecheck
+
+# Install dependencies for local development.
+install:
+    pip install poetry
+    poetry install --sync
+
+# Format code.
+format:
+    poetry run autoflake . --remove-all-unused-imports --quiet --in-place -r --exclude third_party
+    poetry run isort . --force-single-line-imports
+    poetry run black .
+
+# Run code formatting checks.
+check:
+    poetry run black . --check
+    poetry run isort . --check --force-single-line-imports
+    poetry run autoflake . --check --quiet --remove-all-unused-imports -r --exclude third_party
+
+# Run typechecking on each agent subdirectory independently.
+typecheck:
+    poetry run mypy .
+
+# Run a Python REPL in the Poetry environment.
+python:
+    poetry run python
+
+# Run the poetry command with the local .env loaded.
+poetry *FLAGS:
+    poetry {{FLAGS}}
+
+# Run a new shell with the Poetry Pyenv environment and .env file loaded.
+shell:
+    poetry shell
+
+docker-build:
+    # Ensure docker can authenticate to the container registry.
+    gcloud auth configure-docker --quiet {{DOCKER_REGISTRY}}
+    # Build and push the Docker image for the frame app.
+    docker build --tag {{DOCKER_IMAGE}}:latest --platform linux/amd64 -f Dockerfile .
+    docker push {{DOCKER_IMAGE}}:latest
+
+deploy:
+    ./deploy-cloud-run.sh {{DOCKER_IMAGE}} {{GOOGLE_CLOUD_PROJECT}}
+
+dialog:
+    ask dialog -s ${ALEXA_SKILL_ID}

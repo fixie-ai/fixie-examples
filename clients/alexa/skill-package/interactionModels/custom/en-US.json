@@ -17,14 +17,18 @@
                 },
                 {
                     "name": "FixieIntent",
-                    "slots": [],
+                    "slots": [
+                        {
+                            "name": "Query",
+                            "type": "AMAZON.SearchQuery"
+                        }
+                    ],
                     "samples": [
-                        "how many stars are on the chinese flag",
-                        "what is the square root of one thousand two hundred and ninety two",
-                        "how many issues are open in the fixie repo",
-                        "what's on my calendar today",
-                        "what is the weather in seattle",
-                        "search the web for information about manatees"
+                        "what is {Query}",
+                        "find out {Query}",
+                        "search for {Query}",
+                        "ask fixie to {Query}",
+                        "give me details about {Query}"
                     ]
                 },
                 {
@@ -35,5 +39,4 @@
             "types": []
         }
     }
-  }
-  
+}
