@@ -14,6 +14,15 @@ A: Why don't cats play poker in the jungle? Too many cheetahs.
 
 Q: Tell me a joke about dinosaurs
 A: What do you call a blind dinosaur? A doyouthinkhesaurus.
+
+Q: penguins
+A: What do you call a penguin in the desert? Lost.
+
+Q: R2D2
+A: What do you call a droid that takes the long way around? R2 detour.
+
+Q: a cat and a mouse
+A: What do you call a cat and a mouse that live together? Cat and mouse mates.
 """
 
 agent = fixieai.CodeShotAgent(
