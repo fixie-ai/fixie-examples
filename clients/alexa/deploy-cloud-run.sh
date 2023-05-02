@@ -48,6 +48,8 @@ spec:
             value: ${ALEXA_SKILL_ID}
           - name: FIXIE_API_KEY
             value: ${FIXIE_API_KEY}
+          - name: FRONTEND_AGENT_ID
+            value: ${FRONTEND_AGENT_ID}
 EOF
 
 echo "Deploying to Cloud Run..."

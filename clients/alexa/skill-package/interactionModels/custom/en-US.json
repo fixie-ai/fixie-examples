@@ -24,10 +24,12 @@
                         }
                     ],
                     "samples": [
+                        "for {Query}",
+                        "to {Query}",
+                        "tell me about {Query}",
                         "what is {Query}",
                         "find out {Query}",
                         "search for {Query}",
-                        "ask fixie to {Query}",
                         "give me details about {Query}"
                     ]
                 },

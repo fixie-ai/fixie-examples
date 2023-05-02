@@ -23,12 +23,15 @@ from fixieai.client.session import Session
 logging.basicConfig(level=logging.INFO)
 logging.info("Fixie skill initializing")
 
+
 if not os.environ.get("ALEXA_SKILL_ID"):
     logging.error("No ALEXA_SKILL_ID set")
     raise Exception("ALEXA_SKILL_ID environment variable not set.")
-
 ALEXA_SKILL_ID = os.environ.get("ALEXA_SKILL_ID")
 logging.info(f"Using Alexa Skill ID: {ALEXA_SKILL_ID}")
+
+FRONTEND_AGENT_ID = os.environ.get("FRONTEND_AGENT_ID", None)
+logging.info(f"Using frontend agent ID: {FRONTEND_AGENT_ID}")
 
 if not os.environ.get("FIXIE_API_KEY"):
     logging.error("No FIXIE_API_KEY set")
@@ -106,7 +109,7 @@ class FixieIntentHandler(AbstractRequestHandler):
 
             send_progressive_response(handler_input)
 
-            session = Session(fixie_client)
+            session = Session(fixie_client, frontend_agent_id=FRONTEND_AGENT_ID)
             logging.info(f"FixieIntentHandler handle: session is: {session}")
             response = session.query(query)
             logging.info(f"FixieIntentHandler handle: response is: {response}")

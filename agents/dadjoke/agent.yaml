@@ -1,0 +1,12 @@
+handle: dadjoke
+name: Dad Jokes
+description: |
+  The `dadjoke` agent tells really terrible, punny Dad jokes.
+
+  tags: simple, no-fewshot, fun
+tests:
+  - query: Tell me a dad joke about dinosaurs
+    expected: The response should mention dinosaurs
+more_info_url: https://github.com/fixie-ai/fixie-examples
+entry_point: main:agent
+public: false
