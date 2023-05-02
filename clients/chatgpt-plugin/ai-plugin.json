@@ -1,0 +1,19 @@
+{
+    "schema_version": "v1",
+    "name_for_human": "Fixie Plugin",
+    "name_for_model": "fixie",
+    "description_for_human": "Plugin for communicating with Fixie.",
+    "description_for_model": "Plugin for communicating with Fixie.",
+    "auth": {
+      "type": "none"
+    },
+    "api": {
+      "type": "openapi",
+      "url": "http://localhost:5003/openapi.yaml",
+      "is_user_authenticated": false
+    },
+    "logo_url": "http://localhost:5003/logo.png",
+    "contact_email": "hello@fixie.ai",
+    "legal_info_url": "http://fixie.ai/tos"
+  }
+  

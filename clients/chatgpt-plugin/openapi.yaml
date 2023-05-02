@@ -1,0 +1,80 @@
+openapi: 3.0.1
+info:
+  title: Fixie Plugin
+  description: A plugin that allows the user to issue queries to agents hosted on Fixie.ai. If you do not know the agent that the user is trying to query, use the default Agent name "fixie/fixie".
+  version: 'v1'
+servers:
+  - url: http://localhost:5003
+paths:
+  /fixie/agents:
+    get:
+      operationId: getAgents
+      summary: Get the list of Agents
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getAgentsResponse'
+  /fixie/agents/{username}/{agentname}:
+    post:
+      operationId: queryAgent
+      summary: Send a query to the given Agent
+      parameters:
+      - in: path
+        name: username
+        schema:
+            type: string
+        required: true
+        description: The name of the user owning the Agent.
+      - in: path
+        name: agentname
+        schema:
+            type: string
+        required: true
+        description: The name of the Agent.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/queryAgentRequest'
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/queryAgentResponse'
+
+components:
+  schemas:
+    getAgentsResponse:
+      type: object
+      properties:
+        agents:
+          type: array
+          items:
+            type: string
+          description: The list of Agents.
+    queryAgentRequest:
+      type: object
+      required:
+      - query
+      properties:
+        query:
+          type: string
+          description: The query to send to the Agent.
+          required: true
+    queryAgentResponse:
+      type: object
+      properties:
+        response:
+          type: string
+          description: The response to the Agent query.
+        image_urls:
+          type: list
+          items:
+            type: string
+          description: Any image URLs associated with the response.

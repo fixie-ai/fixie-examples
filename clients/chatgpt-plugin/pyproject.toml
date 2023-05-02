@@ -1,0 +1,29 @@
+[tool.poetry]
+name = "fixie-chatgpt-plugin"
+version = "0.1.0"
+description = "A ChatGPT Plugin that talks to Fixie."
+authors = ["Matt Welsh <matt@fixie.ai>"]
+packages = [{include = "plugin"}]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+fixieai = "^0.2.15"
+Flask = "^2.2.3"
+gunicorn = "^20.1.0"
+Flask-Cors = "^3.0.10"
+
+[tool.poetry.dev-dependencies]
+black = "22.8.0"
+isort = "5.10.1"
+mypy = "^0.991"
+autoflake = "^1.6.1"
+
+[tool.mypy]
+python_version = "3.9"
+warn_return_any = true
+warn_unused_configs = true
+ignore_missing_imports = true
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
