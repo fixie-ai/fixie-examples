@@ -8,8 +8,8 @@
 
 import json
 import logging
-import string
 import os
+import string
 
 import flask
 import flask_cors
