@@ -2,7 +2,7 @@
 
 set -eux -o pipefail
 
-# This script deploys the Slack bot to Google Cloud Run.
+# This script deploys the ChatGPT Plugin to Google Cloud Run.
 # Invoke with:
 #   deploy-cloud-run.sh <docker image name and tag> <google cloud project ID>
 
@@ -17,9 +17,12 @@ GOOGLE_CLOUD_RUN_CONCURRENCY=80
 # Number of instances to run.
 MIN_INSTANCES="1"
 # Name of the Google Cloud Run environment.
-ENVIRONMENT_NAME="fixie-slackbot"
+ENVIRONMENT_NAME="fixie-chatgpt-plugin"
 
 gcloud run services delete ${ENVIRONMENT_NAME} --region ${GOOGLE_CLOUD_REGION} --quiet || echo "Service not running - cannot delete"
+
+# This will be filled in when the service is deployed.
+CHATGPT_PLUGIN_URL=""
 
 # Create a service.yaml file for the Cloud Run service.
 SERVICE_YAML=$(mktemp)
@@ -42,12 +45,10 @@ spec:
             cpu: "${GOOGLE_CLOUD_RUN_CPU}"
             memory: "${GOOGLE_CLOUD_RUN_MEMORY}"
         env:
-          - name: SLACK_BOT_TOKEN
-            value: ${SLACK_BOT_TOKEN}
-          - name: SLACK_SIGNING_SECRET
-            value: ${SLACK_SIGNING_SECRET}
           - name: FIXIE_API_KEY
             value: ${FIXIE_API_KEY}
+          - name: CHATGPT_PLUGIN_URL
+            value: ${CHATGPT_PLUGIN_URL}
 EOF
 
 echo "Deploying to Cloud Run..."
@@ -59,6 +60,11 @@ gcloud run services add-iam-policy-binding ${ENVIRONMENT_NAME} \
     --role="roles/run.invoker" \
     --region ${GOOGLE_CLOUD_REGION}
 
-CLOUDRUN_SERVICE_URL=$(gcloud run services describe ${ENVIRONMENT_NAME} --region ${GOOGLE_CLOUD_REGION} --format "value(status.url)" || echo "")
-echo "Fixie Slack bot deployed to ${CLOUDRUN_SERVICE_URL}"
+# Tell the service what its own URL is.
+CHATGPT_PLUGIN_URL=$(gcloud run services describe ${ENVIRONMENT_NAME} --region ${GOOGLE_CLOUD_REGION} --format "value(status.url)" || echo "")
+gcloud run services update ${ENVIRONMENT_NAME} \
+  --region us-central1 \
+  --update-env-vars CHATGPT_PLUGIN_URL=${CHATGPT_PLUGIN_URL}
+
+echo "Fixie ChatGPT Plugin deployed to ${CHATGPT_PLUGIN_URL}"
 exit 0

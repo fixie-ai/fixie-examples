@@ -8,6 +8,7 @@
 
 import json
 import logging
+import string
 import os
 
 import flask
@@ -21,6 +22,12 @@ logging.info(f"Fixie plugin initializing")
 # Create the Flask app and configure CORS.
 app = flask.Flask(__name__)
 cors = flask_cors.CORS(app, origins=["https://chat.openai.com"])
+
+
+# This is the deployment URL of the Plugin.
+CHATGPT_PLUGIN_URL = os.environ.get("CHATGPT_PLUGIN_URL", "http://localhost:5003")
+logging.info(f"Using CHATGPT_PLUGIN_URL {CHATGPT_PLUGIN_URL}")
+
 
 # We need the FIXIE_API_KEY environment variable for our Fixie client.
 if not os.environ.get("FIXIE_API_KEY"):
@@ -79,16 +86,20 @@ def plugin_logo():
 
 @app.get("/.well-known/ai-plugin.json")
 def plugin_manifest():
-    with open("./ai-plugin.json") as f:
-        text = f.read()
-        return flask.Response(text, mimetype="text/json")
+    with open("./ai-plugin.json", "r") as f:
+        raw_text = f.read()
+        template = string.Template(raw_text)
+        sub = template.substitute({"CHATGPT_PLUGIN_URL": CHATGPT_PLUGIN_URL})
+        return flask.Response(sub, mimetype="text/json")
 
 
 @app.get("/openapi.yaml")
 def openapi_spec():
-    with open("./openapi.yaml") as f:
-        text = f.read()
-        return flask.Response(text, mimetype="text/yaml")
+    with open("./openapi.yaml", "r") as f:
+        raw_text = f.read()
+        template = string.Template(raw_text)
+        sub = template.substitute({"CHATGPT_PLUGIN_URL": CHATGPT_PLUGIN_URL})
+        return flask.Response(sub, mimetype="text/yaml")
 
 
 def main():

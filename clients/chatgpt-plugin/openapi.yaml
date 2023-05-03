@@ -1,10 +1,13 @@
+# Please note that this document is processed using Python's strings.Template
+# to perform substitution on dollar-sign-prefixed variables. Please use a double
+# dollar sign to escape a dollar sign in the output.
 openapi: 3.0.1
 info:
   title: Fixie Plugin
   description: A plugin that allows the user to issue queries to agents hosted on Fixie.ai. If you do not know the agent that the user is trying to query, use the default Agent name "fixie/fixie".
   version: 'v1'
 servers:
-  - url: http://localhost:5003
+  - url: "$CHATGPT_PLUGIN_URL"
 paths:
   /fixie/agents:
     get:
@@ -16,7 +19,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/getAgentsResponse'
+                $$ref: '#/components/schemas/getAgentsResponse'
   /fixie/agents/{username}/{agentname}:
     post:
       operationId: queryAgent
@@ -39,14 +42,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/queryAgentRequest'
+              $$ref: '#/components/schemas/queryAgentRequest'
       responses:
         "200":
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/queryAgentResponse'
+                $$ref: '#/components/schemas/queryAgentResponse'
 
 components:
   schemas:

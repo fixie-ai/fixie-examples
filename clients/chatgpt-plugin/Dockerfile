@@ -11,7 +11,7 @@ ENV PYTHONFAULTHANDLER=1 \
 RUN pip install "poetry==$POETRY_VERSION"
 
 WORKDIR /code
-COPY poetry.lock pyproject.toml /code/
+COPY poetry.lock pyproject.toml logo.png ai-plugin.json openapi.yaml /code/
 COPY plugin/ /code/plugin/
 
 RUN poetry config virtualenvs.create false \
