@@ -24,13 +24,15 @@
                         }
                     ],
                     "samples": [
-                        "for {Query}",
-                        "to {Query}",
-                        "tell me about {Query}",
-                        "what is {Query}",
-                        "find out {Query}",
-                        "search for {Query}",
-                        "give me details about {Query}"
+                        "tell a joke about {Query}",
+                        "tell a bad joke about {Query}",
+                        "tell a dad joke about {Query}",
+                        "tell me a joke about {Query}",
+                        "tell me a bad joke about {Query}",
+                        "tell me a dad joke about {Query}",
+                        "tell a joke",
+                        "tell a bad joke",
+                        "tell a dad joke"
                     ]
                 },
                 {
