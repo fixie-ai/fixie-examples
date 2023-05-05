@@ -3,22 +3,15 @@
 import logging
 import os
 
-import requests
-
-from flask import Flask
-from ask_sdk_core.skill_builder import SkillBuilder
-from flask_ask_sdk.skill_adapter import SkillAdapter
-
-from ask_sdk_core.skill_builder import SkillBuilder
-from ask_sdk_core.dispatch_components import AbstractRequestHandler
-from ask_sdk_core.dispatch_components import AbstractExceptionHandler
 import ask_sdk_core.utils as ask_utils
-from ask_sdk_core.handler_input import HandlerInput
-
-from ask_sdk_model import Response
-
+import requests
+from ask_sdk_core.dispatch_components import AbstractExceptionHandler
+from ask_sdk_core.dispatch_components import AbstractRequestHandler
+from ask_sdk_core.skill_builder import SkillBuilder
 from fixieai.client import FixieClient
 from fixieai.client.session import Session
+from flask import Flask
+from flask_ask_sdk.skill_adapter import SkillAdapter
 
 logging.basicConfig(level=logging.INFO)
 logging.info("Fixie skill initializing")
