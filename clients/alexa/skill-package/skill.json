@@ -1,0 +1,29 @@
+{
+  "manifest": {
+    "publishingInformation": {
+      "locales": {
+        "en-US": {
+          "summary": "Fixie Skill for Alexa",
+          "examplePhrases": [
+            "Alexa tell Fixie App",
+            "Fixie",
+            "Fixie App"
+          ],
+          "name": "fixie-skill",
+          "description": "The Fixie Skill forwards requests to Fixie."
+        }
+      },
+      "isAvailableWorldwide": true,
+      "testingInstructions": "Sample testing instructions go here.",
+      "distributionCountries": []
+    },
+    "apis": {
+      "custom": {
+        "endpoint": {
+          "uri": "arn:aws:lambda:us-east-1:143421955230:function:ask-fixie-skill-default-default-1682825767378"
+        }
+      }
+    },
+    "manifestVersion": "1.0"
+  }
+}

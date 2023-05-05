@@ -1,0 +1,46 @@
+{
+    "interactionModel": {
+        "languageModel": {
+            "invocationName": "fixie app",
+            "intents": [
+                {
+                    "name": "AMAZON.CancelIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.HelpIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.StopIntent",
+                    "samples": []
+                },
+                {
+                    "name": "FixieIntent",
+                    "slots": [
+                        {
+                            "name": "Query",
+                            "type": "AMAZON.SearchQuery"
+                        }
+                    ],
+                    "samples": [
+                        "tell a joke about {Query}",
+                        "tell a bad joke about {Query}",
+                        "tell a dad joke about {Query}",
+                        "tell me a joke about {Query}",
+                        "tell me a bad joke about {Query}",
+                        "tell me a dad joke about {Query}",
+                        "tell a joke",
+                        "tell a bad joke",
+                        "tell a dad joke"
+                    ]
+                },
+                {
+                    "name": "AMAZON.NavigateHomeIntent",
+                    "samples": []
+                }
+            ],
+            "types": []
+        }
+    }
+}
