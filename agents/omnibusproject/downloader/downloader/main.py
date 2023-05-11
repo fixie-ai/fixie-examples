@@ -144,7 +144,12 @@ class Episode:
                 .get("channels", [{}])[0]
                 .get("alternatives", [{}])[0]
                 .get("transcript", "")
+                # Break each sentence onto its own line. The transcripts we get
+                # from Deepgram don't do this for us, and having everything on one
+                # single long line doesn't work well with our chunking logic.
+                .replace(". ", ".\n")
             )
+
         with tempfile.NamedTemporaryFile(suffix=".txt") as tmpfile:
             with open(tmpfile.name, "w") as outfile:
                 outfile.write(full_text)

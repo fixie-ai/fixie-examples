@@ -1,0 +1,6 @@
+handle: omnibusproject
+description: |
+  The `omnibusproject` agent answers questions about the hit podcast, The Omnibus Project.
+more_info_url: https://github.com/fixie-ai/fixie-examples
+entry_point: main:agent
+public: false
