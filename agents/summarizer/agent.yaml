@@ -1,4 +1,4 @@
-handle: tell-me-about-it
+handle: summarizer
 description: "I can summarize and answer questions about any web resource!"
 more_info_url: https://github.com/fixie-ai/fixie-examples
-entry_point: tell_me_about_it:agent
+entry_point: main:agent
