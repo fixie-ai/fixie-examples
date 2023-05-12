@@ -10,7 +10,7 @@ The agent works by downloading the audio for each episode, transcribing it using
 Deepgram speech-to-text AI model, and creating a Fixie agent using the resulting
 transcripts.
 
-You can try it yourself here: https://app.fixie.ai/agents/mdw/omnibusproject
+[Try it yourself!](https://app.fixie.ai/agents/mdw/omnibusproject)
 
 Try asking questions like:
 
