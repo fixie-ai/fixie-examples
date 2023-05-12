@@ -18,7 +18,7 @@ Try asking questions like:
 * Summarize the episode about Rhinos in Europe
 * Who was Magic Alex?
 
-If you want to run the agent yourself, here's how.
+## Running the agent yourself
 
 ## Downloading and transcribing the podcast audio
 
