@@ -36,7 +36,7 @@ For now, the contents of the bucket need to be world-readable for Fixie to be ab
 the transcripts and answer questions. You can do this by running:
 
 ```
-gsutil defacl set public-read gs://<your bucket name>
+$ gsutil defacl set public-read gs://<your bucket name>
 ```
 
 Next, create a Service Account with `storage.read` and `storage.write` permissions on this bucket, 
