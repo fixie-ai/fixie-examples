@@ -157,7 +157,7 @@ class Episode:
 
 @click.command()
 @click.option("--rss_feed", default=RSS_FEED, help="RSS feed to process.")
-@click.option("--gcs_bucket", default=GCS_BUCKET, help="GCS bucket to store data.")
+@click.option("--gcs_bucket", default=GCS_BUCKET, help="GCS bucket in which to store data.")
 @click.option("--output", default="episodes.yaml", help="The output YAML file.")
 @click.option('--skip_processing', is_flag=True)
 def download(rss_feed, gcs_bucket, output, skip_processing):

@@ -10,7 +10,7 @@ The agent works by downloading the audio for each episode, transcribing it using
 Deepgram speech-to-text AI model, and creating a Fixie agent using the resulting
 transcripts.
 
-You can try it yourself here: https://app.fixie.ai/agents/mdw/omnibusproject
+[Try it yourself!](https://app.fixie.ai/agents/mdw/omnibusproject)
 
 Try asking questions like:
 
@@ -18,7 +18,7 @@ Try asking questions like:
 * Summarize the episode about Rhinos in Europe
 * Who was Magic Alex?
 
-If you want to run the agent yourself, here's how.
+## Running the agent yourself
 
 ## Downloading and transcribing the podcast audio
 
@@ -36,7 +36,7 @@ For now, the contents of the bucket need to be world-readable for Fixie to be ab
 the transcripts and answer questions. You can do this by running:
 
 ```
-gsutil defacl set public-read gs://<your bucket name>
+$ gsutil defacl set public-read gs://<your bucket name>
 ```
 
 Next, create a Service Account with `storage.read` and `storage.write` permissions on this bucket, 
