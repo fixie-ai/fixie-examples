@@ -1,0 +1,7 @@
+handle: zapier
+description: |
+  The `zapier` agent answers questions about how to use Zapier, the amazing all-in-one
+  automation platform.
+more_info_url: https://github.com/fixie-ai/fixie-examples
+entry_point: main:agent
+public: false
