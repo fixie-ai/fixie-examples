@@ -85,6 +85,6 @@ $ fixie deploy
 ```
 
 from the `agents/omnibusproject` directory. This will create a new Fixie agent called
-`omnibusproject`. It will take a while for the Agent to fully index all of the episode
-transcripts, so be patient.
+`omnibusproject`. It will take a while (maybe an hour or so) for the Agent to fully index
+all of the episode transcripts, so be patient.
 
