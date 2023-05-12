@@ -8,16 +8,14 @@ import json
 import os
 import re
 import tempfile
-import yaml
 
 import click
-from deepgram import Deepgram
 import feedparser
-from rich.console import Console
-from rich.progress import Progress
 import requests
+import yaml
+from deepgram import Deepgram
 from google.cloud import storage
-
+from rich.console import Console
 
 DEEPGRAM_API_KEY = os.getenv("DEEPGRAM_API_KEY")
 if not DEEPGRAM_API_KEY:
@@ -157,9 +155,11 @@ class Episode:
 
 @click.command()
 @click.option("--rss_feed", default=RSS_FEED, help="RSS feed to process.")
-@click.option("--gcs_bucket", default=GCS_BUCKET, help="GCS bucket in which to store data.")
+@click.option(
+    "--gcs_bucket", default=GCS_BUCKET, help="GCS bucket in which to store data."
+)
 @click.option("--output", default="episodes.yaml", help="The output YAML file.")
-@click.option('--skip_processing', is_flag=True)
+@click.option("--skip_processing", is_flag=True)
 def download(rss_feed, gcs_bucket, output, skip_processing):
     episodes = []
     feed = feedparser.parse(rss_feed)
