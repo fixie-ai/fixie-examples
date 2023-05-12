@@ -116,7 +116,6 @@ class Episode:
             options = {"punctuate": True, "model": "general", "tier": "nova"}
             blob_url = self.signed_url(self._mp3_blob)
             console.print(f"Transcribing {self._title} from {blob_url}...")
-            # source = {"url": blob_url, "mimetype": "audio/" + MIMETYPE}
             source = {"url": blob_url}
             res = dg.transcription.sync_prerecorded(source, options)
         with tempfile.NamedTemporaryFile(suffix=".json") as tmpfile:
