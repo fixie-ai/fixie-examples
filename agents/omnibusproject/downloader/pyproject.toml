@@ -1,0 +1,33 @@
+[tool.poetry]
+name = "omnibus-downloader"
+version = "0.1.0"
+description = "A tool that downloads episodes from the Omnibus Project."
+authors = ["Matt Welsh <matt@fixie.ai>"]
+packages = [{include = "downloader"}]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+feedparser = "^6.0.10"
+rich = "^13.3.5"
+requests = "^2.30.0"
+google-cloud-storage = "^2.9.0"
+deepgram-sdk = "^2.4.0"
+click = "^8.1.3"
+PyYAML = "^6.0"
+
+[tool.poetry.dev-dependencies]
+black = "22.8.0"
+isort = "5.10.1"
+mypy = "^0.991"
+autoflake = "^1.6.1"
+pytest = "^7.1.3"
+
+[tool.mypy]
+python_version = "3.9"
+warn_return_any = true
+warn_unused_configs = true
+ignore_missing_imports = true
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
