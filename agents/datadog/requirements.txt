@@ -1,2 +1,2 @@
-fixieai ~= 0.2.7
+fixieai ~= 0.2.22
 datadog-api-client ~= 2.12.0

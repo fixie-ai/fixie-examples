@@ -1,2 +1,2 @@
-fixieai ~= 0.2.21
+fixieai ~= 0.2.22
 PyYAML ~= 6.0

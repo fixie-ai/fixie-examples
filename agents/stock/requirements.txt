@@ -1,2 +1,2 @@
 yfinance ~= 0.2.12
-fixieai ~= 0.2.7
+fixieai ~= 0.2.22
