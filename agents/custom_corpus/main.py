@@ -53,7 +53,7 @@ def load_custom_corpus(request: fixieai.CorpusRequest) -> fixieai.CorpusResponse
         )
     elif request.partition == "movies":
         return _handle_movies(request.page_token)
-    elif request.parition == "private":
+    elif request.partition == "private":
         return _handle_private(request.page_token)
 
     raise ValueError(f"Unexpected partition: {request.partition}")
@@ -107,13 +107,13 @@ def _handle_private(page_token: Optional[str]) -> fixieai.CorpusDocument:
     # Fixie can also automatically parse several other kinds of documents like
     # PDFs and Word docs. If you'd prefer to use your own parser, just execute
     # it here and return a text/plain document as above instead.
-    with open("fixie-examples/custom_corpus/favorite_character.pdf", "rb") as f:
+    with open("favorite_character.pdf", "rb") as f:
         doc2 = fixieai.CorpusDocument(
             source_name="favorite_character.pdf",
             content=f.read(),
             mime_type="application/pdf",
         )
-    with open("fixie-examples/custom_corpus/favorite_movie.docx", "rb") as f:
+    with open("favorite_movie.docx", "rb") as f:
         doc3 = fixieai.CorpusDocument(
             source_name="favorite_movie.docx",
             content=f.read(),
