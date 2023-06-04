@@ -8,12 +8,12 @@ import json
 import os
 import re
 import tempfile
+from typing import Any, Dict
 
 import click
 import feedparser
 import fixieai
 import requests
-import yaml
 from deepgram import Deepgram
 from google.cloud import storage
 from rich.console import Console
@@ -71,14 +71,37 @@ class Episode:
         self._fulltext_blob = self._bucket.blob(self._fulltext_filename)
         self._summary_blob = self._bucket.blob(self._summary_filename)
 
+    def to_dict(self) -> Dict[str, Any]:
+        """Return a dict representing the metadata for this episode."""
+        return {
+            "title": self._title,
+            "episode": self._episode,
+            "author": self._entry.author,
+            "published": self._entry.published,
+            # 'subtitle is better than 'description' for this podcast.
+            "description": self._entry.subtitle,
+            "duration": self._entry.itunes_duration,
+            "link": self._entry.link,
+            "image_url": self._entry.image.href,
+            "mp3_url": self._mp3_url,
+            "transcript_url": self.gcs_url(self._transcript_filename),
+            "fulltext_url": self.gcs_url(self._fulltext_filename),
+            "summary_url": self.gcs_url(self._summary_filename),
+            "player_embed_code": self._entry.fireside_playerembedcode,
+        }
+
     @property
     def number(self) -> str:
         """Return the episode number."""
         return self._episode
 
+    def gcs_url(self, filename):
+        """Return a public GCS URL for the given filename."""
+        return f"https://storage.googleapis.com/{self._gcs_bucket}/{filename}"
+
     @property
     def fulltext_url(self):
-        return f"https://storage.googleapis.com/{self._gcs_bucket}/{self._fulltext_filename}"
+        return self.gcs_url(self._fulltext_filename)
 
     def process(self):
         """Process this episode and return a signed URL for the full text."""
@@ -87,7 +110,6 @@ class Episode:
             self.transcribe()
             self.extract_text()
             self.generate_summary()
-
 
     def upload_to_gcs(self, localfile, destfile):
         """Upload the given file to GCS."""
@@ -168,7 +190,7 @@ class Episode:
             transcript = resp.json()
 
             # Since we have diarization on, we're going to extract the text
-            # and labels from the transcript. The labels are the speaker
+            # and labels from the transcript.
             words = (
                 transcript.get("results", {})
                 .get("channels", [{}])[0]
@@ -193,8 +215,11 @@ class Episode:
             full_text = (
                 f"The Omnibus Project Episode {self.number}\n"
                 + f"Title: {self._title}\n"
-                + f"Recorded {self._entry.published}\n"
-                + f"Description: {self._entry.description}\n"
+                + f"Published: {self._entry.published}\n"
+                + f"Description: {self._entry.subtitle}\n"
+                + f"Author: {self._entry.author}\n"
+                + f"Duration: {self._entry.itunes_duration}\n"
+                + f"Link: {self._entry.link}\n"
                 + f"Full text URL: {self.fulltext_url}\n"
                 + "Transcript follows:\n"
             )
@@ -214,8 +239,7 @@ class Episode:
         with tempfile.NamedTemporaryFile(suffix=".txt") as tmpfile:
             with open(tmpfile.name, "w") as outfile:
                 outfile.write(full_text)
-            self.upload_to_gcs(tmpfile.name, self._episode + ".txt")
-
+            self.upload_to_gcs(tmpfile.name, self._fulltext_filename)
 
     def generate_summary(self):
         """Generate a summary from the transcript and store in GCS."""
@@ -227,7 +251,20 @@ class Episode:
         if not self._fulltext_blob.exists():
             raise ValueError(f"Transcript {self._fulltext_filename} does not exist")
 
-        fixie_client = fixieai.FixieClient(FIXIE_API_KEY)
+        with console.status(f"Summarizing {self._title}..."):
+            fixie_client = fixieai.FixieClient(FIXIE_API_KEY)
+            session = fixieai.client.session.Session(
+                fixie_client, frontend_agent_id="fixie/summarizer"
+            )
+            response = session.query(
+                f"Please summarize the text in this web page: {self.fulltext_url}"
+            )
+            summary = response
+
+        with tempfile.NamedTemporaryFile(suffix=".txt") as tmpfile:
+            with open(tmpfile.name, "w") as outfile:
+                outfile.write(summary)
+            self.upload_to_gcs(tmpfile.name, self._summary_filename)
 
 
 @click.command()
@@ -235,7 +272,7 @@ class Episode:
 @click.option(
     "--gcs_bucket", default=GCS_BUCKET, help="GCS bucket in which to store data."
 )
-@click.option("--output", default="episodes.yaml", help="The output YAML file.")
+@click.option("--output", default="episodes.json", help="The output JSON file.")
 @click.option("--skip_processing", is_flag=True)
 @click.option("--episode", "-e", help="Episode number(s) to process.", multiple=True)
 @click.option("--force", "-f", is_flag=True, help="Force reprocessing of episodes.")
@@ -248,11 +285,11 @@ def download(rss_feed, gcs_bucket, output, skip_processing, episode, force):
             if episode and ep.number not in episode:
                 continue
             ep.process()
-            episodes.append(ep.fulltext_url)
+            episodes.append(ep.to_dict())
         except Exception as e:
             console.print(f"[red]Error processing {entry.title} - skipping: {e}")
     with open(output, "w") as outfile:
-        yaml.dump({"episodes": episodes}, outfile)
+        json.dump({"episodes": episodes}, outfile)
     console.print(f"Processed {len(episodes)} episodes, Wrote output to {output}")
 
 
