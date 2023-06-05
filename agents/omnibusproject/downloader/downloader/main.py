@@ -8,7 +8,7 @@ import json
 import os
 import re
 import tempfile
-from typing import Any, Dict
+from typing import Any, Dict, Optional
 
 import click
 import feedparser
@@ -44,13 +44,23 @@ class Episode:
     """
 
     def __init__(
-        self, rss_entry, gcs_bucket, skip_processing=False, force_processing=False
+        self,
+        rss_entry: feedparser.FeedParserDict,
+        gcs_bucket: str,
+        skip_processing: bool = False,
+        force_processing: bool = False,
+        max_age: Optional[int] = None,
     ):
         self._entry = rss_entry
         self._gcs_bucket = gcs_bucket
         self._skip_processing = skip_processing
         self._force_processing = force_processing
         assert not (self._skip_processing and self._force_processing)
+        self._max_age = None
+        if max_age:
+            self._max_age = datetime.datetime.now(
+                datetime.timezone.utc
+            ) - datetime.timedelta(seconds=max_age)
 
         self._title = rss_entry.title
         self._mp3_url = self._entry.enclosures[0].href
@@ -58,18 +68,6 @@ class Episode:
         if not m:
             raise ValueError(f"Could not parse episode number from {self._title}")
         self._episode = m.group(1)
-
-        self._mp3_filename = f"{self._episode}.mp3"
-        self._transcript_filename = f"{self._episode}.json"
-        self._fulltext_filename = f"{self._episode}.txt"
-        self._summary_filename = f"{self._episode}.summary.txt"
-
-        self._storage_client = storage.Client()
-        self._bucket = self._storage_client.bucket(self._gcs_bucket)
-        self._mp3_blob = self._bucket.blob(self._mp3_filename)
-        self._transcript_blob = self._bucket.blob(self._transcript_filename)
-        self._fulltext_blob = self._bucket.blob(self._fulltext_filename)
-        self._summary_blob = self._bucket.blob(self._summary_filename)
 
     def to_dict(self) -> Dict[str, Any]:
         """Return a dict representing the metadata for this episode."""
@@ -105,26 +103,64 @@ class Episode:
 
     def process(self):
         """Process this episode and return a signed URL for the full text."""
+        console.print(f"[bold]Processing {self._title}...")
+
+        self._mp3_filename = f"{self._episode}.mp3"
+        self._transcript_filename = f"{self._episode}.json"
+        self._fulltext_filename = f"{self._episode}.txt"
+        self._summary_filename = f"{self._episode}.summary.txt"
+
+        self._storage_client = storage.Client()
+        self._bucket = self._storage_client.bucket(self._gcs_bucket)
+
         if not self._skip_processing:
             self.download_mp3()
             self.transcribe()
             self.extract_text()
             self.generate_summary()
+        console.print(f"Done processing {self._title}")
+
+    def exists(self, filename):
+        """Return True if the given file exists in GCS."""
+        blob = self._bucket.blob(filename)
+        return blob.exists()
+
+    def updated(self, filename):
+        """Return the last time the given file was updated on GCS."""
+        blob = self._bucket.blob(filename)
+        blob.reload()
+        return blob.updated
 
     def upload_to_gcs(self, localfile, destfile):
         """Upload the given file to GCS."""
         storage_client = storage.Client()
         bucket = storage_client.bucket(self._gcs_bucket)
         blob = bucket.blob(destfile)
-        print(f"Uploading {localfile} to {self._gcs_bucket}/{destfile}...")
         with console.status(
             f"Uploading {localfile} to {self._gcs_bucket}/{destfile}..."
         ):
             blob.upload_from_filename(localfile)
 
+    def signed_url(self, blob):
+        """Return a signed URL for the given GCS blob."""
+        blob_url = blob.generate_signed_url(
+            version="v4", expiration=datetime.timedelta(seconds=86400), method="GET"
+        )
+        return blob_url
+
+    def needs_processing(self, filename: str) -> bool:
+        """Return True if the given file needs processing."""
+        if self._force_processing:
+            return True
+        if not self.exists(filename):
+            return True
+        if not self._max_age:
+            return False
+        return self.updated(filename) < self._max_age
+
     def download_mp3(self):
         """Download the MP3 for the episode and store in GCS."""
-        if self._mp3_blob.exists() and not self._force_processing:
+        if not self.needs_processing(self._mp3_filename):
             console.print(
                 f"[yellow]Skipping download of {self._title} (already downloaded)"
             )
@@ -137,20 +173,15 @@ class Episode:
                         outfile.write(chunk)
             self.upload_to_gcs(tmpfile.name, self._mp3_filename)
 
-    def signed_url(self, blob):
-        """Return a signed URL for the given GCS blob."""
-        blob_url = blob.generate_signed_url(
-            version="v4", expiration=datetime.timedelta(seconds=86400), method="GET"
-        )
-        return blob_url
-
     def transcribe(self):
         """Transcribe the episode and store the transcript in GCS."""
-        if self._transcript_blob.exists() and not self._force_processing:
+        if not self.needs_processing(self._transcript_filename):
             console.print(
                 f"[yellow]Skipping transcription of {self._title} (already transcribed)"
             )
             return
+        if not self.exists(self._mp3_filename):
+            raise ValueError(f"MP3 {self._mp3_filename} does not exist")
 
         with console.status(f"Transcribing {self._title}..."):
             dg = Deepgram(DEEPGRAM_API_KEY)
@@ -164,27 +195,25 @@ class Episode:
                 "tier": "nova",
                 "diarize": True,
             }
-            blob_url = self.signed_url(self._mp3_blob)
-            console.print(f"Transcribing {self._title} from {blob_url}...")
+            blob_url = self.gcs_url(self._mp3_filename)
             source = {"url": blob_url}
             res = dg.transcription.sync_prerecorded(source, options)
         with tempfile.NamedTemporaryFile(suffix=".json") as tmpfile:
             with open(tmpfile.name, "w") as transcript:
                 json.dump(res, transcript)
             self.upload_to_gcs(tmpfile.name, self._transcript_filename)
-        console.print(f"Saved transcript to {self._transcript_filename}")
 
     def extract_text(self):
         """Extract the raw text from the transcript and store in GCS."""
-        if self._fulltext_blob.exists() and not self._force_processing:
+        if not self.needs_processing(self._fulltext_filename):
             console.print(
                 f"[yellow]Skipping extraction of {self._title} (already extracted)"
             )
             return
-        if not self._transcript_blob.exists():
+        if not self.exists(self._transcript_filename):
             raise ValueError(f"Transcript {self._transcript_filename} does not exist")
         with console.status(f"Extracting transcript from {self._title}..."):
-            transcript_url = self.signed_url(self._transcript_blob)
+            transcript_url = self.gcs_url(self._transcript_filename)
             resp = requests.get(transcript_url)
             resp.raise_for_status()
             transcript = resp.json()
@@ -243,12 +272,12 @@ class Episode:
 
     def generate_summary(self):
         """Generate a summary from the transcript and store in GCS."""
-        if self._summary_blob.exists() and not self._force_processing:
+        if not self.needs_processing(self._summary_filename):
             console.print(
                 f"[yellow]Skipping summarization of {self._title} (already summarized)"
             )
             return
-        if not self._fulltext_blob.exists():
+        if not self.exists(self._fulltext_filename):
             raise ValueError(f"Transcript {self._fulltext_filename} does not exist")
 
         with console.status(f"Summarizing {self._title}..."):
@@ -276,21 +305,40 @@ class Episode:
 @click.option("--skip_processing", is_flag=True)
 @click.option("--episode", "-e", help="Episode number(s) to process.", multiple=True)
 @click.option("--force", "-f", is_flag=True, help="Force reprocessing of episodes.")
-def download(rss_feed, gcs_bucket, output, skip_processing, episode, force):
+@click.option(
+    "--max_age",
+    help="If file is older than this number of seconds, reprocess.",
+)
+def download(rss_feed, gcs_bucket, output, skip_processing, episode, force, max_age):
     episodes = []
     feed = feedparser.parse(rss_feed)
+    if max_age is not None:
+        max_age = int(max_age)
     for entry in feed.entries:
+        m = re.match("^Episode (\d+)", entry.title)
+        if not m:
+            console.print(f"[red]Skipping {entry.title} - not a numbered episode")
+            continue
         try:
-            ep = Episode(entry, gcs_bucket, skip_processing, force)
+            ep = Episode(entry, gcs_bucket, skip_processing, force, max_age)
             if episode and ep.number not in episode:
                 continue
             ep.process()
             episodes.append(ep.to_dict())
         except Exception as e:
             console.print(f"[red]Error processing {entry.title} - skipping: {e}")
+            console.print_exception()
     with open(output, "w") as outfile:
         json.dump({"episodes": episodes}, outfile)
     console.print(f"Processed {len(episodes)} episodes, Wrote output to {output}")
+
+    # Upload metadata to GCS.
+    storage_client = storage.Client()
+    bucket = storage_client.bucket(GCS_BUCKET)
+    blob = bucket.blob("episodes.json")
+    with console.status(f"Uploading {output} to {GCS_BUCKET}/episodes.json..."):
+        blob.upload_from_filename(output)
+    console.print(f"Metadata URL: {blob.public_url}")
 
 
 if __name__ == "__main__":

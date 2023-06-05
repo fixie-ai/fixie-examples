@@ -1,2 +1,1 @@
 fixieai ~= 0.2.21
-PyYAML ~= 6.0
