@@ -71,6 +71,13 @@ class Episode:
 
     def to_dict(self) -> Dict[str, Any]:
         """Return a dict representing the metadata for this episode."""
+
+        # Some of the earlier episodes don't have an image.
+        if hasattr(self._entry, "image"):
+            image_url = self._entry.image.href
+        else:
+            image_url = None
+
         return {
             "title": self._title,
             "episode": self._episode,
@@ -80,7 +87,7 @@ class Episode:
             "description": self._entry.subtitle,
             "duration": self._entry.itunes_duration,
             "link": self._entry.link,
-            "image_url": self._entry.image.href,
+            "image_url": image_url,
             "mp3_url": self._mp3_url,
             "transcript_url": self.gcs_url(self._transcript_filename),
             "fulltext_url": self.gcs_url(self._fulltext_filename),
