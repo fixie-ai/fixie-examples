@@ -1,2 +1,2 @@
-fixieai ~= 0.2.22
+fixieai ~= 1.0.1
 PyGithub ~= 1.58.1
