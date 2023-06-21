@@ -1,0 +1,17 @@
+handle: futurama
+description: |
+  The `futurama` agent answers questions about the TV series Futurama using both a crawled and a custom corpus.
+
+  Example queries:
+    - What company does Fry work for?
+    - On what planet do Amy's parents live?
+    - Who blew up the Democratic Order of Planets headquarters?
+    - What is Mike's favorite episode?
+
+  Tags: conversational, corpus
+tests:
+  - query: Why does Leela have only one eye?
+    expected: The response should mention "mutant".
+more_info_url: https://github.com/fixie-ai/fixie-examples
+entry_point: main:agent
+public: false
